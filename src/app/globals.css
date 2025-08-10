@@ -24,9 +24,16 @@
   --shadow-tooltip: 0 8px 40px rgba(0, 0, 0, 0.18);
 }
 
-@utility text-secondary {
-  color: var(--color-text-secondary);
+/* Override DaisyUI text-primary to use text color instead of brand color */
+@layer utilities {
+  .text-primary {
+    color: var(--color-text-primary);
+  }
+  .text-secondary {
+    color: var(--color-text-secondary);
+  }
 }
+
 @utility shadow-card {
   box-shadow: var(--shadow-card);
 }

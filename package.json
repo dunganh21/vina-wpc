@@ -5,7 +5,7 @@
   "scripts": {
     "dev": "NEXT_DIST_DIR=.next-dev next dev --turbopack",
     "build": "NEXT_DIST_DIR=.next next build",
-    "start": "NEXT_DIST_DIR=.next-prod next start",
+    "start": "NEXT_DIST_DIR=.next next start",
     "lint": "next lint"
   },
   "dependencies": {
