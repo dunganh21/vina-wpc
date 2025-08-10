@@ -69,31 +69,32 @@
     letter-spacing: 0.01em;
   }
 
-  .h2-alt {
+  h3,
+  .h3 {
     @apply font-primary font-semibold;
     font-size: 32px;
     line-height: 1.15625em;
     letter-spacing: 0.01em;
   }
 
-  h3,
-  .h3 {
+  h4,
+  .h4 {
     @apply font-primary font-semibold;
     font-size: 24px;
     line-height: 1.125em;
     letter-spacing: 0.01em;
   }
 
-  h4,
-  .h4 {
+  h5,
+  .h5 {
     @apply font-primary font-semibold;
     font-size: 20px;
     line-height: 1.15em;
     letter-spacing: 0.01em;
   }
 
-  h5,
-  .h5 {
+  h6,
+  .h6 {
     @apply font-primary font-semibold;
     font-size: 15px;
     line-height: 1.2667em;
@@ -137,14 +138,14 @@
     letter-spacing: 0.01em;
   }
 
-  .subtitle-2-alt {
+  .subtitle-3 {
     @apply font-primary font-semibold uppercase;
     font-size: 14px;
     line-height: 1.4286em;
     letter-spacing: 0.01em;
   }
 
-  .subtitle-3,
+  .subtitle-4,
   .text-caption {
     @apply font-primary font-semibold uppercase;
     font-size: 12px;
