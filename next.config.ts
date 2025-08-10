@@ -1,7 +1,8 @@
-import type { NextConfig } from "next";
+// next.config.mjs
+const distDir =
+  process.env.NEXT_DIST_DIR ??
+  (process.env.NODE_ENV === 'development' ? '.next-dev' : '.next');
 
-const nextConfig: NextConfig = {
-  /* config options here */
+export default {
+  distDir,
 };
-
-export default nextConfig;
