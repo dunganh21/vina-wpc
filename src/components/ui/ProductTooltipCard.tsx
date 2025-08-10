@@ -46,15 +46,15 @@ export function ProductTooltipCard({
       <div className='flex flex-col justify-between flex-1 px-[14px] py-[14px] bg-white'>
         {/* Header */}
         <div className='space-y-0.5 max-w-[337px]'>
-          <div className='text-primary subtitle-3'>{title}</div>
-          <h4 className='text-neutral'>{subtitle}</h4>
+          <div className='text-primary subtitle-4'>{title}</div>
+          <h5 className='text-neutral'>{subtitle}</h5>
         </div>
 
         {/* Price and Dimensions */}
         <div className='flex items-center gap-1 self-stretch'>
-          <span className='text-neutral h5'>{price}</span>
+          <span className='text-neutral h6'>{price}</span>
           <div className='w-1 h-1 bg-neutral'></div>
-          <span className='text-neutral text-small'>{dimensions}</span>
+          <span className='text-neutral body-3'>{dimensions}</span>
         </div>
       </div>
 

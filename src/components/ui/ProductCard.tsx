@@ -80,33 +80,35 @@ export function ProductCard({
         </div>
 
         {/* Buy Now Button - Slides in on hover */}
-        <button
+        <Button
           onClick={onBuyNow}
+          variant='white'
+          mode='dark'
           className={cn(
-            'absolute bottom-4 left-4 right-4 bg-white text-primary px-8 py-4 h5 hover:bg-gray-50 transition-all duration-300 shadow-sm cursor-pointer',
+            'absolute bottom-4 left-4 right-4 transition-all duration-300 shadow-sm',
             isHovered
               ? 'opacity-100 translate-y-0'
               : 'opacity-0 translate-y-2 pointer-events-none'
           )}
         >
           Mua ngay
-        </button>
+        </Button>
       </div>
 
       {/* Main Content */}
       <div className='p-4 space-y-8'>
         {/* Header */}
         <div className='space-y-0.5'>
-          <div className='text-primary subtitle-3'>{title}</div>
-          <h4 className='text-neutral'>{subtitle}</h4>
+          <div className='text-primary subtitle-4'>{title}</div>
+          <h5 className='text-neutral'>{subtitle}</h5>
         </div>
 
         {/* Price and Details */}
         <div className='flex items-center justify-between'>
           <div className='flex items-center gap-1'>
-            <span className='text-neutral h5'>{price}</span>
+            <span className='text-neutral h6'>{price}</span>
             <div className='w-1 h-1 bg-neutral'></div>
-            <span className='text-neutral text-small'>{dimensions}</span>
+            <span className='text-neutral body-3'>{dimensions}</span>
           </div>
 
           {/* Color Options */}

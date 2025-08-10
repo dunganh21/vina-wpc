@@ -10,10 +10,10 @@ interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   variant?: ButtonVariant;
   mode?: ButtonMode;
   state?: ButtonState;
-  children?: React.ReactNode;
   className?: string;
   icon?: string;
   iconOnly?: boolean;
+  children?: React.ReactNode;
 }
 
 export function Button({
@@ -29,8 +29,8 @@ export function Button({
 }: ButtonProps) {
   const getButtonStyles = () => {
     const baseStyles = iconOnly
-      ? 'inline-flex items-center justify-center p-3 font-primary font-normal transition-all duration-200 rounded-none'
-      : 'inline-flex items-center justify-center gap-2 px-8 py-4 font-primary font-normal transition-all duration-200 rounded-none';
+      ? 'inline-flex cursor-pointer items-center justify-center p-3 font-primary font-normal transition-all duration-200 rounded-none'
+      : 'inline-flex cursor-pointer items-center justify-center gap-2 px-8 py-4 font-primary font-normal transition-all duration-200 rounded-none';
 
     // Handle disabled state
     if (disabled || state === 'disabled') {
@@ -113,11 +113,12 @@ export function Button({
           className={cn(
             'flex-shrink-0',
             // Apply filter to make dark icon appear white on colored backgrounds
-            (variant === 'button' || variant === 'button-icon') && 'filter brightness-0 invert'
+            (variant === 'button' || variant === 'button-icon') &&
+              'filter brightness-0 invert'
           )}
         />
       )}
-      {!iconOnly && children}
+      {!iconOnly && <div className='h6'>{children}</div>}
     </button>
   );
 }

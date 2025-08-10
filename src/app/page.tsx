@@ -2,6 +2,7 @@
 
 import { ProductCard } from '@/components/ui/ProductCard';
 import { ProductTooltipCard } from '@/components/ui/ProductTooltipCard';
+import { Button } from '@/components/ui/Button';
 
 export default function Home() {
   return (
@@ -62,6 +63,78 @@ export default function Home() {
             price='850.000đ/m²'
             dimensions='900×120×15mm'
           />
+        </div>
+      </section>
+
+      {/* Button Demo Section */}
+      <section className='container mx-auto px-4 py-16 space-y-8'>
+        <div className='text-center mb-12'>
+          <h2 className='h2 text-neutral mb-4'>Demo Buttons</h2>
+          <p className='text-lg text-secondary'>
+            Các loại button khác nhau trong hệ thống thiết kế
+          </p>
+        </div>
+
+        <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6'>
+          {/* Primary Light Button */}
+          <div className='text-center space-y-4'>
+            <Button mode='light' className='w-full'>
+              Button Light
+            </Button>
+            <p className='text-sm text-neutral'>Primary Light</p>
+          </div>
+
+          {/* Primary Dark Button */}
+          <div className='text-center space-y-4'>
+            <Button mode='dark' className='w-full'>
+              Button Dark
+            </Button>
+            <p className='text-sm text-neutral'>Primary Dark</p>
+          </div>
+
+          {/* Outline Button */}
+          <div className='text-center space-y-4'>
+            <Button variant='button-outline' mode='light' className='w-full'>
+              Outline Button
+            </Button>
+            <p className='text-sm text-neutral'>Outline Light</p>
+          </div>
+
+          {/* White Button */}
+          <div className='text-center space-y-4'>
+            <Button variant='white' className='w-full'>
+              White Button
+            </Button>
+            <p className='text-sm text-neutral'>White Variant</p>
+          </div>
+        </div>
+
+        {/* Button with Icon */}
+        <div className='text-center space-y-4'>
+          <Button mode='light' icon='shopping_cart.svg' className='mx-auto'>
+            Thêm vào giỏ hàng
+          </Button>
+          <p className='text-sm text-neutral'>Button with Shopping Cart Icon</p>
+        </div>
+
+        {/* Icon Only Button */}
+        <div className='text-center space-y-4'>
+          <Button
+            mode='light'
+            icon='search.svg'
+            iconOnly
+            className='mx-auto'
+            aria-label='Search'
+          />
+          <p className='text-sm text-neutral'>Icon Only Button</p>
+        </div>
+
+        {/* Disabled Button */}
+        <div className='text-center space-y-4'>
+          <Button mode='light' disabled className='mx-auto'>
+            Disabled Button
+          </Button>
+          <p className='text-sm text-neutral'>Disabled State</p>
         </div>
       </section>
     </main>
