@@ -3,19 +3,19 @@
 import { ProductCard } from '@/components/ui/ProductCard';
 import { ProductTooltipCard } from '@/components/ui/ProductTooltipCard';
 import { Button } from '@/components/ui/Button';
+import { ButtonIcon } from '@/components/ui/ButtonIcon';
+import { Hero } from '@/components/sections';
 
 export default function Home() {
   return (
     <main className='min-h-screen bg-base-100'>
-      {/* Temporary content to test header */}
+      <Hero />
+
+      {/* Content section */}
       <div className='container mx-auto px-4 py-16'>
         <div className='text-center'>
-          <h1 className='hero-title text-primary mb-4'>VINA WPC</h1>
-          <p className='text-xl text-neutral mb-8'>
-            Bền vững từ tâm - nâng tầm cuộc sống
-          </p>
           <div className='prose max-w-2xl mx-auto'>
-            <p>
+            <p className='text-xl text-neutral mb-8'>
               Sản phẩm gỗ nhựa WPC của chúng tôi là dòng sản phẩm thân thiện với
               môi trường, có tính thẩm mỹ hiện đại phù hợp với nhiều không gian
               nội thất, không chỉ đẹp mà còn bền bỉ theo thời gian.
@@ -111,30 +111,109 @@ export default function Home() {
 
         {/* Button with Icon */}
         <div className='text-center space-y-4'>
-          <Button mode='light' icon='shopping_cart.svg' className='mx-auto'>
+          <Button mode='light' icon='search.svg' className='mx-auto'>
             Thêm vào giỏ hàng
           </Button>
           <p className='text-sm text-neutral'>Button with Shopping Cart Icon</p>
         </div>
 
-        {/* Icon Only Button */}
-        <div className='text-center space-y-4'>
-          <Button
-            mode='light'
-            icon='search.svg'
-            iconOnly
-            className='mx-auto'
-            aria-label='Search'
-          />
-          <p className='text-sm text-neutral'>Icon Only Button</p>
+        {/* ButtonIcon Variants */}
+        <div className='grid grid-cols-2 md:grid-cols-3 gap-8'>
+          {/* Button-icon Light */}
+          <div className='text-center space-y-4'>
+            <ButtonIcon
+              variant='button-icon'
+              theme='light'
+              icon='search.svg'
+              className='mx-auto'
+              aria-label='Search Light'
+            />
+            <p className='text-sm text-neutral'>Button-icon Light</p>
+          </div>
+
+          {/* Button-icon Dark */}
+          <div className='text-center space-y-4'>
+            <ButtonIcon
+              variant='button-icon'
+              theme='dark'
+              icon='search.svg'
+              className='mx-auto'
+              aria-label='Cart Dark'
+            />
+            <p className='text-sm text-neutral'>Button-icon Dark</p>
+          </div>
+
+          {/* Button-icon White */}
+          <div className='text-center space-y-4 bg-neutral p-4 rounded'>
+            <ButtonIcon
+              variant='button-icon'
+              theme='white'
+              icon='search.svg'
+              className='mx-auto'
+              aria-label='Search White'
+            />
+            <p className='text-sm text-white'>Button-icon White</p>
+          </div>
+
+          {/* Button-outline Light */}
+          <div className='text-center space-y-4'>
+            <ButtonIcon
+              variant='button-outline'
+              theme='light'
+              icon='search.svg'
+              className='mx-auto'
+              aria-label='Cart Outline Light'
+            />
+            <p className='text-sm text-neutral'>Button-outline Light</p>
+          </div>
+
+          {/* Button-outline Dark */}
+          <div className='text-center space-y-4 bg-neutral p-4 rounded'>
+            <ButtonIcon
+              variant='button-outline'
+              theme='dark'
+              icon='search.svg'
+              className='mx-auto'
+              aria-label='Search Outline Dark'
+            />
+            <p className='text-sm text-white'>Button-outline Dark</p>
+          </div>
+
+          {/* Button-outline White */}
+          <div className='text-center space-y-4 bg-neutral p-4 rounded'>
+            <ButtonIcon
+              variant='button-outline'
+              theme='white'
+              icon='search.svg'
+              className='mx-auto'
+              aria-label='Cart Outline White'
+            />
+            <p className='text-sm text-white'>Button-outline White</p>
+          </div>
         </div>
 
-        {/* Disabled Button */}
-        <div className='text-center space-y-4'>
-          <Button mode='light' disabled className='mx-auto'>
-            Disabled Button
-          </Button>
-          <p className='text-sm text-neutral'>Disabled State</p>
+        {/* Disabled States */}
+        <div className='grid grid-cols-2 gap-8'>
+          {/* Disabled Button */}
+          <div className='text-center space-y-4'>
+            <Button mode='light' disabled className='mx-auto'>
+              Disabled Button
+            </Button>
+            <p className='text-sm text-neutral'>Disabled Button</p>
+          </div>
+
+          {/* Disabled ButtonIcon */}
+          <div className='text-center space-y-4'>
+            <ButtonIcon
+              variant='button-icon'
+              theme='light'
+              icon='search.svg'
+              disabled
+              className='mx-auto'
+              aria-label='Disabled Search'
+            />
+            <p className='text-sm text-neutral'>Disabled ButtonIcon</p>
+          </div>
         </div>
       </section>
     </main>

@@ -3,7 +3,7 @@
 import React from 'react';
 import Image from 'next/image';
 import { cn } from '@/lib/utils';
-import { Button } from './Button';
+import { ButtonIcon } from './ButtonIcon';
 
 interface ProductTooltipCardProps {
   image: string;
@@ -62,11 +62,10 @@ export function ProductTooltipCard({
       <div className='absolute top-full left-[46px] w-0 h-0 border-l-[10.5px] border-r-[10.5px] border-t-[21px] border-l-transparent border-r-transparent border-t-white'></div>
 
       {/* Shopping Cart Button - positioned absolutely in top-right */}
-      <Button
+      <ButtonIcon
         variant='button-icon'
-        mode='light'
+        theme='light'
         icon='shopping-cart.svg'
-        iconOnly
         onClick={onAddToCart}
         className='absolute top-0 right-0 rounded-none'
       />

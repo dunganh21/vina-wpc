@@ -4,6 +4,7 @@ import React, { useState } from 'react';
 import Image from 'next/image';
 import { cn } from '@/lib/utils';
 import { Button } from './Button';
+import { ButtonIcon } from './ButtonIcon';
 import { ColorOption } from './ColorOption';
 
 interface ColorOption {
@@ -69,11 +70,10 @@ export function ProductCard({
 
         {/* Shopping Cart Icon */}
         <div className='absolute top-full right-0'>
-          <Button
+          <ButtonIcon
             variant='button-icon'
-            mode='light'
+            theme='light'
             icon='shopping-cart.svg'
-            iconOnly
             onClick={onAddToCart}
             className='rounded-none'
           />

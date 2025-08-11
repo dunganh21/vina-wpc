@@ -13,10 +13,10 @@ export default function NavbarTestPage() {
         </div>
       </div>
 
-      {/* Light/Navigation-bar variant */}
+      {/* Light variant */}
       <div className="mb-8">
-        <h2 className="text-2xl font-bold mb-4 px-4">Navigation-bar Variant (Light)</h2>
-        <Navbar variant="navigation-bar" />
+        <h2 className="text-2xl font-bold mb-4 px-4">Light Variant</h2>
+        <Navbar variant="light" />
       </div>
 
       {/* Dark variant */}

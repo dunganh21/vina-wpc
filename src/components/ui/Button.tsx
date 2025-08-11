@@ -1,8 +1,7 @@
 import React from 'react';
-import Image from 'next/image';
 import { cn } from '@/lib/utils';
 
-type ButtonVariant = 'button' | 'button-outline' | 'button-icon' | 'white';
+type ButtonVariant = 'button' | 'button-outline' | 'white';
 type ButtonMode = 'light' | 'dark';
 type ButtonState = 'default' | 'hover' | 'pressed' | 'disabled';
 
@@ -12,7 +11,6 @@ interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   state?: ButtonState;
   className?: string;
   icon?: string;
-  iconOnly?: boolean;
   children?: React.ReactNode;
 }
 
@@ -24,13 +22,11 @@ export function Button({
   className,
   disabled,
   icon,
-  iconOnly = false,
   ...props
 }: ButtonProps) {
   const getButtonStyles = () => {
-    const baseStyles = iconOnly
-      ? 'inline-flex cursor-pointer items-center justify-center p-3 font-primary font-normal transition-all duration-200 rounded-none hover:opacity-90 active:opacity-100'
-      : 'inline-flex cursor-pointer items-center justify-center gap-2 px-8 py-4 font-primary font-normal transition-all duration-200 rounded-none hover:opacity-90 active:opacity-100';
+    const baseStyles =
+      'inline-flex cursor-pointer items-center justify-center gap-2 px-8 py-4 font-primary font-normal transition-all duration-200 rounded-none hover:opacity-90 active:opacity-100';
 
     // Handle disabled state
     if (disabled || state === 'disabled') {
@@ -40,24 +36,15 @@ export function Button({
     // Button variant styles
     if (variant === 'button') {
       if (mode === 'light') {
-        return cn(baseStyles, 'bg-primary text-white hover:bg-primary/90 active:bg-primary');
+        return cn(
+          baseStyles,
+          'bg-primary text-white hover:bg-primary/90 active:bg-primary'
+        );
       } else {
-        return cn(baseStyles, 'bg-secondary text-white hover:bg-secondary/90 active:bg-secondary');
-      }
-    }
-
-    // Button-icon variant styles
-    if (variant === 'button-icon') {
-      if (mode === 'light') {
-        return cn(baseStyles, 'bg-primary text-white', {
-          'opacity-95': state === 'hover',
-          'opacity-100': state === 'pressed',
-        });
-      } else {
-        return cn(baseStyles, 'bg-secondary text-white', {
-          'opacity-95': state === 'hover',
-          'opacity-100': state === 'pressed',
-        });
+        return cn(
+          baseStyles,
+          'bg-secondary text-white hover:bg-secondary/90 active:bg-secondary'
+        );
       }
     }
 
@@ -88,32 +75,38 @@ export function Button({
 
   const getIconStyles = () => {
     const baseIconStyles = 'flex-shrink-0 transition-all duration-200';
-    
-    // Handle disabled state
+
+    // Handle disabled state - dark icons with opacity
     if (disabled || state === 'disabled') {
-      return cn(baseIconStyles, 'opacity-40');
+      return cn(baseIconStyles, 'text-[#2A332B] opacity-40');
     }
 
-    // Button variant - icons should be white (inverted)
-    if (variant === 'button' || variant === 'button-icon') {
-      return cn(baseIconStyles, 'filter brightness-0 invert');
+    // Button variant - white icons
+    if (variant === 'button') {
+      return cn(baseIconStyles, 'text-white');
     }
 
     // Button-outline variant
     if (variant === 'button-outline') {
       if (mode === 'light') {
-        // Default: primary color (no invert), hover: white (invert)
-        return cn(baseIconStyles, 'group-hover:filter group-hover:brightness-0 group-hover:invert group-active:filter group-active:brightness-0 group-active:invert');
+        return cn(
+          baseIconStyles,
+          'text-[#2A332B] group-hover:text-white group-active:text-white'
+        );
       } else {
-        // Default: white (invert), hover: white (invert) - stays white
-        return cn(baseIconStyles, 'filter brightness-0 invert');
+        return cn(
+          baseIconStyles,
+          'text-white group-hover:text-white group-active:text-white'
+        );
       }
     }
 
     // White variant
     if (variant === 'white') {
-      // Default: dark (no invert), hover: white (invert)
-      return cn(baseIconStyles, 'group-hover:filter group-hover:brightness-0 group-hover:invert group-active:filter group-active:brightness-0 group-active:invert');
+      return cn(
+        baseIconStyles,
+        'text-[#2A332B] group-hover:text-white group-active:text-white'
+      );
     }
 
     return baseIconStyles;
@@ -126,15 +119,24 @@ export function Button({
       {...props}
     >
       {icon && (
-        <Image
-          src={`/icons/${icon}`}
-          alt=''
-          width={24}
-          height={24}
-          className={getIconStyles()}
+        <div
+          className={cn(getIconStyles(), 'icon-mask')}
+          style={{
+            maskImage: `url(/icons/${icon})`,
+            WebkitMaskImage: `url(/icons/${icon})`,
+            maskRepeat: 'no-repeat',
+            WebkitMaskRepeat: 'no-repeat',
+            maskPosition: 'center',
+            WebkitMaskPosition: 'center',
+            maskSize: 'contain',
+            WebkitMaskSize: 'contain',
+            backgroundColor: 'currentColor',
+            width: '24px',
+            height: '24px',
+          }}
         />
       )}
-      {!iconOnly && <div className='h6'>{children}</div>}
+      <div className='h6'>{children}</div>
     </button>
   );
 }

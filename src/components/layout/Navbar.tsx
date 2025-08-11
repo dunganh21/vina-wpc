@@ -3,8 +3,9 @@ import Link from 'next/link';
 import { cn } from '@/lib/utils';
 import { Logo } from '@/components/ui/Logo';
 import { Button } from '@/components/ui/Button';
+import { ButtonIcon } from '@/components/ui/ButtonIcon';
 
-type NavbarVariant = 'navigation-bar' | 'dark';
+type NavbarVariant = 'light' | 'dark';
 
 interface NavItemProps {
   children: React.ReactNode;
@@ -21,23 +22,34 @@ function NavItem({
   onClick,
   variant = 'dark',
 }: NavItemProps) {
-  const getTextStyles = () => {
-    if (variant === 'navigation-bar') {
-      return cn('text-neutral hover:text-primary', isActive && 'text-primary');
+  const getStyles = () => {
+    const baseStyles = cn(
+      'inline-flex items-center justify-center',
+      'px-4 py-2 rounded-[5px]',
+      'font-inter font-semibold text-[15px] leading-[1.27] tracking-[0.01em]',
+      'transition-all duration-200 ease-in-out',
+      'hover:scale-[1.02] active:scale-[0.98] active:opacity-85'
+    );
+
+    if (variant === 'light') {
+      if (isActive) {
+        return cn(baseStyles, 'text-primary bg-transparent');
+      }
+      return cn(
+        baseStyles,
+        'text-[#2A332B] hover:text-primary',
+        'hover:bg-primary/5'
+      );
     }
 
-    return cn('text-white hover:text-primary', isActive && 'text-primary');
+    if (isActive) {
+      return cn(baseStyles, 'text-white bg-transparent');
+    }
+    return cn(baseStyles, 'text-white/85 hover:text-white', 'hover:bg-white/5');
   };
 
   return (
-    <Link
-      href={href}
-      onClick={onClick}
-      className={cn(
-        'inline-flex items-center justify-center h6 px-3 py-2 transition-colors duration-200',
-        getTextStyles()
-      )}
-    >
+    <Link href={href} onClick={onClick} className={getStyles()}>
       {children}
     </Link>
   );
@@ -52,10 +64,10 @@ export function Navbar({ className, variant = 'dark' }: NavbarProps) {
   return (
     <header
       className={cn(
-        'navbar h-[78px] px-4 lg:px-[108px] py-0',
-        variant === 'navigation-bar'
+        'navbar h-[78px] px-4 lg:px-[108px] py-0 absolute top-0 left-0 w-full z-50',
+        variant === 'light'
           ? 'bg-white border-b border-neutral-200'
-          : 'bg-base-100 border-b border-white/10',
+          : 'bg-transparent border-b border-white/10',
         className
       )}
     >
@@ -120,7 +132,7 @@ export function Navbar({ className, variant = 'dark' }: NavbarProps) {
       <div className='navbar-center'>
         <Link href='/' className='inline-flex items-center justify-center'>
           <Logo
-            type={variant === 'navigation-bar' ? 'default' : 'white'}
+            type={variant === 'light' ? 'default' : 'white'}
             width={88}
             height={62}
             className='w-16 h-11 lg:w-[88px] lg:h-[62px]'
@@ -133,7 +145,7 @@ export function Navbar({ className, variant = 'dark' }: NavbarProps) {
         <div className='hidden lg:flex gap-0 h-full'>
           <Button
             variant='button-outline'
-            mode={variant === 'navigation-bar' ? 'light' : 'dark'}
+            mode={variant === 'light' ? 'light' : 'dark'}
             icon='search.svg'
             className='h-full px-6 border-t-0 border-b-0'
           >
@@ -142,8 +154,8 @@ export function Navbar({ className, variant = 'dark' }: NavbarProps) {
 
           <Button
             variant='button-outline'
-            mode={variant === 'navigation-bar' ? 'light' : 'dark'}
-            icon='shopping_cart.svg'
+            mode={variant === 'light' ? 'light' : 'dark'}
+            icon='shopping-cart.svg'
             className='h-full px-6 border-t-0 border-b-0 border-l-0'
           >
             <span className='hidden xl:inline'>Giỏ hàng</span>
@@ -151,7 +163,7 @@ export function Navbar({ className, variant = 'dark' }: NavbarProps) {
 
           <Button
             variant='button'
-            mode={variant === 'navigation-bar' ? 'light' : 'dark'}
+            mode={variant === 'light' ? 'light' : 'dark'}
             className='h-full px-6 border-t-0 border-b-0'
           >
             Liên hệ
@@ -160,18 +172,16 @@ export function Navbar({ className, variant = 'dark' }: NavbarProps) {
 
         {/* Mobile actions */}
         <div className='flex lg:hidden gap-1'>
-          <Button
+          <ButtonIcon
             variant='button-outline'
-            mode='light'
+            theme='light'
             icon='search.svg'
-            iconOnly
             className='btn-sm'
           />
-          <Button
+          <ButtonIcon
             variant='button-outline'
-            mode='light'
-            icon='shopping_cart.svg'
-            iconOnly
+            theme='light'
+            icon='shopping-cart.svg'
             className='btn-sm'
           />
           <Button variant='button' mode='light' className='btn-sm'>
