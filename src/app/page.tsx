@@ -4,6 +4,9 @@ import { ProductCard } from '@/components/ui/ProductCard';
 import { ProductTooltipCard } from '@/components/ui/ProductTooltipCard';
 import { Button } from '@/components/ui/Button';
 import { ButtonIcon } from '@/components/ui/ButtonIcon';
+import { RoomType } from '@/components/ui/RoomType';
+import { SizeSelector } from '@/components/ui/SizeSelector';
+import CollectionCard from '@/components/ui/CollectionCard';
 import { Hero } from '@/components/sections';
 
 export default function Home() {
@@ -23,6 +26,88 @@ export default function Home() {
           </div>
         </div>
       </div>
+
+      {/* Size Selector Demo Section */}
+      <section className='container mx-auto px-4 py-16 space-y-8'>
+        <div className='text-center mb-12'>
+          <h2 className='h2 text-neutral mb-4'>Size Selector Component</h2>
+          <p className='text-lg text-secondary'>
+            Component chọn kích thước sản phẩm với dropdown
+          </p>
+        </div>
+
+        <div className='max-w-md mx-auto space-y-6'>
+          {/* Default selector */}
+          <SizeSelector
+            label='Kích thước'
+            options={[
+              '900×120×15mm',
+              '900×120×20mm',
+              '900×140×15mm',
+              '900×140×20mm',
+            ]}
+            // defaultValue='900×120×15mm'
+            onChange={(value) => console.log('Selected:', value)}
+            onSelect={(value, option) =>
+              console.log('Selected option:', option)
+            }
+          />
+
+          {/* Controlled selector with placeholder */}
+          <SizeSelector
+            label='Kích thước sản phẩm'
+            options={['600×80×12mm', '800×100×15mm', '1000×150×18mm']}
+            placeholder='Chọn kích thước phù hợp'
+            required
+            name='product-size'
+            onChange={(value) => console.log('Controlled selected:', value)}
+          />
+
+          {/* Disabled selector */}
+          <SizeSelector
+            label='Kích thước (Vô hiệu hóa)'
+            options={['900×120×15mm', '900×120×20mm']}
+            defaultValue='900×120×15mm'
+            disabled
+          />
+        </div>
+      </section>
+
+      {/* RoomType Demo Section */}
+      <section className='container mx-auto px-4 py-16 space-y-8'>
+        <div className='text-center mb-12'>
+          <h2 className='h2 text-neutral mb-4'>Room Type Component</h2>
+          <p className='text-lg text-secondary'>
+            Component loại phòng với trạng thái hover
+          </p>
+        </div>
+
+        <div className='max-w-md mx-auto space-y-4 bg-primary p-8 rounded-lg'>
+          <RoomType category='Phòng khách' icon='living-room.svg' />
+          <RoomType category='Phòng ngủ' icon='bed-room.svg' />
+          <RoomType category='Phòng bếp' icon='kitchen.svg' />
+        </div>
+      </section>
+
+      {/* Collection Card Demo Section */}
+      <section className='container mx-auto px-4 py-16 space-y-8'>
+        <div className='text-center mb-12'>
+          <h2 className='h2 text-neutral mb-4'>Collection Card Component</h2>
+          <p className='text-lg text-secondary'>
+            Component thẻ bộ sưu tập sản phẩm
+          </p>
+        </div>
+
+        <div className='max-w-4xl mx-auto'>
+          <CollectionCard
+            title='Sàn gỗ nội thất'
+            description='Sàn gỗ mang lại cảm giác êm chân, ấm áp và thẩm mỹ cao, lý tưởng cho mọi không gian sống hiện đại.'
+            productCount={12}
+            imageUrl='/images/collection-card-bg.png'
+            onLearnMore={() => console.log('Learn more clicked')}
+          />
+        </div>
+      </section>
 
       {/* Product Card Demo Section */}
       <section className='container mx-auto px-4 py-16 space-y-16 mb-6'>
