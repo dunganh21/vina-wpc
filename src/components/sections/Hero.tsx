@@ -37,7 +37,7 @@ export function Hero() {
             </p>
           </div>
         </div>
-        <div className='container absolute bottom-15 flex justify-between items-end'>
+        <div className='page-container absolute bottom-15 flex justify-between items-end'>
           <div className=''>
             <PageIndicator
               currentPage={currentPage}

@@ -27,17 +27,18 @@ export function ProductTooltipCard({
   return (
     <div
       className={cn(
-        'relative flex w-full max-w-[519px] bg-white shadow-tooltip',
+        'relative flex w-full max-w-[520px] min-w-[320px] bg-white shadow-tooltip overflow-hidden',
         className
       )}
     >
       {/* Product Image */}
-      <div className='w-[114px] h-[125px] flex-shrink-0'>
+      <div className='w-[87px] h-[95px] lg:w-[114px] lg:h-[125px] flex-shrink-0'>
         <Image
           src={image}
           alt={subtitle}
           width={114}
           height={125}
+          sizes="(max-width: 1024px) 87px, 114px"
           className='w-full h-full object-cover border-4 border-white'
         />
       </div>
@@ -46,15 +47,15 @@ export function ProductTooltipCard({
       <div className='flex flex-col justify-between flex-1 px-[14px] py-[14px] bg-white'>
         {/* Header */}
         <div className='space-y-0.5 max-w-[337px]'>
-          <div className='text-primary subtitle-4'>{title}</div>
-          <h5 className='text-neutral'>{subtitle}</h5>
+          <div className='subtitle-4'>{title}</div>
+          <h5 className='text-primary'>{subtitle}</h5>
         </div>
 
         {/* Price and Dimensions */}
         <div className='flex items-center gap-1 self-stretch'>
-          <span className='text-neutral h6'>{price}</span>
+          <span className='text-primary h6'>{price}</span>
           <div className='w-1 h-1 bg-neutral'></div>
-          <span className='text-neutral body-3'>{dimensions}</span>
+          <span className='text-primary body-3'>{dimensions}</span>
         </div>
       </div>
 

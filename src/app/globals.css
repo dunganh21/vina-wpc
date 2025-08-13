@@ -57,8 +57,6 @@
       U+0308-0309, U+0323, U+0329, U+1EA0-1EF9, U+20AB;
   }
 
-  /* #region Typography System - Figma Exact Match */
-
   /* Headings */
   h1,
   .h1 {
@@ -70,92 +68,95 @@
 
   h2,
   .h2 {
-    @apply font-primary font-semibold;
-    font-size: 40px;
+    @apply font-primary font-semibold text-[#2a332b];
+    font-size: clamp(2rem, 1.82rem + 0.751vw, 2.5rem);
     line-height: 1.05em;
     letter-spacing: 0.01em;
   }
 
   h3,
   .h3 {
-    @apply font-primary font-semibold;
-    font-size: 32px;
+    @apply font-primary font-semibold text-[#2a332b];
+    font-size: clamp(1.5rem, 1.32rem + 0.751vw, 2rem);
     line-height: 1.15625em;
     letter-spacing: 0.01em;
   }
 
   h4,
   .h4 {
-    @apply font-primary font-semibold;
-    font-size: 24px;
+    @apply font-primary font-semibold text-[#2a332b];
+    font-size: clamp(1.25rem, 1.16rem + 0.376vw, 1.5rem);
     line-height: 1.125em;
     letter-spacing: 0.01em;
   }
 
   h5,
   .h5 {
-    @apply font-primary font-semibold;
-    font-size: 20px;
+    @apply font-primary font-semibold text-[#2a332b];
+    font-size: clamp(0.938rem, 0.825rem + 0.4vw, 1.25rem);
     line-height: 1.15em;
     letter-spacing: 0.01em;
   }
 
   h6,
   .h6 {
-    @apply font-primary font-semibold;
-    font-size: 15px;
+    @apply font-primary font-semibold text-[#2a332b];
+    font-size: clamp(0.75rem, 0.68rem + 0.282vw, 0.938rem);
     line-height: 1.2667em;
     letter-spacing: 0.01em;
   }
 
   /* Body Text */
   .body-1 {
-    @apply font-primary font-normal;
-    font-size: 18px;
+    @apply font-primary font-normal text-[#2a332b];
+    /* 16 → 18 */
+    font-size: clamp(1rem, 0.95rem + 0.188vw, 1.125rem);
     line-height: 1.2778em;
   }
 
   body,
   .body-2,
   .p {
-    @apply font-primary font-normal;
-    font-size: 16px;
+    @apply font-primary font-normal text-[#2a332b];
+    /* 14 → 16 */
+    font-size: clamp(0.875rem, 0.83rem + 0.188vw, 1rem);
     line-height: 1.3125em;
   }
 
   .body-3,
   .text-small {
-    @apply font-primary font-normal;
-    font-size: 14px;
+    @apply font-primary font-normal text-[#2a332b];
+    font-size: clamp(0.75rem, 0.7rem + 0.188vw, 0.875rem);
     line-height: 1.3571em;
   }
 
   /* Subtitles */
   .subtitle-1 {
-    @apply font-primary font-semibold uppercase;
-    font-size: 18px;
+    @apply font-primary font-semibold uppercase text-[#3C5F3E];
+    /* 16 → 18 */
+    font-size: clamp(1rem, 0.95rem + 0.188vw, 1.125rem);
     line-height: 1.1111em;
     letter-spacing: 0.01em;
   }
 
   .subtitle-2 {
-    @apply font-primary font-semibold uppercase;
-    font-size: 16px;
+    @apply font-primary font-semibold uppercase text-[#3C5F3E];
+    /* 14 → 16 */
+    font-size: clamp(0.875rem, 0.83rem + 0.188vw, 1rem);
     line-height: 1.25em;
     letter-spacing: 0.01em;
   }
 
   .subtitle-3 {
-    @apply font-primary font-semibold uppercase;
-    font-size: 14px;
+    @apply font-primary font-semibold uppercase text-[#3C5F3E];
+    font-size: clamp(0.75rem, 0.7rem + 0.188vw, 0.875rem);
     line-height: 1.4286em;
     letter-spacing: 0.01em;
   }
 
-  .subtitle-4,
-  .text-caption {
-    @apply font-primary font-semibold uppercase;
-    font-size: 12px;
+  .subtitle-4 {
+    @apply font-primary font-semibold uppercase text-[#3C5F3E];
+    font-size: clamp(0.625rem, 0.58rem + 0.188vw, 0.75rem);
     line-height: 1.6667em;
     letter-spacing: 0.01em;
   }
@@ -170,9 +171,9 @@
   }
 
   /* Layout utilities */
-  .container {
+  .page-container {
     /* 1100px */
     max-width: 108rem;
-    @apply mx-auto w-11/12;
+    @apply mx-auto !w-11/12;
   }
 }

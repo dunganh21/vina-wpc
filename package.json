@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "NEXT_DIST_DIR=.next-dev next dev --turbopack",
+    "dev": "NEXT_DIST_DIR=.next-dev next dev --turbopack --port 3001",
     "build": "NEXT_DIST_DIR=.next next build",
     "start": "NEXT_DIST_DIR=.next next start",
     "lint": "next lint"

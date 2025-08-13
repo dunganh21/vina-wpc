@@ -1,5 +1,7 @@
 'use client';
 
+import { useState } from 'react';
+
 import { ProductCard } from '@/components/ui/ProductCard';
 import { ProductTooltipCard } from '@/components/ui/ProductTooltipCard';
 import { Button } from '@/components/ui/Button';
@@ -7,15 +9,38 @@ import { ButtonIcon } from '@/components/ui/ButtonIcon';
 import { RoomType } from '@/components/ui/RoomType';
 import { SizeSelector } from '@/components/ui/SizeSelector';
 import CollectionCard from '@/components/ui/CollectionCard';
-import { Hero } from '@/components/sections';
+import { Hero, NewProduct } from '@/components/sections';
+import Pagination from '@/components/ui/Pagination';
 
 export default function Home() {
+  const [currentPage, setCurrentPage] = useState(1);
+  const totalPages = 30;
+
+  const handlePageChange = (page: number) => {
+    setCurrentPage(page);
+    console.log('Page changed to:', page);
+  };
+
+  const handlePrevious = () => {
+    if (currentPage > 1) {
+      setCurrentPage(currentPage - 1);
+    }
+  };
+
+  const handleNext = () => {
+    if (currentPage < totalPages) {
+      setCurrentPage(currentPage + 1);
+    }
+  };
+
   return (
     <main className='min-h-screen bg-base-100'>
       <Hero />
 
+      <NewProduct />
+
       {/* Content section */}
-      <div className='container mx-auto px-4 py-16'>
+      <div className='page-container mx-auto px-4 py-16'>
         <div className='text-center'>
           <div className='prose max-w-2xl mx-auto'>
             <p className='text-xl text-neutral mb-8'>
@@ -28,7 +53,7 @@ export default function Home() {
       </div>
 
       {/* Size Selector Demo Section */}
-      <section className='container mx-auto px-4 py-16 space-y-8'>
+      <section className='page-container mx-auto px-4 py-16 space-y-8'>
         <div className='text-center mb-12'>
           <h2 className='h2 text-neutral mb-4'>Size Selector Component</h2>
           <p className='text-lg text-secondary'>
@@ -74,7 +99,7 @@ export default function Home() {
       </section>
 
       {/* RoomType Demo Section */}
-      <section className='container mx-auto px-4 py-16 space-y-8'>
+      <section className='page-container mx-auto px-4 py-16 space-y-8'>
         <div className='text-center mb-12'>
           <h2 className='h2 text-neutral mb-4'>Room Type Component</h2>
           <p className='text-lg text-secondary'>
@@ -90,7 +115,7 @@ export default function Home() {
       </section>
 
       {/* Collection Card Demo Section */}
-      <section className='container mx-auto px-4 py-16 space-y-8'>
+      <section className='page-container mx-auto px-4 py-16 space-y-8'>
         <div className='text-center mb-12'>
           <h2 className='h2 text-neutral mb-4'>Collection Card Component</h2>
           <p className='text-lg text-secondary'>
@@ -110,7 +135,7 @@ export default function Home() {
       </section>
 
       {/* Product Card Demo Section */}
-      <section className='container mx-auto px-4 py-16 space-y-16 mb-6'>
+      <section className='page-container mx-auto px-4 py-16 space-y-16 mb-6'>
         <div className='text-center mb-12'>
           <h2 className='h2 text-neutral mb-4'>Sản phẩm nổi bật</h2>
           <p className='text-lg text-secondary'>
@@ -152,7 +177,7 @@ export default function Home() {
       </section>
 
       {/* Button Demo Section */}
-      <section className='container mx-auto px-4 py-16 space-y-8'>
+      <section className='page-container mx-auto px-4 py-16 space-y-8'>
         <div className='text-center mb-12'>
           <h2 className='h2 text-neutral mb-4'>Demo Buttons</h2>
           <p className='text-lg text-secondary'>
@@ -298,6 +323,95 @@ export default function Home() {
               aria-label='Disabled Search'
             />
             <p className='text-sm text-neutral'>Disabled ButtonIcon</p>
+          </div>
+        </div>
+      </section>
+
+      {/* Pagination Demo Section */}
+      <section className='page-container mx-auto px-4 py-16 space-y-8'>
+        <div className='text-center mb-12'>
+          <h2 className='h2 text-neutral mb-4'>Pagination Component</h2>
+          <p className='text-lg text-secondary'>
+            Component phân trang với các trạng thái khác nhau
+          </p>
+        </div>
+
+        <div className='max-w-4xl mx-auto space-y-12'>
+          {/* Current pagination state */}
+          <div className='text-center space-y-4'>
+            <h3 className='h4 text-neutral'>Trạng thái hiện tại</h3>
+            <p className='text-neutral'>
+              Trang {currentPage} / {totalPages}
+            </p>
+            <div className='flex justify-center'>
+              <Pagination
+                currentPage={currentPage}
+                totalPages={totalPages}
+                onPageChange={handlePageChange}
+                onPrevious={handlePrevious}
+                onNext={handleNext}
+              />
+            </div>
+          </div>
+
+          {/* No overflow example (few pages) */}
+          <div className='text-center space-y-4'>
+            <h3 className='h4 text-neutral'>Không có overflow (3 trang)</h3>
+            <div className='flex justify-center'>
+              <Pagination
+                currentPage={1}
+                totalPages={3}
+                onPageChange={(page) => console.log('No overflow page:', page)}
+                onPrevious={() => console.log('Previous')}
+                onNext={() => console.log('Next')}
+              />
+            </div>
+          </div>
+
+          {/* Overflow at end example */}
+          <div className='text-center space-y-4'>
+            <h3 className='h4 text-neutral'>Overflow ở cuối (trang 1/30)</h3>
+            <div className='flex justify-center'>
+              <Pagination
+                currentPage={1}
+                totalPages={30}
+                onPageChange={(page) => console.log('Overflow end page:', page)}
+                onPrevious={() => console.log('Previous')}
+                onNext={() => console.log('Next')}
+              />
+            </div>
+          </div>
+
+          {/* 2 side overflow example (middle pages) */}
+          <div className='text-center space-y-4'>
+            <h3 className='h4 text-neutral'>Overflow 2 bên (trang 15/30)</h3>
+            <div className='flex justify-center'>
+              <Pagination
+                currentPage={15}
+                totalPages={30}
+                onPageChange={(page) =>
+                  console.log('2-side overflow page:', page)
+                }
+                onPrevious={() => console.log('Previous')}
+                onNext={() => console.log('Next')}
+              />
+            </div>
+          </div>
+
+          {/* Overflow at start (near end) */}
+          <div className='text-center space-y-4'>
+            <h3 className='h4 text-neutral'>Overflow ở đầu (trang 30/30)</h3>
+            <div className='flex justify-center'>
+              <Pagination
+                currentPage={30}
+                totalPages={30}
+                onPageChange={(page) =>
+                  console.log('Overflow start page:', page)
+                }
+                onPrevious={() => console.log('Previous')}
+                onNext={() => console.log('Next')}
+              />
+            </div>
           </div>
         </div>
       </section>

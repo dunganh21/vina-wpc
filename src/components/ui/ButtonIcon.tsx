@@ -22,7 +22,7 @@ export function ButtonIcon({
 }: ButtonIconProps) {
   const getButtonStyles = () => {
     const baseStyles =
-      'inline-flex items-center justify-center w-12 h-12 p-3 transition-all duration-200 cursor-pointer rounded-none';
+      'inline-flex items-center justify-center w-8 h-8 p-2 lg:w-12 lg:h-12 lg:p-3 transition-all duration-300 cursor-pointer';
 
     // Handle disabled state
     if (disabled) {
