@@ -31,7 +31,7 @@ export function RoomType({
   return (
     <div
       className={cn(
-        'flex items-center gap-4 px-6 py-4 border border-neutral-200/10 transition-all duration-200 cursor-pointer group',
+        'group flex cursor-pointer items-center gap-4 border border-x-0 border-neutral-200/10 px-6 py-4 transition-all duration-200',
         {
           'bg-white text-primary': isHovered,
           'bg-transparent text-white': !isHovered,
@@ -59,9 +59,9 @@ export function RoomType({
         }}
       />
 
-      <div className='flex items-center justify-between flex-1 min-w-0'>
+      <div className="flex min-w-0 flex-1 items-center justify-between">
         {/* Use h5 base layer class for 20px font size matching Figma */}
-        <span className='h5 truncate'>{category}</span>
+        <span className="h5 truncate !text-inherit">{category}</span>
 
         {/* Arrow icon using mask pattern */}
         <div

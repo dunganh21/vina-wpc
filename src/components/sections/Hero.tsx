@@ -10,42 +10,42 @@ export function Hero() {
 
   return (
     <>
-      <div className='hero h-screen absolute top-0 left-0 overflow-hidden'>
-        <div className='hero-overlay absolute inset-0'>
+      <div className="absolute top-0 left-0 hero h-screen overflow-hidden">
+        <div className="absolute inset-0 hero-overlay">
           <Image
-            src='/images/hero-background.jpg'
-            alt='VINA WPC Hero Background'
+            src="/images/hero-background.jpg"
+            alt="VINA WPC Hero Background"
             fill
-            className='object-cover'
+            className="object-cover"
             priority
           />
           <div
-            className='absolute inset-0 opacity-70 mix-blend-multiply'
+            className="absolute inset-0 opacity-70 mix-blend-multiply"
             style={{
               background: 'linear-gradient(180deg, #000 0%, #D9D9D9 98.05%)',
             }}
           />
         </div>
 
-        <div className='hero-content text-center text-white relative z-10'>
-          <div className='max-w-4xl'>
-            <h1 className='hero-title mb-4 text-white font-semibold'>
+        <div className="relative hero-content z-10 text-center text-white">
+          <div className="max-w-4xl">
+            <h1 className="hero-title mb-4 font-semibold text-white">
               VINA WPC
             </h1>
-            <p className='text-2xl md:text-3xl font-normal leading-[1.25em] tracking-[0.01em] text-white'>
+            <p className="text-2xl leading-[1.25em] font-normal tracking-[0.01em] text-white md:text-3xl">
               Bền vững từ tâm - nâng tầm cuộc sống
             </p>
           </div>
         </div>
-        <div className='page-container absolute bottom-15 flex justify-between items-end'>
-          <div className=''>
+        <div className="page-container absolute bottom-15 flex items-end justify-between">
+          <div className="">
             <PageIndicator
               currentPage={currentPage}
               totalPages={4}
               onPageChange={setCurrentPage}
             />
           </div>
-          <div className=''>
+          <div className="">
             <PageNavigator
               onPrevious={() => setCurrentPage(currentPage - 1)}
               onNext={() => setCurrentPage(currentPage + 1)}
@@ -55,7 +55,7 @@ export function Hero() {
           </div>
         </div>
       </div>
-      <div className='h-screen' />
+      <div className="h-screen" />
     </>
   );
 }

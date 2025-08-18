@@ -1,0 +1,80 @@
+import { Button } from '@/components/ui/Button';
+import { RoomType } from '@/components/ui/RoomType';
+import Image from 'next/image';
+
+export function ProductOverview() {
+  return (
+    <section className="relative h-[717px] overflow-hidden lg:h-[1000px]">
+      {/* Background Image */}
+      <Image
+        src="/images/section-bg.png"
+        alt="VINA WPC Wood Background"
+        fill
+        className="object-cover"
+        priority
+        sizes="100vw"
+      />
+
+      {/* Dark Overlay */}
+      <div className="absolute inset-0 bg-black/50" />
+
+      {/* Content */}
+      <div className="relative h-full">
+        <div className="page-container h-full">
+          <div className="flex h-full flex-col items-start pt-12 pb-6 lg:flex-row lg:gap-60 lg:py-24">
+            {/* Left - Subtitle (desktop) / Top (mobile) */}
+            <div className="mb-2 lg:mb-0">
+              <p className="subtitle-2 text-white">Sản phẩm của VINA WPC</p>
+            </div>
+
+            {/* Middle - Main Content (flex-1) */}
+            <div className="mb-8 flex-1 lg:mb-0">
+              <div className="w-full max-w-full space-y-3 text-white lg:max-w-[434px] lg:space-y-5">
+                {/* Main Heading */}
+                <h2 className="h3 max-w-3/4 text-white">
+                  Gỗ nhựa bền đẹp, thân thiện môi trường
+                </h2>
+
+                {/* Description */}
+                <p className="body-2 max-w-3/4 text-white">
+                  Sản phẩm GỖ NHỰA của chúng tôi là dòng sản phẩm thân thiện với
+                  môi trường, có tính thẩm mỹ hiện đại phù hợp với nhiều không
+                  gian nội thất, không chỉ đẹp mà còn bền bỉ theo thời gian.
+                </p>
+
+                <p className="body-3 pt-4 text-white/65">
+                  Khám phá sản phẩm gỗ dành cho
+                </p>
+
+                <div>
+                  <RoomType
+                    category="Phòng khách"
+                    icon="living-room.svg"
+                    className="border-b border-white/10 px-2 py-4 lg:px-6"
+                  />
+                  <RoomType
+                    category="Phòng bếp"
+                    icon="kitchen.svg"
+                    className="border-b border-white/10 px-2 py-4 lg:px-6"
+                  />
+                  <RoomType
+                    category="Phòng ngủ"
+                    icon="bed-room.svg"
+                    className="px-2 py-4 lg:px-6"
+                  />
+                </div>
+              </div>
+            </div>
+
+            {/* Right - Button */}
+            <div className="">
+              <Button variant="white" className="w-full lg:w-auto">
+                Xem tất cả sản phẩm
+              </Button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}

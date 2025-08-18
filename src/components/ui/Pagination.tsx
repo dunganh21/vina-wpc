@@ -68,12 +68,12 @@ export default function Pagination({
     <div className={cn('flex items-center gap-0.5', className)}>
       {/* Previous Button */}
       <ButtonIcon
-        variant='button-outline'
-        theme='light'
-        icon='arrow-left.svg'
+        variant="button-outline"
+        theme="light"
+        icon="arrow-left.svg"
         onClick={onPrevious}
         disabled={currentPage <= 1}
-        className='bg-base-300 border-base-300'
+        className="border-base-300 bg-base-300"
       />
 
       {/* Page Numbers */}
@@ -82,9 +82,9 @@ export default function Pagination({
           return (
             <div
               key={`ellipsis-${index}`}
-              className='flex h-12 w-12 items-center justify-center bg-base-300 border border-base-300 text-neutral'
+              className="flex h-12 w-12 items-center justify-center border border-base-300 bg-base-300 text-neutral"
             >
-              <span className='h6'>...</span>
+              <span className="h6">...</span>
             </div>
           );
         }
@@ -95,25 +95,25 @@ export default function Pagination({
             key={page}
             onClick={() => onPageChange(page as number)}
             className={cn(
-              'flex h-12 w-12 items-center justify-center border border-base-300 transition-all duration-200 cursor-pointer',
+              'flex h-12 w-12 cursor-pointer items-center justify-center border border-base-300 transition-all duration-200',
               isActive
                 ? 'bg-primary text-white'
-                : 'bg-base-300 text-neutral hover:bg-base-200 hover:border-base-200'
+                : 'bg-base-300 text-neutral hover:border-base-200 hover:bg-base-200'
             )}
           >
-            <span className='h6'>{page}</span>
+            <span className="h6">{page}</span>
           </button>
         );
       })}
 
       {/* Next Button */}
       <ButtonIcon
-        variant='button-outline'
-        theme='light'
-        icon='arrow-right.svg'
+        variant="button-outline"
+        theme="light"
+        icon="arrow-right.svg"
         onClick={onNext}
         disabled={currentPage >= totalPages}
-        className='bg-base-300 border-base-300'
+        className="border-base-300 bg-base-300"
       />
     </div>
   );

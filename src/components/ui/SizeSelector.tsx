@@ -102,7 +102,7 @@ export function SizeSelector({
     >
       {/* Hidden input for form integration */}
       <input
-        type='hidden'
+        type="hidden"
         name={name}
         id={id}
         value={selectedValue}
@@ -111,21 +111,21 @@ export function SizeSelector({
 
       {/* Main selector button */}
       <button
-        type='button'
+        type="button"
         onClick={handleToggle}
         disabled={disabled}
         aria-expanded={isOpen}
-        aria-haspopup='listbox'
+        aria-haspopup="listbox"
         className={cn(
-          'min-h-14 w-full bg-base-100 border border-base-300 px-4 py-4 flex items-center gap-2 transition-all duration-200 cursor-pointer',
+          'flex min-h-14 w-full cursor-pointer items-center gap-2 border border-base-300 bg-base-100 px-4 py-4 transition-all duration-200',
           {
             'hover:border-neutral hover:shadow-sm': !disabled,
-            'opacity-50 cursor-not-allowed': disabled,
+            'cursor-not-allowed opacity-50': disabled,
             'border-primary shadow-sm': isOpen,
           }
         )}
       >
-        <div className='flex-1 flex flex-col gap-0.5 text-left'>
+        <div className="flex flex-1 flex-col gap-0.5 text-left">
           {/* Label using body-2 class */}
           <div
             className={cn('body-2', {
@@ -134,7 +134,7 @@ export function SizeSelector({
             })}
           >
             {label}
-            {required && <span className='text-red-500 ml-1'>*</span>}
+            {required && <span className="ml-1 text-red-500">*</span>}
           </div>
           {/* Value using h6 class */}
           <div
@@ -151,11 +151,11 @@ export function SizeSelector({
         {/* Arrow icon with primary color and rotation animation */}
         <div
           className={cn(
-            'w-6 h-6 flex-shrink-0 transition-all duration-300 ease-in-out',
+            'h-6 w-6 flex-shrink-0 transition-all duration-300 ease-in-out',
             {
               'bg-primary': !disabled,
               'bg-neutral': disabled,
-              'transform rotate-180': isOpen,
+              'rotate-180 transform': isOpen,
             }
           )}
           style={{
@@ -174,33 +174,33 @@ export function SizeSelector({
       {/* Dropdown options with animation */}
       <div
         className={cn(
-          'absolute top-full left-0 right-0 z-50 bg-base-100 border-l border-r border-b border-base-300 shadow-card overflow-hidden transition-all duration-300 ease-out origin-top',
+          'absolute top-full right-0 left-0 z-50 origin-top overflow-hidden border-r border-b border-l border-base-300 bg-base-100 shadow-card transition-all duration-300 ease-out',
           {
-            'opacity-100 scale-y-100 translate-y-0': isOpen,
-            'opacity-0 scale-y-95 -translate-y-2 pointer-events-none': !isOpen,
+            'translate-y-0 scale-y-100 opacity-100': isOpen,
+            'pointer-events-none -translate-y-2 scale-y-95 opacity-0': !isOpen,
           }
         )}
       >
-        <div role='listbox' className='max-h-70 overflow-y-auto'>
+        <div role="listbox" className="max-h-70 overflow-y-auto">
           {options.map((option, index) => (
             <button
               key={option}
-              type='button'
-              role='option'
+              type="button"
+              role="option"
               aria-selected={option === selectedValue}
               onClick={() => handleSelect(option)}
               className={cn(
-                'w-full px-4 py-6 text-left transition-all duration-200 cursor-pointer border-b border-base-300 last:border-b-0',
+                'w-full cursor-pointer border-b border-base-300 px-4 py-6 text-left transition-all duration-200 last:border-b-0',
                 {
                   'bg-base-200 text-primary': option === selectedValue,
-                  'hover:bg-base-200 text-secondary': option !== selectedValue,
+                  'text-secondary hover:bg-base-200': option !== selectedValue,
                 }
               )}
               style={{
                 animationDelay: `${index * 50}ms`,
               }}
             >
-              <div className='body-3'>{option}</div>
+              <div className="body-3">{option}</div>
             </button>
           ))}
         </div>

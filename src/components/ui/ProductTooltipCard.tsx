@@ -27,48 +27,48 @@ export function ProductTooltipCard({
   return (
     <div
       className={cn(
-        'relative flex w-full max-w-[520px] min-w-[320px] bg-white shadow-tooltip overflow-hidden',
+        'relative flex w-full max-w-[520px] min-w-[320px] overflow-hidden bg-white shadow-tooltip',
         className
       )}
     >
       {/* Product Image */}
-      <div className='w-[87px] h-[95px] lg:w-[114px] lg:h-[125px] flex-shrink-0'>
+      <div className="h-[95px] w-[87px] flex-shrink-0 lg:h-[125px] lg:w-[114px]">
         <Image
           src={image}
           alt={subtitle}
           width={114}
           height={125}
           sizes="(max-width: 1024px) 87px, 114px"
-          className='w-full h-full object-cover border-4 border-white'
+          className="h-full w-full border-4 border-white object-cover"
         />
       </div>
 
       {/* Main Content */}
-      <div className='flex flex-col justify-between flex-1 px-[14px] py-[14px] bg-white'>
+      <div className="flex flex-1 flex-col justify-between bg-white px-[14px] py-[14px]">
         {/* Header */}
-        <div className='space-y-0.5 max-w-[337px]'>
-          <div className='subtitle-4'>{title}</div>
-          <h5 className='text-primary'>{subtitle}</h5>
+        <div className="max-w-[337px] space-y-0.5">
+          <div className="subtitle-4">{title}</div>
+          <h5 className="text-primary">{subtitle}</h5>
         </div>
 
         {/* Price and Dimensions */}
-        <div className='flex items-center gap-1 self-stretch'>
-          <span className='text-primary h6'>{price}</span>
-          <div className='w-1 h-1 bg-neutral'></div>
-          <span className='text-primary body-3'>{dimensions}</span>
+        <div className="flex items-center gap-1 self-stretch">
+          <span className="h6 text-primary">{price}</span>
+          <div className="h-1 w-1 bg-neutral"></div>
+          <span className="body-3 text-primary">{dimensions}</span>
         </div>
       </div>
 
       {/* Arrow Pointer - positioned at bottom-left */}
-      <div className='absolute top-full left-[46px] w-0 h-0 border-l-[10.5px] border-r-[10.5px] border-t-[21px] border-l-transparent border-r-transparent border-t-white'></div>
+      <div className="absolute top-full left-[46px] h-0 w-0 border-t-[21px] border-r-[10.5px] border-l-[10.5px] border-t-white border-r-transparent border-l-transparent"></div>
 
       {/* Shopping Cart Button - positioned absolutely in top-right */}
       <ButtonIcon
-        variant='button-icon'
-        theme='light'
-        icon='shopping-cart.svg'
+        variant="button-icon"
+        theme="light"
+        icon="shopping-cart.svg"
         onClick={onAddToCart}
-        className='absolute top-0 right-0 rounded-none'
+        className="absolute top-0 right-0 rounded-none"
       />
     </div>
   );

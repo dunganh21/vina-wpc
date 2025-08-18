@@ -136,7 +136,7 @@ export function Button({
           }}
         />
       )}
-      <div className='h6'>{children}</div>
+      <div className="h6 !text-inherit">{children}</div>
     </button>
   );
 }

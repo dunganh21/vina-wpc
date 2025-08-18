@@ -11,25 +11,23 @@ interface LogoProps {
   height?: number;
 }
 
-export function Logo({ 
-  type = 'default', 
-  className, 
-  width = 88, 
-  height = 62 
+export function Logo({
+  type = 'default',
+  className,
+  width = 88,
+  height = 62,
 }: LogoProps) {
-  const logoSrc = type === 'white' ? '/icons/logo-white.svg' : '/icons/logo-default.svg';
-  
+  const logoSrc =
+    type === 'white' ? '/icons/logo-white.svg' : '/icons/logo-default.svg';
+
   return (
-    <div 
-      className={cn('inline-block', className)}
-      style={{ width, height }}
-    >
+    <div className={cn('inline-block', className)} style={{ width, height }}>
       <Image
         src={logoSrc}
         alt="VINA WPC Logo"
         width={width}
         height={height}
-        className="w-full h-full"
+        className="h-full w-full"
         priority
       />
     </div>

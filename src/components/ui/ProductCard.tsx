@@ -19,7 +19,7 @@ interface ProductCardProps {
   subtitle: string;
   price: string;
   dimensions: string;
-  colors: ColorOption[];
+  colors?: ColorOption[];
   onColorSelect?: (colorId: string) => void;
   onAddToCart?: () => void;
   onBuyNow?: () => void;
@@ -32,7 +32,7 @@ export function ProductCard({
   subtitle,
   price,
   dimensions,
-  colors,
+  colors = [],
   onColorSelect,
   onAddToCart,
   onBuyNow,
@@ -40,7 +40,7 @@ export function ProductCard({
 }: ProductCardProps) {
   const [isHovered, setIsHovered] = useState(false);
   const [selectedColor, setSelectedColor] = useState(
-    colors.find((color) => color.selected)?.id || colors[0]?.id
+    colors.find((color) => color.selected)?.id || colors[0]?.id || ''
   );
 
   const handleColorSelect = (colorId: string) => {
@@ -51,44 +51,44 @@ export function ProductCard({
   return (
     <div
       className={cn(
-        'bg-white border border-black/10 shadow-card transition-all duration-300 cursor-pointer group',
-        'hover:shadow-elevated hover:-translate-y-1',
+        'group cursor-pointer border border-black/10 bg-white shadow-card transition-all duration-300',
+        'hover:-translate-y-1 hover:shadow-elevated',
         className
       )}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >
       {/* Product Image */}
-      <div className='relative w-full h-[417px]'>
+      <div className="relative h-64 w-full lg:h-80">
         <Image
           src={image}
           alt={subtitle}
           width={405}
           height={417}
-          className='w-full h-full object-cover'
+          className="h-full w-full object-cover"
         />
 
         {/* Shopping Cart Icon */}
-        <div className='absolute top-full right-0'>
+        <div className="absolute right-0 bottom-0 lg:top-full lg:right-0">
           <ButtonIcon
-            variant='button-icon'
-            theme='light'
-            icon='shopping-cart.svg'
+            variant="button-icon"
+            theme="light"
+            icon="shopping-cart.svg"
             onClick={onAddToCart}
-            className='rounded-none'
+            className="rounded-none"
           />
         </div>
 
         {/* Buy Now Button - Slides in on hover */}
         <Button
           onClick={onBuyNow}
-          variant='white'
-          mode='dark'
+          variant="white"
+          mode="dark"
           className={cn(
-            'absolute bottom-4 left-4 right-4 transition-all duration-300 shadow-sm',
+            'absolute right-4 bottom-4 left-4 shadow-sm transition-all duration-300',
             isHovered
-              ? 'opacity-100 translate-y-0'
-              : 'opacity-0 translate-y-2 pointer-events-none'
+              ? 'translate-y-0 opacity-100'
+              : 'pointer-events-none translate-y-2 opacity-0'
           )}
         >
           Mua ngay
@@ -96,27 +96,29 @@ export function ProductCard({
       </div>
 
       {/* Main Content */}
-      <div className='p-4 space-y-8'>
+      <div className="space-y-4 p-4 lg:space-y-8">
         {/* Header */}
-        <div className='space-y-0.5'>
-          <div className='text-primary subtitle-4'>{title}</div>
-          <h5 className='text-neutral'>{subtitle}</h5>
+        <div className="lg:space-y-0.5">
+          <div className="subtitle-4">{title}</div>
+          <h5>{subtitle}</h5>
         </div>
 
         {/* Price and Details */}
-        <div className='flex items-center justify-between'>
-          <div className='flex items-center gap-1'>
-            <span className='text-neutral h6'>{price}</span>
-            <div className='w-1 h-1 bg-neutral'></div>
-            <span className='text-neutral body-3'>{dimensions}</span>
+        <div className="flex items-center justify-between">
+          <div className="flex flex-col lg:flex-row lg:items-center lg:gap-1">
+            <span className="h6">{price}</span>
+            <div className="hidden h-1 w-1 bg-neutral lg:block"></div>
+            <span className="body-3">{dimensions}</span>
           </div>
 
           {/* Color Options */}
-          <ColorOption
-            colors={colors}
-            selectedColor={selectedColor}
-            handleColorSelect={handleColorSelect}
-          />
+          {!!colors.length && (
+            <ColorOption
+              colors={colors}
+              selectedColor={selectedColor}
+              handleColorSelect={handleColorSelect}
+            />
+          )}
         </div>
       </div>
     </div>

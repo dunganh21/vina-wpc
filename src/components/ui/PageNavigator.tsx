@@ -40,7 +40,7 @@ export default function PageNavigator({
       <ButtonIcon
         variant={getButtonVariant()}
         theme={getButtonTheme()}
-        icon='arrow-left.svg'
+        icon="arrow-left.svg"
         onClick={onPrevious}
         disabled={disablePrevious}
         className={getButtonStyles()}
@@ -48,7 +48,7 @@ export default function PageNavigator({
       <ButtonIcon
         variant={getButtonVariant()}
         theme={getButtonTheme()}
-        icon='arrow-right.svg'
+        icon="arrow-right.svg"
         onClick={onNext}
         disabled={disableNext}
         className={getButtonStyles()}
