@@ -16,6 +16,7 @@ import {
   NewProduct,
   ProductSection,
   ProductCategories,
+  NewsSection,
 } from '@/components/sections';
 import Pagination from '@/components/ui/Pagination';
 
@@ -51,8 +52,9 @@ export default function Home() {
       <ProductOverview />
 
       <ProductCategories />
-
       <AboutIntro />
+
+      <NewsSection />
 
       {/* Content section */}
       <div className="page-container mx-auto px-4 py-16">
@@ -88,9 +90,7 @@ export default function Home() {
             ]}
             // defaultValue='900×120×15mm'
             onChange={(value) => console.log('Selected:', value)}
-            onSelect={(value, option) =>
-              console.log('Selected option:', option)
-            }
+            onSelect={(_, option) => console.log('Selected option:', option)}
           />
 
           {/* Controlled selector with placeholder */}

@@ -4,3 +4,4 @@ export { AboutIntro } from './AboutIntro';
 export { NewProduct } from './NewProduct';
 export { ProductPopular as ProductSection } from './ProductPopular';
 export { ProductCategories } from './ProductCategories';
+export { NewsSection } from './News';

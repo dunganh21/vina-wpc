@@ -3,7 +3,7 @@ import Image from 'next/image';
 
 export function AboutIntro() {
   return (
-    <section className="bg-white py-6 lg:py-8">
+    <section className="bg-white py-6 lg:py-10">
       <div className="page-container mx-auto">
         <div className="relative h-[600px] overflow-hidden lg:h-[800px]">
           {/* Background Image */}

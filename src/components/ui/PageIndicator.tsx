@@ -19,7 +19,7 @@ export function PageIndicator({
       return 'bg-white/10 hover:bg-white/20';
     }
     if (isActive) {
-      return 'bg-neutral/50';
+      return 'bg-neutral/90';
     }
     return 'bg-gray hover:bg-gray/80';
   };

@@ -3,6 +3,7 @@ export { ButtonIcon } from './ButtonIcon';
 export { default as CollectionCard } from './CollectionCard';
 export { ColorOption } from './ColorOption';
 export { Logo } from './Logo';
+export { NewsCard } from './NewsCard';
 export { PageIndicator } from './PageIndicator';
 export { default as PageNavigator } from './PageNavigator';
 export { default as Pagination } from './Pagination';
