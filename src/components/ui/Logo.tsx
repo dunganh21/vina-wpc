@@ -5,6 +5,7 @@ import { cn } from '@/lib/utils';
 type LogoType = 'default' | 'white';
 
 interface LogoProps {
+  size?: 'default' | 'big';
   type?: LogoType;
   className?: string;
   width?: number;
@@ -21,7 +22,12 @@ export function Logo({
     type === 'white' ? '/icons/logo-white.svg' : '/icons/logo-default.svg';
 
   return (
-    <div className={cn('inline-block', className)} style={{ width, height }}>
+    <div
+      className={cn(
+        'inline-block h-9 w-12 sm:h-12 sm:w-16 lg:h-16 lg:w-22',
+        className
+      )}
+    >
       <Image
         src={logoSrc}
         alt="VINA WPC Logo"

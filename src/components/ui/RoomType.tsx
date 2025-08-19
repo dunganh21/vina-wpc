@@ -18,7 +18,7 @@ export function RoomType({
 
   const getIconStyles = (isArrow: boolean = false) => {
     const baseIconStyles = `${
-      isArrow ? 'w-6 h-6' : 'w-14 h-14'
+      isArrow ? 'w-6 h-6' : 'w-8 h-8 lg:w-14 lg:h-14'
     } flex-shrink-0 transition-all duration-200`;
 
     if (isHovered) {
@@ -54,8 +54,6 @@ export function RoomType({
           maskSize: 'contain',
           WebkitMaskSize: 'contain',
           backgroundColor: 'currentColor',
-          width: '48px',
-          height: '56px',
         }}
       />
 
@@ -76,8 +74,6 @@ export function RoomType({
             maskSize: 'contain',
             WebkitMaskSize: 'contain',
             backgroundColor: 'currentColor',
-            width: '24px',
-            height: '24px',
           }}
         />
       </div>

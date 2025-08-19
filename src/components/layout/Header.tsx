@@ -60,7 +60,7 @@ interface NavbarProps {
   variant?: NavbarVariant;
 }
 
-export function Navbar({ className, variant = 'dark' }: NavbarProps) {
+export function Header({ className, variant = 'dark' }: NavbarProps) {
   return (
     <header
       className={cn(

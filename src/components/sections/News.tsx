@@ -1,3 +1,5 @@
+'use client';
+
 import { NewsCard } from '@/components/ui/NewsCard';
 import { Button } from '@/components/ui/Button';
 import { ButtonIcon, PageIndicator } from '../ui';
@@ -47,7 +49,7 @@ const selectedNews = [
 
 export function NewsSection() {
   return (
-    <section className="py-16 lg:py-11">
+    <section className="pt-6 pb-18 lg:pt-11 lg:pb-22">
       <div className="page-container">
         {/* Header */}
         <div className="mb-4 flex items-center justify-between lg:mb-5">
@@ -61,7 +63,7 @@ export function NewsSection() {
         </div>
 
         {/* News Grid */}
-        <div className="mb-12 grid grid-cols-1 gap-4 md:grid-cols-2 lg:gap-8 xl:grid-cols-4">
+        <div className="mb-6 grid grid-cols-1 gap-4 md:grid-cols-2 lg:mb-12 lg:gap-8 xl:grid-cols-4">
           {selectedNews.map((article) => (
             <NewsCard
               key={article.id}
@@ -79,7 +81,7 @@ export function NewsSection() {
         </div>
 
         {/* Mobile Button */}
-        <div className="mb-12 flex justify-end lg:hidden">
+        <div className="flex justify-end lg:hidden">
           <Button
             onClick={() => console.log('View all articles')}
             className="px-8"

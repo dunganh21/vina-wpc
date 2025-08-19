@@ -33,6 +33,14 @@
   .text-secondary {
     color: var(--color-text-secondary);
   }
+
+  /* Responsive typography utilities */
+  .text-h7-footer {
+    @apply font-primary font-semibold text-white;
+    font-size: 12px;
+    line-height: 1em;
+    letter-spacing: 0.01em;
+  }
 }
 
 @utility shadow-card {
@@ -100,11 +108,27 @@
     letter-spacing: 0.01em;
   }
 
+  /* clamp h7 -> h5 */
+  .h5-footer {
+    @apply font-primary font-semibold text-white;
+    font-size: clamp(0.75rem, 0.574rem + 0.751vw, 1.25rem);
+    line-height: 1em;
+    letter-spacing: 0.01em;
+  }
+
   h6,
   .h6 {
     @apply font-primary font-semibold text-[#2a332b];
     font-size: clamp(0.75rem, 0.68rem + 0.282vw, 0.938rem);
     line-height: 1.2667em;
+    letter-spacing: 0.01em;
+  }
+
+  h7,
+  .h7 {
+    @apply font-primary font-semibold text-[#2a332b];
+    font-size: 12px;
+    line-height: 1em;
     letter-spacing: 0.01em;
   }
 
@@ -143,8 +167,8 @@
 
   .subtitle-2 {
     @apply font-primary font-semibold text-[#3C5F3E] uppercase;
-    /* 14 → 16 */
-    font-size: clamp(0.875rem, 0.83rem + 0.188vw, 1rem);
+    /* 12 → 16 */
+    font-size: clamp(0.75rem, 0.662rem + 0.376vw, 1rem);
     line-height: 1.25em;
     letter-spacing: 0.01em;
   }
@@ -176,6 +200,6 @@
   .page-container {
     /* 1100px */
     max-width: 108rem;
-    @apply mx-auto w-full px-4;
+    @apply mx-auto w-11/12;
   }
 }

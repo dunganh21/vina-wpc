@@ -18,7 +18,7 @@ export function NewProduct() {
   };
 
   return (
-    <section className="py-16 lg:py-24">
+    <section className="pt-10 pb-6 lg:py-24">
       <div className="page-container">
         {/* Single Responsive Layout: Flexible Row with Wrap */}
         <div className="flex flex-row flex-wrap gap-11 lg:items-start lg:gap-16 xl:gap-24">
@@ -26,7 +26,7 @@ export function NewProduct() {
           <div className="w-full space-y-4 lg:w-80 lg:space-y-6 xl:w-96">
             {/* Header */}
             <div className="space-y-2 lg:space-y-3">
-              <h2 className="subtitle-4">Sản phẩm mới</h2>
+              <h2 className="subtitle-2">Sản phẩm mới</h2>
               <h3>
                 Lý tưởng cho căn nhà có ánh sáng tự nhiên & vẻ đẹp tinh giản.
               </h3>
@@ -53,12 +53,14 @@ export function NewProduct() {
           {/* Image Section with Overlay Card */}
           <div className="relative flex-1">
             {/* Responsive Image Container */}
-            <div className="relative h-48 overflow-hidden bg-base-200 lg:h-96">
+            <div className="relative aspect-[1.3/1] overflow-hidden bg-base-200 lg:aspect-[3/2]">
               <Image
                 src="/images/hero-bg.jpg"
                 alt="Wood paneling in modern interior"
                 fill
                 className="object-cover"
+                sizes="(min-width: 1024px) 48vw, 100vw"
+                priority
               />
             </div>
 
@@ -74,9 +76,6 @@ export function NewProduct() {
             </div>
           </div>
         </div>
-
-        {/* Spacing for mobile overlay card */}
-        <div className="h-8 lg:h-0"></div>
       </div>
     </section>
   );

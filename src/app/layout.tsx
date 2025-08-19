@@ -1,7 +1,8 @@
+import { Footer } from '@/components/layout';
+import { Header } from '@/components/layout/Header';
 import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
 import './globals.css';
-import { Navbar } from '@/components/layout';
 
 const inter = Inter({
   subsets: ['latin', 'vietnamese'],
@@ -22,9 +23,12 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="vi">
-      <body className={`${inter.variable} font-primary antialiased`}>
-        <Navbar />
+      <body
+        className={`${inter.variable} overscroll-behavior-none font-primary antialiased`}
+      >
+        <Header />
         {children}
+        <Footer />
       </body>
     </html>
   );

@@ -1,3 +1,5 @@
+'use client';
+
 import { Button } from '@/components/ui/Button';
 import CollectionCard from '@/components/ui/CollectionCard';
 
@@ -38,7 +40,7 @@ const categories = [
 
 export function ProductCategories() {
   return (
-    <section className="bg-white py-12 lg:py-20">
+    <section className="bg-white pt-6 pb-8 lg:py-20">
       <div className="page-container">
         {/* Header */}
         <div className="mb-6 flex flex-col gap-4 lg:mb-12 lg:flex-row lg:items-start lg:justify-between lg:gap-16">

@@ -4,23 +4,22 @@ import Image from 'next/image';
 
 export function ProductOverview() {
   return (
-    <section className="relative h-[717px] overflow-hidden lg:h-[1000px]">
-      {/* Background Image */}
-      <Image
-        src="/images/section-bg.png"
-        alt="VINA WPC Wood Background"
-        fill
-        className="object-cover"
-        priority
-        sizes="100vw"
-      />
-
-      {/* Dark Overlay */}
-      <div className="absolute inset-0 bg-black/50" />
-
+    <section className="pt-10 pb-6">
       {/* Content */}
-      <div className="relative h-full">
-        <div className="page-container h-full">
+      <div className="relative h-[717px] overflow-hidden lg:h-[1000px]">
+        {/* Background Image */}
+        <Image
+          src="/images/section-bg.png"
+          alt="VINA WPC Wood Background"
+          fill
+          className="object-cover"
+          priority
+          sizes="100vw"
+        />
+
+        {/* Dark Overlay */}
+        <div className="absolute inset-0 bg-black/50" />
+        <div className="page-container relative h-full">
           <div className="flex h-full flex-col items-start pt-12 pb-6 lg:flex-row lg:gap-60 lg:py-24">
             {/* Left - Subtitle (desktop) / Top (mobile) */}
             <div className="mb-2 lg:mb-0">
