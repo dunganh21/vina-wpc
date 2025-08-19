@@ -1,4 +1,6 @@
-import React from 'react';
+'use client';
+
+import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { cn } from '@/lib/utils';
 import { Logo } from '@/components/ui/Logo';
@@ -60,133 +62,218 @@ interface NavbarProps {
   variant?: NavbarVariant;
 }
 
-export function Header({ className, variant = 'dark' }: NavbarProps) {
+export function Header({ className }: Omit<NavbarProps, 'variant'>) {
+  const [variant, setVariant] = useState<NavbarVariant>('dark');
+  console.log('[DEBUG] / Header / variant:', variant);
+
+  useEffect(() => {
+    const checkInitialState = () => {
+      const heroSentinel = document.getElementById('hero-sentinel');
+
+      if (!heroSentinel) {
+        return false;
+      }
+
+      const rect = heroSentinel.getBoundingClientRect();
+      const scrollY = window.scrollY || window.pageYOffset;
+
+      // If we're at the top of the page (scroll position near 0) or hero-sentinel is visible, use dark variant
+      // This handles initial page load where user should see dark header over hero
+      const isAtTop = scrollY < 100; // Allow some tolerance for scroll position
+      const isSentinelVisible =
+        rect.top < window.innerHeight && rect.bottom > 0;
+      const shouldBeDark = isAtTop || isSentinelVisible;
+
+      console.log(
+        '[DEBUG] / checkInitialState / scrollY:',
+        scrollY,
+        'isAtTop:',
+        isAtTop,
+        'isSentinelVisible:',
+        isSentinelVisible,
+        'shouldBeDark:',
+        shouldBeDark
+      );
+      setVariant(shouldBeDark ? 'dark' : 'light');
+      return true;
+    };
+
+    const setupObserver = () => {
+      const heroSentinel = document.getElementById('hero-sentinel');
+      console.log('[DEBUG] / setupObserver / heroSentinel:', heroSentinel);
+
+      if (!heroSentinel) {
+        // Retry after a short delay if element not found
+        setTimeout(() => {
+          if (!checkInitialState()) {
+            setupObserver();
+          }
+        }, 100);
+        return null;
+      }
+
+      // Check initial state immediately
+      checkInitialState();
+
+      const observer = new IntersectionObserver(
+        (entries) => {
+          const [entry] = entries;
+          console.log(
+            '[DEBUG] / observer / isIntersecting:',
+            entry.isIntersecting
+          );
+          // When hero-sentinel leaves the viewport (scrolled past), use light variant
+          // When hero-sentinel is still in viewport area, use dark variant
+          // Use rootMargin to trigger transition when sentinel is about to leave
+          setVariant(entry.isIntersecting ? 'dark' : 'light');
+        },
+        {
+          threshold: 0,
+          rootMargin: '0px 0px 100px 0px', // Give extra space so it triggers when sentinel is still below viewport
+        }
+      );
+
+      observer.observe(heroSentinel);
+      return observer;
+    };
+
+    // Always setup observer, but also check initial state
+    const observer = setupObserver();
+
+    return () => {
+      if (observer) {
+        observer.disconnect();
+      }
+    };
+  }, []);
+
   return (
     <header
       className={cn(
-        'absolute top-0 left-0 z-50 navbar h-[78px] w-full px-4 py-0 lg:px-[108px]',
+        'sticky top-0 left-0 z-50 w-full py-0 pt-safe lg:h-[78px]',
+        'transition-all duration-500 ease-in-out',
         variant === 'light'
-          ? 'border-b border-neutral-200 bg-white'
-          : 'border-b border-white/10 bg-transparent',
+          ? 'border-y border-neutral-200 bg-white'
+          : 'border-y border-white/10 bg-transparent',
         className
       )}
     >
-      {/* Left Navigation - Hidden on mobile, show on lg+ */}
-      <div className="navbar-start">
-        <div className="dropdown lg:hidden">
-          <div tabIndex={0} role="button" className="btn btn-ghost">
-            <svg
-              className="h-5 w-5"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M4 6h16M4 12h8m-8 6h16"
+      <div className="page-container flex lg:h-full">
+        <div className="navbar-start">
+          {/* Mobile Left Actions */}
+          <div className="flex lg:hidden">
+            <div className="dropdown">
+              <ButtonIcon
+                tabIndex={0}
+                role="button"
+                variant="button-outline"
+                theme={variant === 'light' ? 'light' : 'dark'}
+                icon="menu.svg"
+                className="h-[46px] w-[46px] border-y-0"
               />
-            </svg>
+              <ul className="dropdown-content menu z-[1] mt-3 w-52 menu-sm rounded-box bg-base-100 p-2 shadow">
+                <li>
+                  <NavItem href="#products" variant={variant}>
+                    Sản phẩm
+                  </NavItem>
+                </li>
+                <li>
+                  <NavItem href="#about" variant={variant}>
+                    Giới thiệu
+                  </NavItem>
+                </li>
+                <li>
+                  <NavItem href="#blog" variant={variant}>
+                    Blog
+                  </NavItem>
+                </li>
+              </ul>
+            </div>
+
+            <ButtonIcon
+              variant="button-outline"
+              theme={variant === 'light' ? 'light' : 'dark'}
+              icon="search.svg"
+              className="h-[46px] w-[46px] border-y-0 border-l-0 text-white"
+            />
           </div>
-          <ul className="dropdown-content menu z-[1] mt-3 w-52 menu-sm rounded-box bg-base-100 p-2 shadow">
-            <li>
-              <NavItem href="#products" variant={variant}>
-                Sản phẩm
-              </NavItem>
-            </li>
-            <li>
-              <NavItem href="#about" variant={variant}>
-                Giới thiệu
-              </NavItem>
-            </li>
-            <li>
-              <NavItem href="#blog" variant={variant}>
-                Blog
-              </NavItem>
-            </li>
-          </ul>
-        </div>
-        <div className="hidden lg:flex">
-          <ul className="menu menu-horizontal gap-2 px-1">
-            <li>
-              <NavItem href="#products" variant={variant}>
-                Sản phẩm
-              </NavItem>
-            </li>
-            <li>
-              <NavItem href="#about" variant={variant}>
-                Giới thiệu
-              </NavItem>
-            </li>
-            <li>
-              <NavItem href="#blog" variant={variant}>
-                Blog
-              </NavItem>
-            </li>
-          </ul>
-        </div>
-      </div>
 
-      {/* Center Logo */}
-      <div className="navbar-center">
-        <Link href="/" className="inline-flex items-center justify-center">
-          <Logo
-            type={variant === 'light' ? 'default' : 'white'}
-            width={88}
-            height={62}
-            className="h-11 w-16 lg:h-[62px] lg:w-[88px]"
-          />
-        </Link>
-      </div>
-
-      {/* Right Actions */}
-      <div className="navbar-end h-full">
-        <div className="hidden h-full gap-0 lg:flex">
-          <Button
-            variant="button-outline"
-            mode={variant === 'light' ? 'light' : 'dark'}
-            icon="search.svg"
-            className="h-full border-t-0 border-b-0 px-6"
-          >
-            <span className="hidden xl:inline">Tìm kiếm</span>
-          </Button>
-
-          <Button
-            variant="button-outline"
-            mode={variant === 'light' ? 'light' : 'dark'}
-            icon="shopping-cart.svg"
-            className="h-full border-t-0 border-b-0 border-l-0 px-6"
-          >
-            <span className="hidden xl:inline">Giỏ hàng</span>
-          </Button>
-
-          <Button
-            variant="button"
-            mode={variant === 'light' ? 'light' : 'dark'}
-            className="h-full border-t-0 border-b-0 px-6"
-          >
-            Liên hệ
-          </Button>
+          {/* Desktop Navigation */}
+          <div className="hidden lg:flex">
+            <ul className="menu menu-horizontal gap-2 px-1">
+              <li>
+                <NavItem href="#products" variant={variant}>
+                  Sản phẩm
+                </NavItem>
+              </li>
+              <li>
+                <NavItem href="#about" variant={variant}>
+                  Giới thiệu
+                </NavItem>
+              </li>
+              <li>
+                <NavItem href="#blog" variant={variant}>
+                  Blog
+                </NavItem>
+              </li>
+            </ul>
+          </div>
         </div>
 
-        {/* Mobile actions */}
-        <div className="flex gap-1 lg:hidden">
-          <ButtonIcon
-            variant="button-outline"
-            theme="light"
-            icon="search.svg"
-            className="btn-sm"
-          />
-          <ButtonIcon
-            variant="button-outline"
-            theme="light"
-            icon="shopping-cart.svg"
-            className="btn-sm"
-          />
-          <Button variant="button" mode="light" className="btn-sm">
-            Liên hệ
-          </Button>
+        {/* Center Logo */}
+        <div className="navbar-center">
+          <Link href="/" className="inline-flex items-center justify-center">
+            <Logo type={variant === 'light' ? 'default' : 'white'} />
+          </Link>
+        </div>
+
+        {/* Right Actions */}
+        <div className="navbar-end lg:h-full">
+          {/* Desktop Right Actions */}
+          <div className="hidden h-full gap-0 lg:flex">
+            <Button
+              variant="button-outline"
+              mode={variant === 'light' ? 'light' : 'dark'}
+              icon="search.svg"
+              className="h-full border-t-0 border-b-0 px-6"
+            >
+              <span className="hidden xl:inline">Tìm kiếm</span>
+            </Button>
+
+            <Button
+              variant="button-outline"
+              mode={variant === 'light' ? 'light' : 'dark'}
+              icon="shopping-cart.svg"
+              className="h-full border-t-0 border-b-0 border-l-0 px-6"
+            >
+              <span className="hidden xl:inline">Giỏ hàng</span>
+            </Button>
+
+            <Button
+              variant="button"
+              mode={variant === 'light' ? 'light' : 'dark'}
+              className="h-full border-t-0 border-b-0 px-6"
+            >
+              Liên hệ
+            </Button>
+          </div>
+
+          {/* Mobile Right Actions */}
+          <div className="flex lg:hidden">
+            <ButtonIcon
+              variant="button-outline"
+              theme={variant === 'light' ? 'light' : 'dark'}
+              icon="shopping-cart.svg"
+              className="h-[46px] w-[46px] border-y-0 border-r-0"
+            />
+
+            <ButtonIcon
+              variant="button-icon"
+              theme={variant === 'light' ? 'light' : 'dark'}
+              icon="send.svg"
+              className="h-[46px] w-[46px] border-y-0"
+            />
+          </div>
         </div>
       </div>
     </header>

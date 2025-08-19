@@ -53,8 +53,9 @@ export function ButtonIcon({
       } else if (theme === 'dark') {
         return cn(
           baseStyles,
-          'border border-white/85 bg-transparent hover:bg-secondary active:bg-secondary'
+          'border bg-transparent hover:bg-secondary active:bg-secondary'
         );
+        // Note: border color will be set via style prop for #F0F0F01A
       } else if (theme === 'white') {
         return cn(
           baseStyles,
@@ -92,7 +93,7 @@ export function ButtonIcon({
       } else if (theme === 'dark') {
         return cn(
           baseIconStyles,
-          'text-[#2A332B] group-hover:text-white group-active:text-white'
+          'text-white group-hover:text-white group-active:text-white'
         );
       } else if (theme === 'white') {
         return cn(
@@ -105,9 +106,15 @@ export function ButtonIcon({
     return baseIconStyles;
   };
 
+  const customStyle = 
+    variant === 'button-outline' && theme === 'dark' 
+      ? { borderColor: '#F0F0F01A' }
+      : {};
+
   return (
     <button
       className={cn(getButtonStyles(), 'group', className)}
+      style={customStyle}
       disabled={disabled}
       {...props}
     >

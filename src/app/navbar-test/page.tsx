@@ -1,4 +1,4 @@
-import { Navbar } from '@/components/layout/Header';
+import { Header } from '@/components/layout/Header';
 
 export default function NavbarTestPage() {
   return (
@@ -22,7 +22,7 @@ export default function NavbarTestPage() {
       {/* Light variant */}
       <div className="mb-8">
         <h2 className="mb-4 px-4 text-2xl font-bold">Light Variant</h2>
-        <Navbar variant="light" />
+        <Header />
       </div>
 
       {/* Dark variant */}
@@ -30,7 +30,7 @@ export default function NavbarTestPage() {
         <h2 className="mb-4 px-4 pt-8 text-2xl font-bold text-white">
           Dark Variant
         </h2>
-        <Navbar variant="dark" />
+        <Header />
       </div>
     </div>
   );

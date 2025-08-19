@@ -54,6 +54,7 @@ export function Hero() {
             />
           </div>
         </div>
+        <div id="hero-sentinel" className="absolute bottom-0 left-0 w-full h-1" />
       </div>
       <div className="h-screen" />
     </>
