@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 import { cn } from '@/lib/utils';
 import { Logo } from '@/components/ui/Logo';
 import { Button } from '@/components/ui/Button';
@@ -63,89 +64,62 @@ interface NavbarProps {
 }
 
 export function Header({ className }: Omit<NavbarProps, 'variant'>) {
-  const [variant, setVariant] = useState<NavbarVariant>('dark');
-  console.log('[DEBUG] / Header / variant:', variant);
+  const [variant, setVariant] = useState<NavbarVariant>('light');
+  const pathname = usePathname();
 
   useEffect(() => {
-    const checkInitialState = () => {
-      const heroSentinel = document.getElementById('hero-sentinel');
+    let observer: IntersectionObserver | null = null;
+    let timeoutId: NodeJS.Timeout | null = null;
 
+    const updateVariant = (heroSentinel: Element | null) => {
       if (!heroSentinel) {
-        return false;
+        setVariant('light');
+        return;
       }
 
       const rect = heroSentinel.getBoundingClientRect();
-      const scrollY = window.scrollY || window.pageYOffset;
-
-      // If we're at the top of the page (scroll position near 0) or hero-sentinel is visible, use dark variant
-      // This handles initial page load where user should see dark header over hero
-      const isAtTop = scrollY < 100; // Allow some tolerance for scroll position
-      const isSentinelVisible =
-        rect.top < window.innerHeight && rect.bottom > 0;
-      const shouldBeDark = isAtTop || isSentinelVisible;
-
-      console.log(
-        '[DEBUG] / checkInitialState / scrollY:',
-        scrollY,
-        'isAtTop:',
-        isAtTop,
-        'isSentinelVisible:',
-        isSentinelVisible,
-        'shouldBeDark:',
-        shouldBeDark
-      );
-      setVariant(shouldBeDark ? 'dark' : 'light');
-      return true;
+      const scrollY = window.scrollY;
+      
+      const isAtTop = scrollY < 50;
+      const isSentinelVisible = rect.top < window.innerHeight && rect.bottom > 0;
+      
+      setVariant(isAtTop || isSentinelVisible ? 'dark' : 'light');
     };
 
-    const setupObserver = () => {
+    const initialize = () => {
       const heroSentinel = document.getElementById('hero-sentinel');
-      console.log('[DEBUG] / setupObserver / heroSentinel:', heroSentinel);
-
-      if (!heroSentinel) {
-        // Retry after a short delay if element not found
-        setTimeout(() => {
-          if (!checkInitialState()) {
-            setupObserver();
+      
+      // Update variant immediately
+      updateVariant(heroSentinel);
+      
+      // Setup observer only if sentinel exists
+      if (heroSentinel) {
+        observer = new IntersectionObserver(
+          (entries) => {
+            const [entry] = entries;
+            setVariant(entry.isIntersecting ? 'dark' : 'light');
+          },
+          {
+            threshold: 0,
+            rootMargin: '0px 0px 50px 0px',
           }
-        }, 100);
-        return null;
+        );
+        
+        observer.observe(heroSentinel);
       }
-
-      // Check initial state immediately
-      checkInitialState();
-
-      const observer = new IntersectionObserver(
-        (entries) => {
-          const [entry] = entries;
-          console.log(
-            '[DEBUG] / observer / isIntersecting:',
-            entry.isIntersecting
-          );
-          // When hero-sentinel leaves the viewport (scrolled past), use light variant
-          // When hero-sentinel is still in viewport area, use dark variant
-          // Use rootMargin to trigger transition when sentinel is about to leave
-          setVariant(entry.isIntersecting ? 'dark' : 'light');
-        },
-        {
-          threshold: 0,
-          rootMargin: '0px 0px 100px 0px', // Give extra space so it triggers when sentinel is still below viewport
-        }
-      );
-
-      observer.observe(heroSentinel);
-      return observer;
     };
 
-    // Always setup observer, but also check initial state
-    const observer = setupObserver();
+    // Small delay to ensure DOM is ready after navigation
+    timeoutId = setTimeout(initialize, 50);
 
     return () => {
+      if (timeoutId) clearTimeout(timeoutId);
       if (observer) {
         observer.disconnect();
+        observer = null;
       }
     };
-  }, []);
+  }, [pathname]);
 
   return (
     <header
@@ -173,7 +147,7 @@ export function Header({ className }: Omit<NavbarProps, 'variant'>) {
               />
               <ul className="dropdown-content menu z-[1] mt-3 w-52 menu-sm rounded-box bg-base-100 p-2 shadow">
                 <li>
-                  <NavItem href="#products" variant={variant}>
+                  <NavItem href="/products" variant={variant}>
                     Sản phẩm
                   </NavItem>
                 </li>
@@ -202,7 +176,7 @@ export function Header({ className }: Omit<NavbarProps, 'variant'>) {
           <div className="hidden lg:flex">
             <ul className="menu menu-horizontal gap-2 px-1">
               <li>
-                <NavItem href="#products" variant={variant}>
+                <NavItem href="/products" variant={variant}>
                   Sản phẩm
                 </NavItem>
               </li>

@@ -1,5 +1,6 @@
 export { Button } from './Button';
 export { ButtonIcon } from './ButtonIcon';
+export { Checkbox } from './Checkbox';
 export { default as CollectionCard } from './CollectionCard';
 export { ColorOption } from './ColorOption';
 export { Logo } from './Logo';

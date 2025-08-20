@@ -23,9 +23,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="vi">
-      <body
-        className={`${inter.variable} overscroll-behavior-none font-primary antialiased`}
-      >
+      <body className={`${inter.variable} bg-white font-primary antialiased`}>
         <Header />
         {children}
         <Footer />

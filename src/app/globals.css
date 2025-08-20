@@ -58,6 +58,14 @@
 }
 
 @layer base {
+  /* Prevent overscroll behavior - iOS Safari bounce prevention */
+  html,
+  body {
+    overscroll-behavior: none;
+    overscroll-behavior-x: none;
+    overscroll-behavior-y: none;
+  }
+
   /* Inter Tight - Vietnamese + Latin */
   @font-face {
     font-family: 'Inter Tight';
