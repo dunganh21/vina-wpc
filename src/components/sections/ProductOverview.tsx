@@ -20,7 +20,7 @@ export function ProductOverview() {
         {/* Dark Overlay */}
         <div className="absolute inset-0 bg-black/50" />
         <div className="page-container relative h-full">
-          <div className="flex h-full flex-col items-start pt-12 pb-6 lg:flex-row lg:gap-60 lg:py-24">
+          <div className="flex h-full flex-col items-start pt-12 pb-6 lg:flex-row lg:gap-50 lg:py-24">
             {/* Left - Subtitle (desktop) / Top (mobile) */}
             <div className="mb-2 lg:mb-0">
               <p className="subtitle-2 text-white">Sản phẩm của VINA WPC</p>
@@ -28,7 +28,7 @@ export function ProductOverview() {
 
             {/* Middle - Main Content (flex-1) */}
             <div className="mb-8 flex-1 lg:mb-0">
-              <div className="w-full max-w-full space-y-3 text-white lg:max-w-[434px] lg:space-y-5">
+              <div className="w-full max-w-[500px] space-y-3 text-white lg:space-y-5">
                 {/* Main Heading */}
                 <h2 className="h3 max-w-3/4 text-white">
                   Gỗ nhựa bền đẹp, thân thiện môi trường

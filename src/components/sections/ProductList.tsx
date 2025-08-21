@@ -154,7 +154,7 @@ export function ProductList() {
         </div>
 
         {/* Desktop Layout - Filter + Products */}
-        <div className="hidden lg:block mb-8 lg:mb-12">
+        <div className="mb-8 hidden lg:mb-12 lg:block">
           <div
             className={cn(
               'grid transition-all duration-300 ease-in-out',
@@ -195,7 +195,7 @@ export function ProductList() {
         </div>
 
         {/* Mobile Layout - Products Only */}
-        <div className="lg:hidden mb-8">
+        <div className="mb-8 lg:hidden">
           <div className="grid grid-cols-2 gap-2">
             {products.map((product) => (
               <ProductCard
@@ -209,12 +209,11 @@ export function ProductList() {
         </div>
 
         {/* Mobile Filter Overlay */}
-        <FilterSidebarMobile 
+        <FilterSidebarMobile
           showFilters={showFilters}
           onClose={() => setShowFilters(false)}
           onFilterChange={(filters) => console.log('Mobile Filters:', filters)}
         />
-        
 
         {/* Pagination */}
         <div className="flex justify-end">

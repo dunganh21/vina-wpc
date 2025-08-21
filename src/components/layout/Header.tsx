@@ -7,6 +7,7 @@ import { cn } from '@/lib/utils';
 import { Logo } from '@/components/ui/Logo';
 import { Button } from '@/components/ui/Button';
 import { ButtonIcon } from '@/components/ui/ButtonIcon';
+import { ShoppingCart } from '@/components/ui/ShoppingCart';
 
 type NavbarVariant = 'light' | 'dark';
 
@@ -63,8 +64,31 @@ interface NavbarProps {
   variant?: NavbarVariant;
 }
 
+function CartBadge({
+  count,
+  variant,
+}: {
+  count: number;
+  variant: NavbarVariant;
+}) {
+  if (count === 0) return null;
+
+  return (
+    <span
+      className={cn(
+        'absolute top-0.5 right-0.5 flex h-3 min-w-[5px] items-center justify-center rounded-full px-1 text-[10px] font-semibold lg:top-2 lg:right-3 lg:h-5 lg:min-w-4 lg:text-sm',
+        variant === 'light' ? 'bg-primary text-white' : 'bg-white text-primary'
+      )}
+    >
+      {count > 99 ? '99+' : count}
+    </span>
+  );
+}
+
 export function Header({ className }: Omit<NavbarProps, 'variant'>) {
   const [variant, setVariant] = useState<NavbarVariant>('light');
+  const [showCart, setShowCart] = useState(false);
+  const [cartItemCount, setCartItemCount] = useState(0);
   const pathname = usePathname();
 
   useEffect(() => {
@@ -79,19 +103,20 @@ export function Header({ className }: Omit<NavbarProps, 'variant'>) {
 
       const rect = heroSentinel.getBoundingClientRect();
       const scrollY = window.scrollY;
-      
+
       const isAtTop = scrollY < 50;
-      const isSentinelVisible = rect.top < window.innerHeight && rect.bottom > 0;
-      
+      const isSentinelVisible =
+        rect.top < window.innerHeight && rect.bottom > 0;
+
       setVariant(isAtTop || isSentinelVisible ? 'dark' : 'light');
     };
 
     const initialize = () => {
       const heroSentinel = document.getElementById('hero-sentinel');
-      
+
       // Update variant immediately
       updateVariant(heroSentinel);
-      
+
       // Setup observer only if sentinel exists
       if (heroSentinel) {
         observer = new IntersectionObserver(
@@ -104,7 +129,7 @@ export function Header({ className }: Omit<NavbarProps, 'variant'>) {
             rootMargin: '0px 0px 50px 0px',
           }
         );
-        
+
         observer.observe(heroSentinel);
       }
     };
@@ -214,14 +239,18 @@ export function Header({ className }: Omit<NavbarProps, 'variant'>) {
               <span className="hidden xl:inline">Tìm kiếm</span>
             </Button>
 
-            <Button
-              variant="button-outline"
-              mode={variant === 'light' ? 'light' : 'dark'}
-              icon="shopping-cart.svg"
-              className="h-full border-t-0 border-b-0 border-l-0 px-6"
-            >
-              <span className="hidden xl:inline">Giỏ hàng</span>
-            </Button>
+            <div className="relative">
+              <Button
+                variant="button-outline"
+                mode={variant === 'light' ? 'light' : 'dark'}
+                icon="shopping-cart.svg"
+                className="h-full border-t-0 border-b-0 border-l-0 px-6"
+                onClick={() => setShowCart(true)}
+              >
+                <span className="hidden xl:inline">Giỏ hàng</span>
+              </Button>
+              <CartBadge count={cartItemCount} variant={variant} />
+            </div>
 
             <Button
               variant="button"
@@ -234,12 +263,16 @@ export function Header({ className }: Omit<NavbarProps, 'variant'>) {
 
           {/* Mobile Right Actions */}
           <div className="flex lg:hidden">
-            <ButtonIcon
-              variant="button-outline"
-              theme={variant === 'light' ? 'light' : 'dark'}
-              icon="shopping-cart.svg"
-              className="h-[46px] w-[46px] border-y-0 border-r-0"
-            />
+            <div className="relative">
+              <ButtonIcon
+                variant="button-outline"
+                theme={variant === 'light' ? 'light' : 'dark'}
+                icon="shopping-cart.svg"
+                className="h-[46px] w-[46px] border-y-0 border-r-0"
+                onClick={() => setShowCart(true)}
+              />
+              <CartBadge count={cartItemCount} variant={variant} />
+            </div>
 
             <ButtonIcon
               variant="button-icon"
@@ -250,6 +283,13 @@ export function Header({ className }: Omit<NavbarProps, 'variant'>) {
           </div>
         </div>
       </div>
+
+      {/* Shopping Cart Modal */}
+      <ShoppingCart
+        showCart={showCart}
+        onClose={() => setShowCart(false)}
+        onCartUpdate={setCartItemCount}
+      />
     </header>
   );
 }

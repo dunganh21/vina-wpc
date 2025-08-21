@@ -11,4 +11,5 @@ export { default as Pagination } from './Pagination';
 export { ProductCard } from './ProductCard';
 export { ProductTooltipCard } from './ProductTooltipCard';
 export { RoomType } from './RoomType';
+export { ShoppingCart } from './ShoppingCart';
 export { SizeSelector } from './SizeSelector';
