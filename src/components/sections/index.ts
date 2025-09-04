@@ -11,3 +11,7 @@ export { NewsSection } from './News';
 export { ProductDetailSection } from './ProductDetailSection';
 export { ProductImageGallery } from './ProductImageGallery';
 export { ProductSpecifications } from './ProductSpecifications';
+
+// New about page sections
+export { WhyChooseUs } from './WhyChooseUs';
+export { ProductComposition } from './ProductComposition';
