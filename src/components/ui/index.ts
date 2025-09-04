@@ -13,3 +13,4 @@ export { ProductTooltipCard } from './ProductTooltipCard';
 export { RoomType } from './RoomType';
 export { ShoppingCart } from './ShoppingCart';
 export { SizeSelector } from './SizeSelector';
+export { StarRating } from './StarRating';
