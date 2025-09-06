@@ -54,12 +54,8 @@ export function ProductSpecifications({
             <div className="grid grid-cols-2 gap-x-[35px] gap-y-4 lg:hidden">
               {specifications.map((item, index) => (
                 <div key={index} className="flex w-3/4 flex-col gap-0.5">
-                  <div className="text-xs leading-3 font-semibold tracking-[0.12px] text-[#222922]">
-                    {item.label}
-                  </div>
-                  <div className="text-xs leading-[15px] text-[#222922]">
-                    {item.description}
-                  </div>
+                  <div className="h6">{item.label}</div>
+                  <div className="body-2">{item.description}</div>
                 </div>
               ))}
             </div>

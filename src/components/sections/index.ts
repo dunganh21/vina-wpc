@@ -15,3 +15,7 @@ export { ProductSpecifications } from './ProductSpecifications';
 // New about page sections
 export { WhyChooseUs } from './WhyChooseUs';
 export { ProductComposition } from './ProductComposition';
+
+// Contact & Location sections
+export { ContactSection } from './ContactSection';
+export { AddressSection } from './AddressSection';

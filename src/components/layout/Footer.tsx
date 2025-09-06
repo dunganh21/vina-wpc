@@ -184,7 +184,7 @@ export function Footer() {
           <div className="flex justify-between lg:h-full lg:items-end">
             <Logo type="default" className="lg:scale-150" />
 
-            <div className="body-3 text-right text-[#222922]">
+            <div className="body-3 text-right">
               © Bản quyền VINA WPC 2025
               <br />
               Thiết kế bởi Dun.creative
