@@ -1,4 +1,5 @@
 import Image from 'next/image';
+import Link from 'next/link';
 
 interface NewsCardProps {
   title: string;
@@ -6,6 +7,7 @@ interface NewsCardProps {
   date: string;
   category: string;
   imageUrl: string;
+  slug?: string;
   readTime?: string;
   onReadMore?: () => void;
   className?: string;
@@ -17,11 +19,12 @@ export function NewsCard({
   date,
   category,
   imageUrl,
+  slug,
   readTime = '3 phút đọc',
   onReadMore,
   className = '',
 }: NewsCardProps) {
-  return (
+  const CardContent = (
     <article
       className={`group cursor-pointer border border-black/10 bg-white shadow-card transition-all duration-300 hover:-translate-y-1 hover:shadow-elevated ${className}`}
     >
@@ -53,4 +56,14 @@ export function NewsCard({
       </div>
     </article>
   );
+
+  if (slug) {
+    return (
+      <Link href={`/blog/${slug}`} className="block">
+        {CardContent}
+      </Link>
+    );
+  }
+
+  return CardContent;
 }

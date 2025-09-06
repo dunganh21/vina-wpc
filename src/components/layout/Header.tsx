@@ -177,12 +177,12 @@ export function Header({ className }: Omit<NavbarProps, 'variant'>) {
                   </NavItem>
                 </li>
                 <li>
-                  <NavItem href="#about" variant={variant}>
+                  <NavItem href="/about" variant={variant}>
                     Giới thiệu
                   </NavItem>
                 </li>
                 <li>
-                  <NavItem href="#blog" variant={variant}>
+                  <NavItem href="/blogs" variant={variant}>
                     Blog
                   </NavItem>
                 </li>
@@ -206,12 +206,12 @@ export function Header({ className }: Omit<NavbarProps, 'variant'>) {
                 </NavItem>
               </li>
               <li>
-                <NavItem href="#about" variant={variant}>
+                <NavItem href="/about" variant={variant}>
                   Giới thiệu
                 </NavItem>
               </li>
               <li>
-                <NavItem href="#blog" variant={variant}>
+                <NavItem href="/blogs" variant={variant}>
                   Blog
                 </NavItem>
               </li>
@@ -252,13 +252,15 @@ export function Header({ className }: Omit<NavbarProps, 'variant'>) {
               <CartBadge count={cartItemCount} variant={variant} />
             </div>
 
-            <Button
-              variant="button"
-              mode={variant === 'light' ? 'light' : 'dark'}
-              className="h-full border-t-0 border-b-0 px-6"
-            >
-              Liên hệ
-            </Button>
+            <Link href="/contact">
+              <Button
+                variant="button"
+                mode={variant === 'light' ? 'light' : 'dark'}
+                className="h-full border-t-0 border-b-0 px-6"
+              >
+                Liên hệ
+              </Button>
+            </Link>
           </div>
 
           {/* Mobile Right Actions */}
@@ -274,12 +276,14 @@ export function Header({ className }: Omit<NavbarProps, 'variant'>) {
               <CartBadge count={cartItemCount} variant={variant} />
             </div>
 
-            <ButtonIcon
-              variant="button-icon"
-              theme={variant === 'light' ? 'light' : 'dark'}
-              icon="send.svg"
-              className="h-[46px] w-[46px] border-y-0"
-            />
+            <Link href="/contact">
+              <ButtonIcon
+                variant="button-icon"
+                theme={variant === 'light' ? 'light' : 'dark'}
+                icon="send.svg"
+                className="h-[46px] w-[46px] border-y-0"
+              />
+            </Link>
           </div>
         </div>
       </div>

@@ -2,6 +2,7 @@
 
 import React, { useState } from 'react';
 import Image from 'next/image';
+import Link from 'next/link';
 import { cn } from '@/lib/utils';
 import { Button } from './Button';
 import { ButtonIcon } from './ButtonIcon';
@@ -19,6 +20,7 @@ interface ProductCardProps {
   subtitle: string;
   price: string;
   dimensions: string;
+  slug?: string;
   colors?: ColorOption[];
   onColorSelect?: (colorId: string) => void;
   onAddToCart?: () => void;
@@ -32,6 +34,7 @@ export function ProductCard({
   subtitle,
   price,
   dimensions,
+  slug,
   colors = [],
   onColorSelect,
   onAddToCart,
@@ -48,7 +51,7 @@ export function ProductCard({
     onColorSelect?.(colorId);
   };
 
-  return (
+  const CardContent = (
     <div
       className={cn(
         'group cursor-pointer border border-black/10 bg-white shadow-card transition-all duration-300',
@@ -74,14 +77,22 @@ export function ProductCard({
             variant="button-icon"
             theme="light"
             icon="shopping-cart.svg"
-            onClick={onAddToCart}
+            onClick={(e) => {
+              e.preventDefault();
+              e.stopPropagation();
+              onAddToCart?.();
+            }}
             className="rounded-none"
           />
         </div>
 
         {/* Buy Now Button - Slides in on hover */}
         <Button
-          onClick={onBuyNow}
+          onClick={(e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            onBuyNow?.();
+          }}
           variant="white"
           mode="dark"
           className={cn(
@@ -113,14 +124,26 @@ export function ProductCard({
 
           {/* Color Options */}
           {!!colors.length && (
-            <ColorOption
-              colors={colors}
-              selectedColor={selectedColor}
-              handleColorSelect={handleColorSelect}
-            />
+            <div onClick={(e) => e.stopPropagation()}>
+              <ColorOption
+                colors={colors}
+                selectedColor={selectedColor}
+                handleColorSelect={handleColorSelect}
+              />
+            </div>
           )}
         </div>
       </div>
     </div>
   );
+
+  if (slug) {
+    return (
+      <Link href={`/products/${slug}`} className="block">
+        {CardContent}
+      </Link>
+    );
+  }
+
+  return CardContent;
 }

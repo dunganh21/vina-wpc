@@ -72,6 +72,7 @@ export function NewProduct() {
                 subtitle="Tấm ốp gỗ sồi WR205"
                 price="850.000đ/m²"
                 dimensions="900×120×15mm"
+                slug="scandinavian-light-wr205-featured"
               />
             </div>
           </div>

@@ -11,6 +11,7 @@ import { cn } from '@/lib/utils';
 const products = [
   {
     id: '1',
+    slug: 'scandinavian-light-wr205-1',
     image: '/images/prd-lg-1.jpg',
     title: 'SCANDINAVIAN LIGHT',
     subtitle: 'Tấm ốp gỗ sồi WR205',
@@ -19,6 +20,7 @@ const products = [
   },
   {
     id: '2',
+    slug: 'scandinavian-light-wr205-2',
     image: '/images/prd-lg-2.png',
     title: 'SCANDINAVIAN LIGHT',
     subtitle: 'Tấm ốp gỗ sồi WR205',
@@ -27,6 +29,7 @@ const products = [
   },
   {
     id: '3',
+    slug: 'scandinavian-light-wr205-3',
     image: '/images/prd-lg-3.png',
     title: 'SCANDINAVIAN LIGHT',
     subtitle: 'Tấm ốp gỗ sồi WR205',
@@ -35,6 +38,7 @@ const products = [
   },
   {
     id: '4',
+    slug: 'scandinavian-light-wr205-4',
     image: '/images/prd-lg-4.png',
     title: 'SCANDINAVIAN LIGHT',
     subtitle: 'Tấm ốp gỗ sồi WR205',
@@ -43,6 +47,7 @@ const products = [
   },
   {
     id: '5',
+    slug: 'scandinavian-light-wr205-5',
     image: '/images/prd-lg-1.jpg',
     title: 'SCANDINAVIAN LIGHT',
     subtitle: 'Tấm ốp gỗ sồi WR205',
@@ -51,6 +56,7 @@ const products = [
   },
   {
     id: '6',
+    slug: 'scandinavian-light-wr205-6',
     image: '/images/prd-lg-2.png',
     title: 'SCANDINAVIAN LIGHT',
     subtitle: 'Tấm ốp gỗ sồi WR205',
@@ -59,6 +65,7 @@ const products = [
   },
   {
     id: '7',
+    slug: 'scandinavian-light-wr205-7',
     image: '/images/prd-lg-3.png',
     title: 'SCANDINAVIAN LIGHT',
     subtitle: 'Tấm ốp gỗ sồi WR205',
@@ -67,6 +74,7 @@ const products = [
   },
   {
     id: '8',
+    slug: 'scandinavian-light-wr205-8',
     image: '/images/prd-lg-4.png',
     title: 'SCANDINAVIAN LIGHT',
     subtitle: 'Tấm ốp gỗ sồi WR205',
@@ -75,6 +83,7 @@ const products = [
   },
   {
     id: '9',
+    slug: 'scandinavian-light-wr205-9',
     image: '/images/prd-lg-1.jpg',
     title: 'SCANDINAVIAN LIGHT',
     subtitle: 'Tấm ốp gỗ sồi WR205',
@@ -83,6 +92,7 @@ const products = [
   },
   {
     id: '10',
+    slug: 'scandinavian-light-wr205-10',
     image: '/images/prd-lg-2.png',
     title: 'SCANDINAVIAN LIGHT',
     subtitle: 'Tấm ốp gỗ sồi WR205',
@@ -91,6 +101,7 @@ const products = [
   },
   {
     id: '11',
+    slug: 'scandinavian-light-wr205-11',
     image: '/images/prd-lg-3.png',
     title: 'SCANDINAVIAN LIGHT',
     subtitle: 'Tấm ốp gỗ sồi WR205',
@@ -99,6 +110,7 @@ const products = [
   },
   {
     id: '12',
+    slug: 'scandinavian-light-wr205-12',
     image: '/images/prd-lg-4.png',
     title: 'SCANDINAVIAN LIGHT',
     subtitle: 'Tấm ốp gỗ sồi WR205',

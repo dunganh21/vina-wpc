@@ -2,6 +2,7 @@
 
 import React from 'react';
 import Image from 'next/image';
+import Link from 'next/link';
 import { cn } from '@/lib/utils';
 import { ButtonIcon } from './ButtonIcon';
 
@@ -11,6 +12,7 @@ interface ProductTooltipCardProps {
   subtitle: string;
   price: string;
   dimensions: string;
+  slug?: string;
   onAddToCart?: () => void;
   className?: string;
 }
@@ -21,13 +23,14 @@ export function ProductTooltipCard({
   subtitle,
   price,
   dimensions,
+  slug,
   onAddToCart,
   className,
 }: ProductTooltipCardProps) {
-  return (
+  const CardContent = (
     <div
       className={cn(
-        'relative flex w-full max-w-[520px] min-w-[320px] overflow-hidden bg-white shadow-tooltip',
+        'relative flex w-full max-w-[520px] min-w-[320px] overflow-hidden bg-white shadow-tooltip cursor-pointer',
         className
       )}
     >
@@ -67,9 +70,23 @@ export function ProductTooltipCard({
         variant="button-icon"
         theme="light"
         icon="shopping-cart.svg"
-        onClick={onAddToCart}
+        onClick={(e) => {
+          e.preventDefault();
+          e.stopPropagation();
+          onAddToCart?.();
+        }}
         className="absolute top-0 right-0 rounded-none"
       />
     </div>
   );
+
+  if (slug) {
+    return (
+      <Link href={`/products/${slug}`} className="block">
+        {CardContent}
+      </Link>
+    );
+  }
+
+  return CardContent;
 }

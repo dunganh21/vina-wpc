@@ -9,6 +9,7 @@ import Image from 'next/image';
 
 interface BlogPost {
   id: string;
+  slug: string;
   title: string;
   excerpt: string;
   date: string;
@@ -23,6 +24,7 @@ interface BlogPageProps {
 // Mock data - replace with actual data
 const mockBlogPosts: BlogPost[] = Array.from({ length: 36 }, (_, i) => ({
   id: `${i + 1}`,
+  slug: `go-nhua-uu-diem-vuot-troi-${i + 1}`,
   title: 'Gỗ nhựa là gì? Ưu điểm vượt trội trong thiết kế hiện đại',
   excerpt:
     'Khám phá khái niệm gỗ nhựa (WPC), đặc tính nổi bật và lý do vì sao đây là vật liệu "xanh" được ưa chuộng hiện nay.',
@@ -136,6 +138,7 @@ export function BlogPage({ className }: BlogPageProps) {
                 date={post.date}
                 category={post.category}
                 imageUrl={post.imageUrl}
+                slug={post.slug}
                 className="h-full"
               />
             ))}
