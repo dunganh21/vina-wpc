@@ -98,10 +98,10 @@ export default function Pagination({
               'flex h-12 w-12 cursor-pointer items-center justify-center border border-base-300 transition-all duration-200',
               isActive
                 ? 'bg-primary text-white'
-                : 'bg-base-300 text-neutral hover:border-base-200 hover:bg-base-200'
+                : 'bg-base-300 text-neutral hover:border-base-200'
             )}
           >
-            <span className="h6">{page}</span>
+            <span className="h6 text-inherit">{page}</span>
           </button>
         );
       })}

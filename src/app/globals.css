@@ -214,4 +214,109 @@
     max-width: 108rem;
     @apply mx-auto w-11/12;
   }
+
+  /* Rich Text / CMS Content Styling */
+  .prose {
+    /* Ensure images are responsive */
+    img {
+      @apply h-auto w-full max-w-full;
+    }
+
+    /* Heading styling using responsive sizes from base layer */
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+      @apply font-primary font-semibold text-[#2a332b] first:mt-0;
+      margin-bottom: clamp(12px, 4vw, 21px);
+    }
+
+    h2 {
+      /* Copy from .h3 in base layer */
+      font-size: clamp(1.5rem, 1.32rem + 0.751vw, 2rem);
+      line-height: 1.15625em;
+      letter-spacing: 0.01em;
+      margin-top: clamp(32px, 8vw, 58px);
+    }
+
+    h3 {
+      /* Copy from .h5 in base layer */
+      font-size: clamp(0.938rem, 0.825rem + 0.4vw, 1.25rem);
+      line-height: 1.15em;
+      letter-spacing: 0.01em;
+      margin-top: clamp(12px, 3vw, 21px);
+      margin-bottom: clamp(8px, 2vw, 12px);
+    }
+
+    /* Paragraph styling using responsive sizes from base layer */
+    p {
+      /* Copy from .body-1 in base layer */
+      @apply font-primary font-normal text-[#2a332b];
+      font-size: clamp(1rem, 0.95rem + 0.188vw, 1.125rem);
+      line-height: 1.2778em;
+      margin-bottom: clamp(8px, 2vw, 12px);
+    }
+
+    /* List styling using responsive sizes from base layer */
+    ul, ol {
+      margin-bottom: clamp(12px, 4vw, 21px);
+    }
+
+    li {
+      /* Copy from .body-1 in base layer */
+      @apply font-primary font-normal text-[#2a332b];
+      font-size: clamp(1rem, 0.95rem + 0.188vw, 1.125rem);
+      line-height: 1.2778em;
+      margin-bottom: 0;
+    }
+
+    /* Quote styling using responsive sizes from base layer */
+    blockquote {
+      @apply relative bg-[#424c43] text-white font-primary font-normal;
+      /* Copy from .body-1 in base layer */
+      font-size: clamp(1rem, 0.95rem + 0.188vw, 1.125rem);
+      line-height: 1.2778em;
+      padding: clamp(24px, 6vw, 36px) clamp(32px, 8vw, 56px);
+      margin: clamp(32px, 8vw, 58px) 0 clamp(12px, 4vw, 21px) 0;
+    }
+
+    /* Table styling for CMS content */
+    table {
+      @apply w-full border-collapse border border-base-300;
+    }
+
+    th {
+      @apply border border-base-300 bg-base-200 px-4 py-2 text-left font-semibold;
+    }
+
+    td {
+      @apply border border-base-300 px-4 py-2;
+    }
+
+    /* Code styling for CMS content */
+    code {
+      @apply rounded bg-base-200 px-1.5 py-0.5 font-mono text-sm;
+    }
+
+    pre {
+      @apply overflow-x-auto rounded bg-base-200 p-4;
+
+      code {
+        @apply bg-transparent p-0;
+      }
+    }
+
+    /* List styling improvements */
+    ul,
+    ol {
+      @apply space-y-1;
+    }
+
+    /* Link hover effects */
+    a {
+      @apply transition-colors duration-200;
+    }
+  }
 }
