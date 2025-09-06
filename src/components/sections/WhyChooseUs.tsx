@@ -1,16 +1,16 @@
 const features = [
   {
-    title: 'Chuyên môn\nbạn có thể tin tưởng.',
+    title: 'Chuyên môn bạn có thể tin tưởng.',
     description:
       'Đội ngũ của chúng tôi bao gồm các chuyên gia kỹ thuật với nhiều năm kinh nghiệm thực tế, chuyên môn sâu ở nhiều lĩnh vực khác nhau : tự động hóa công nghiệp, kỹ thuật sản xuất pvc compound, kỹ thuật sản xuất tấm sàn và tấm ốp pvc, pe, pp,…',
   },
   {
-    title: 'Chất lượng hàng đầu\nbền vững.',
+    title: 'Chất lượng hàng đầu bền vững.',
     description:
       'Chúng tôi sử dụng nguyên liệu chính là nhựa nguyên sinh nhập khẩu từ Thái Lan, Nhật Bản, Mỹ cùng với nguyên liệu phụ trợ cao cấp được test và đánh giá kỹ lưỡng để đảm bảo sản phẩm tấm nano chắc chắn, liền mạch và đẹp mắt – bền bỉ.',
   },
   {
-    title: 'Dịch vụ lấy khách hàng\nlàm trung tâm.',
+    title: 'Dịch vụ lấy khách hàng làm trung tâm.',
     description:
       'Từ khâu tư vấn đến khi hoàn thành, chúng tôi luôn đồng hành cùng bạn trong từng bước – hướng dẫn rõ ràng, tư vấn trung thực và hỗ trợ toàn diện.',
   },
@@ -20,12 +20,12 @@ const features = [
       'Đem đến cho bạn nhiều tuỳ chọn, đáp ứng nhu cầu nhiều loại công trình.',
   },
   {
-    title: 'Giá trị tuyệt vời cho\nkhoản đầu tư của bạn.',
+    title: 'Giá trị tuyệt vời cho khoản đầu tư của bạn.',
     description:
       'Chúng tôi không chỉ cung cấp mức giá cạnh tranh với chất lượng cao mà còn cung cấp giải pháp đằng sau mỗi sản phẩm xứng đáng với khoản đầu tư của khách hàng',
   },
   {
-    title: 'Bảo hành đáng tin cậy,\nAn tâm dài lâu.',
+    title: 'Bảo hành đáng tin cậy, An tâm dài lâu.',
     description:
       'Sản phẩm của chúng tôi đi kèm với chế độ bảo hành chặt chẽ – vì sự hài lòng và an tâm của bạn là điều quan trọng nhất.',
   },
@@ -72,35 +72,24 @@ export function WhyChooseUs() {
                 <div className="flex items-start">
                   {/* Empty Column 1 (for alignment with header) */}
                   <div className="flex-1">
-                    {index === 0 && (
-                      <h2 className="h3 leading-[1.15625em]">
-                        Tại sao bạn nên chọn VINA WPC
-                      </h2>
-                    )}
+                    {index === 0 && <h3>Tại sao bạn nên chọn VINA WPC</h3>}
                   </div>
 
                   {/* Feature Title - Column 2 */}
                   <div className="flex-1">
-                    <h3
-                      className="text-2xl leading-[1.125em] font-semibold tracking-[0.24px] text-[#222922]"
-                      dangerouslySetInnerHTML={{
-                        __html: feature.title.replace(/\n/g, '<br />'),
-                      }}
-                    />
+                    <p className="h4 lg:w-1/2">{feature.title}</p>
                   </div>
 
                   {/* Feature Description - Column 3 */}
                   <div className="flex-1">
-                    <p className="text-base leading-[1.3125em] font-normal text-[#222922]">
-                      {feature.description}
-                    </p>
+                    <p>{feature.description}</p>
                   </div>
 
                   {/* Numbers - Column 4 */}
                   <div className="flex-1 text-right">
-                    <span className="text-2xl leading-[1.125em] font-semibold tracking-[0.24px] text-[#e6e6e6]">
+                    <p className="text-2xl leading-[1.125em] font-semibold tracking-[0.24px] text-[#e6e6e6]">
                       {String(index + 1).padStart(2, '0')}
-                    </span>
+                    </p>
                   </div>
                 </div>
 

@@ -6,27 +6,27 @@ const compositionLayers = [
     number: 1,
     title: 'Lớp bảo vệ bề mặt',
     description: 'Chống trầy xước, nấm mốc.',
-    position: { top: '15.5%', left: '75%' }, // Position relative to container
+    position: { top: '14%', left: '75%' }, // Position relative to container
   },
   {
     number: 2,
     title: 'Lớp film màu',
     description: 'Được phủ lớp vân gỗ, đá, bê tông hoặc màu sơn...',
-    position: { top: '29%', left: '75%' },
+    position: { top: '27%', left: '75%' },
   },
   {
     number: 3,
     title: 'Lớp gắn kết',
     description:
       'Tạo sự liên kết giữa bề mặt các tấm và giúp phân tán lực tác động lên bề mặt tấm.',
-    position: { top: '43%', left: '75%' },
+    position: { top: '41%', left: '75%' },
   },
   {
     number: 4,
     title: 'Lớp cốt',
     description:
       'Có cấu tạo từ bột đá cẩm thạch và nhựa nguyên sinh tạo sự ổn định, chống ẩm, chống mối mọt và chống ồn.',
-    position: { top: '58%', left: '75%' },
+    position: { top: '56%', left: '75%' },
   },
 ];
 
@@ -61,7 +61,7 @@ export function ProductComposition() {
                 <p className="body-2 text-neutral/80">{layer.description}</p>
               </div>
 
-              <div className="h6 flex aspect-square w-5 items-center justify-center bg-primary text-white sm:w-8 lg:hidden">
+              <div className="h6 flex aspect-square w-5 translate-y-2 items-center justify-center bg-primary text-white sm:w-8 lg:hidden">
                 {layer.number}
               </div>
             </div>
