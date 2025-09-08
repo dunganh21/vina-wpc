@@ -82,7 +82,7 @@ export default function Pagination({
           return (
             <div
               key={`ellipsis-${index}`}
-              className="flex h-12 w-12 items-center justify-center border border-base-300 bg-base-300 text-neutral"
+              className="flex h-8 w-8 items-center justify-center border border-base-300 bg-base-300 text-neutral lg:h-12 lg:w-12"
             >
               <span className="h6">...</span>
             </div>
@@ -95,7 +95,7 @@ export default function Pagination({
             key={page}
             onClick={() => onPageChange(page as number)}
             className={cn(
-              'flex h-12 w-12 cursor-pointer items-center justify-center border border-base-300 transition-all duration-200',
+              'flex h-8 w-8 cursor-pointer items-center justify-center border border-base-300 transition-all duration-200 lg:h-12 lg:w-12',
               isActive
                 ? 'bg-primary text-white'
                 : 'bg-base-300 text-neutral hover:border-base-200'

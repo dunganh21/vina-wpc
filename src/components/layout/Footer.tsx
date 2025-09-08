@@ -1,6 +1,7 @@
 import React from 'react';
 import { Logo } from '@/components/ui/Logo';
 import Image from 'next/image';
+import Link from 'next/link';
 
 export function Footer() {
   return (
@@ -75,12 +76,19 @@ export function Footer() {
                 <div className="space-y-2 lg:space-y-4">
                   <p className="subtitle-4 text-white/85">VINA WPC</p>
                   <div className="space-y-2 lg:space-y-3">
-                    <p className="h5-footer cursor-pointer text-white transition-colors hover:text-white/90">
+                    <Link
+                      href="/about"
+                      className="h5-footer block cursor-pointer text-white transition-colors hover:text-white/90"
+                    >
                       Về chúng tôi
-                    </p>
-                    <p className="h5-footer cursor-pointer text-white transition-colors hover:text-white/90">
+                    </Link>
+
+                    <Link
+                      href="/contact"
+                      className="h5-footer block cursor-pointer text-white transition-colors hover:text-white/90"
+                    >
                       Liên hệ
-                    </p>
+                    </Link>
                   </div>
                 </div>
               </div>

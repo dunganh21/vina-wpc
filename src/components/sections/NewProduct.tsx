@@ -18,7 +18,7 @@ export function NewProduct() {
   };
 
   return (
-    <section className="pt-10 pb-6 lg:py-24">
+    <section className="pb-7 lg:pt-7 lg:pb-13">
       <div className="page-container">
         {/* Single Responsive Layout: Flexible Row with Wrap */}
         <div className="flex flex-row flex-wrap gap-11 lg:items-start lg:gap-16 xl:gap-24">

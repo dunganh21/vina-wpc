@@ -43,7 +43,7 @@ export function ProductDetailSection() {
 
   return (
     <section className="bg-white">
-      <div className="page-container py-8 lg:py-16">
+      <div className="page-container py-6 lg:py-16">
         <div className="flex flex-col gap-8 lg:flex-row lg:gap-43">
           {/* Product Image */}
           <div className="w-full max-w-lg flex-shrink-0 lg:w-1/3 lg:max-w-md">

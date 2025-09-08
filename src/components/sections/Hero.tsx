@@ -10,7 +10,7 @@ export function Hero() {
 
   return (
     <>
-      <div className="absolute top-0 left-0 hero h-screen overflow-hidden">
+      <div className="absolute top-0 left-0 flex h-screen w-full flex-col overflow-hidden">
         <div className="absolute inset-0 hero-overlay">
           <Image
             src="/images/hero-background.jpg"
@@ -27,25 +27,22 @@ export function Hero() {
           />
         </div>
 
-        <div className="relative hero-content z-10 text-center text-white">
-          <div className="max-w-4xl">
-            <h1 className="hero-title mb-4 font-semibold text-white">
+        <div className="page-container relative z-10 flex h-full flex-shrink-0 flex-col justify-between pt-24 pb-10 text-white lg:pt-32 lg:pb-13">
+          <div className="mx-auto max-w-4xl text-center">
+            <h1 className="hero-title font-semibold text-white lg:mb-2">
               VINA WPC
             </h1>
-            <p className="text-2xl leading-[1.25em] font-normal tracking-[0.01em] text-white md:text-3xl">
+            <p style={{ fontSize: 'clamp(1rem, 0.6479rem + 1.5023vw, 2rem)' }}>
               Bền vững từ tâm - nâng tầm cuộc sống
             </p>
           </div>
-        </div>
-        <div className="page-container absolute bottom-15 flex items-end justify-between">
-          <div className="">
+          <div className="flex items-center justify-between gap-4">
             <PageIndicator
               currentPage={currentPage}
               totalPages={4}
               onPageChange={setCurrentPage}
             />
-          </div>
-          <div className="">
+
             <PageNavigator
               onPrevious={() => setCurrentPage(currentPage - 1)}
               onNext={() => setCurrentPage(currentPage + 1)}

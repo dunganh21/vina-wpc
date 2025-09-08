@@ -95,14 +95,13 @@ const ShareButtons = ({
 export function BlogDetailPage({
   post,
   relatedPosts = [],
-  className,
 }: BlogDetailPageProps) {
   return (
-    <div className={cn('w-full', className)}>
+    <section className="w-full pt-6 lg:pt-44">
       {/* Blog Content Container - Max width 900px */}
-      <div className="mx-auto w-full max-w-[900px] px-4 py-6 lg:py-12">
+      <div className="mx-auto mb-6 w-full max-w-[900px] space-y-2 lg:mb-14 lg:space-y-6">
         {/* 1. Breadcrumb */}
-        <div className="mb-8 flex max-w-[80%] items-center gap-1 text-secondary">
+        <div className="flex max-w-[80%] items-center gap-1 text-secondary">
           <span className="subtitle-2 shrink-0 text-primary">Trang chủ</span>
           <span className="subtitle-2 text-primary">/</span>
           <span className="subtitle-2 text-primary">Blog</span>
@@ -113,13 +112,13 @@ export function BlogDetailPage({
         </div>
 
         {/* 2. Subject */}
-        <div className="mb-6 space-y-3 lg:mb-8 lg:space-y-4">
+        <div className="space-y-3 lg:space-y-4">
           <h1 className="h2">{post.subject}</h1>
         </div>
       </div>
 
       {/* 3. Image - Full Width with preserved aspect ratio */}
-      <div className="mb-4 w-full 2xl:mb-16">
+      <div className="mb-4 w-full 2xl:mb-15">
         <div className="aspect-[16/9] w-full overflow-hidden lg:aspect-[21/9]">
           <Image
             src={post.image}
@@ -181,7 +180,7 @@ export function BlogDetailPage({
 
       {/* Related Articles - Optional */}
       {relatedPosts.length > 0 && (
-        <div className="mx-auto w-full max-w-[900px] px-4 py-12 lg:py-16">
+        <div className="mx-auto w-full max-w-[900px] py-18 lg:py-[200px]">
           <div className="space-y-6 lg:space-y-8">
             {/* Section Title */}
             <h2 className="text-2xl font-semibold text-neutral lg:text-[32px] lg:leading-[37px]">
@@ -205,6 +204,6 @@ export function BlogDetailPage({
           </div>
         </div>
       )}
-    </div>
+    </section>
   );
 }

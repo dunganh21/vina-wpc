@@ -33,7 +33,7 @@ const features = [
 
 export function WhyChooseUs() {
   return (
-    <section className="px-6 py-16 lg:py-20">
+    <section className="py-6 lg:py-16">
       <div className="page-container">
         {/* Mobile Layout */}
         <div className="space-y-6 lg:hidden">

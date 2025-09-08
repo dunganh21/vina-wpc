@@ -80,7 +80,7 @@ export function CustomerReviews({
   };
 
   return (
-    <section className={`bg-white py-8 lg:py-16 ${className}`}>
+    <section className={`bg-white py-6 lg:py-16 ${className}`}>
       <div className="page-container">
         {/* 4-Column Layout */}
         <div className="grid grid-cols-1 gap-8 lg:grid-cols-4 lg:gap-0">

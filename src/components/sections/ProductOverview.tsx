@@ -4,7 +4,7 @@ import Image from 'next/image';
 
 export function ProductOverview() {
   return (
-    <section className="pt-10 pb-6">
+    <section className="pt-10 pb-6 lg:pb-15">
       {/* Content */}
       <div className="relative h-[717px] overflow-hidden lg:h-[1000px]">
         {/* Background Image */}

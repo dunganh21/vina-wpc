@@ -64,6 +64,14 @@
     overscroll-behavior: none;
     overscroll-behavior-x: none;
     overscroll-behavior-y: none;
+    /* Keep stable scrollbar gutter for main page to prevent layout shift */
+    scrollbar-gutter: stable;
+  }
+
+  /* Remove scrollbar gutter for modal dialogs specifically */
+  dialog.modal {
+    scrollbar-gutter: auto;
+    overflow: hidden;
   }
 
   /* Inter Tight - Vietnamese + Latin */
@@ -260,7 +268,8 @@
     }
 
     /* List styling using responsive sizes from base layer */
-    ul, ol {
+    ul,
+    ol {
       margin-bottom: clamp(12px, 4vw, 21px);
     }
 
@@ -274,7 +283,7 @@
 
     /* Quote styling using responsive sizes from base layer */
     blockquote {
-      @apply relative bg-[#424c43] text-white font-primary font-normal;
+      @apply relative bg-[#424c43] font-primary font-normal text-white;
       /* Copy from .body-1 in base layer */
       font-size: clamp(1rem, 0.95rem + 0.188vw, 1.125rem);
       line-height: 1.2778em;

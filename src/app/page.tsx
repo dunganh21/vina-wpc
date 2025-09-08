@@ -7,6 +7,7 @@ import {
   ProductCategories,
   NewsSection,
 } from '@/components/sections';
+import { AboutIntroHero } from '@/components/sections/AboutIntroHero';
 
 export default function Home() {
   return (
@@ -20,7 +21,8 @@ export default function Home() {
       <ProductOverview />
 
       <ProductCategories />
-      <AboutIntro />
+
+      <AboutIntroHero />
 
       <NewsSection />
     </main>

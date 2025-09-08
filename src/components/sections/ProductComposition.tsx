@@ -32,9 +32,9 @@ const compositionLayers = [
 
 export function ProductComposition() {
   return (
-    <section className="page-container py-12 lg:py-16">
+    <section className="page-container py-6 lg:py-16">
       <div className="flex flex-col lg:flex-row">
-        <h2 className="h3 lg:flex-[0_0_25%]">Cấu tạo sản phẩm</h2>
+        <h3 className="lg:flex-[0_0_25%]">Cấu tạo sản phẩm</h3>
 
         <div className="relative aspect-square w-full flex-1 overflow-hidden bg-base-200">
           <Image
@@ -85,9 +85,6 @@ export function ProductComposition() {
               </div>
             </div>
           ))}
-
-          {/* Final separator line */}
-          <div className="h-px w-full bg-base-300"></div>
         </div>
       </div>
     </section>

@@ -34,7 +34,7 @@ export function ProductImageGallery({
   className = '',
 }: ProductImageGalleryProps) {
   return (
-    <section className={`bg-white py-8 lg:py-16 ${className}`}>
+    <section className={`bg-white py-6 lg:py-16 ${className}`}>
       <div className="page-container">
         <div className="flex flex-col gap-6">
           {/* Main Large Image */}

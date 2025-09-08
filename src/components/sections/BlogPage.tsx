@@ -126,7 +126,7 @@ export function BlogPage({ className }: BlogPageProps) {
       </div>
 
       {/* Blog Grid */}
-      <div className="page-container pb-16">
+      <div className="page-container pb-10 lg:pb-16">
         <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
           {mockBlogPosts
             .slice((currentPage - 1) * postsPerPage, currentPage * postsPerPage)
@@ -145,7 +145,7 @@ export function BlogPage({ className }: BlogPageProps) {
         </div>
 
         {/* Pagination */}
-        <div className="mt-12 flex justify-start">
+        <div className="mt-4 flex justify-start lg:mt-12">
           <Pagination
             currentPage={currentPage}
             totalPages={totalPages}

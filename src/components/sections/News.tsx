@@ -49,7 +49,7 @@ const selectedNews = [
 
 export function NewsSection() {
   return (
-    <section className="pt-6 pb-18 lg:pt-11 lg:pb-22">
+    <section className="pt-7 pb-18 lg:pt-9 lg:pb-22">
       <div className="page-container">
         {/* Header */}
         <div className="mb-4 flex items-center justify-between lg:mb-5">

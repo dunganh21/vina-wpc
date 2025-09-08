@@ -3,11 +3,11 @@
 export function AddressSection() {
   return (
     <section className="page-container bg-white">
-      <div className="flex flex-col py-5 lg:flex-row">
+      <div className="flex flex-col py-6 lg:flex-row lg:py-15">
         {/* First Column: Address Title (25%) */}
-        <div className="mb-8 w-full lg:mb-0 lg:w-1/4">
+        <div className="mb-4 w-full lg:mb-0 lg:w-1/4">
           <div className="pr-8">
-            <h2 className="h2">Địa chỉ</h2>
+            <h2 className="h2 max-sm:text-[20px]">Địa chỉ</h2>
           </div>
         </div>
 

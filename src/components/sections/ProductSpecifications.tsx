@@ -40,8 +40,8 @@ export function ProductSpecifications({
   className = '',
 }: ProductSpecificationsProps) {
   return (
-    <section className={`bg-white pt-0 pb-8 lg:pb-16 ${className}`}>
-      <div className="page-container py-8 lg:py-16">
+    <section className={`bg-white py-5 lg:py-15 ${className}`}>
+      <div className="page-container">
         <div className="flex flex-col gap-8 lg:flex-row lg:gap-43">
           {/* Title Column */}
           <div className="flex w-full max-w-lg flex-shrink-0 justify-start lg:w-1/3 lg:max-w-md lg:justify-end">

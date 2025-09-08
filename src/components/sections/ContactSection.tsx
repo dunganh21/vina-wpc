@@ -14,12 +14,12 @@ export function ContactSection() {
   return (
     <section className="page-container bg-white">
       {/* 4-Column Flex Layout */}
-      <div className="flex min-h-screen">
+      <div className="flex">
         {/* Column 1: Content (25%) */}
-        <div className="min-h-screen w-full lg:w-1/4">
-          <div className="space-y-6 py-20 lg:py-[81px]">
+        <div className="w-full lg:min-h-screen lg:w-1/4">
+          <div className="space-y-2 py-6 lg:space-y-6 lg:py-[81px]">
             {/* Breadcrumb */}
-            <nav className="flex items-center gap-0.5 subtitle-2 text-secondary">
+            <nav className="subtitle-2 flex items-center gap-0.5 text-secondary">
               <span>Trang chủ</span>
               <span>/</span>
               <span className="opacity-50">Liên hệ</span>
@@ -27,9 +27,7 @@ export function ContactSection() {
 
             {/* Page Title */}
             <div className="space-y-4">
-              <h1 className="h1 text-primary">
-                Liên hệ
-              </h1>
+              <h1 className="text-primary max-sm:text-[24px]">Liên hệ</h1>
             </div>
 
             {/* Action Buttons */}
@@ -37,7 +35,7 @@ export function ContactSection() {
               <div className="flex flex-wrap gap-1">
                 <button
                   className={cn(
-                    'transform cursor-pointer px-2.5 py-1.5 body-3 transition-all duration-300 ease-in-out hover:scale-105',
+                    'body-3 transform cursor-pointer px-2.5 py-1.5 transition-all duration-300 ease-in-out hover:scale-105',
                     formMode === 0
                       ? 'bg-secondary text-white shadow-lg'
                       : 'bg-base-200 text-primary hover:bg-gray-100'
@@ -48,7 +46,7 @@ export function ContactSection() {
                 </button>
                 <button
                   className={cn(
-                    'transform cursor-pointer px-2.5 py-1.5 body-3 transition-all duration-300 ease-in-out hover:scale-105',
+                    'body-3 transform cursor-pointer px-2.5 py-1.5 transition-all duration-300 ease-in-out hover:scale-105',
                     formMode === 1
                       ? 'bg-secondary text-white shadow-lg'
                       : 'bg-base-200 text-primary hover:bg-gray-100'
@@ -71,10 +69,8 @@ export function ContactSection() {
                 <div className="border border-base-200 bg-white p-4">
                   <div className="flex items-center justify-between">
                     <div className="flex-1">
-                      <h3 className="h5 text-primary">
-                        Giỏ hàng
-                      </h3>
-                      <div className="flex items-center gap-1 body-3 text-secondary">
+                      <h3 className="h5 text-primary">Giỏ hàng</h3>
+                      <div className="body-3 flex items-center gap-1 text-secondary">
                         <span>1 sản phẩm</span>
                         <div className="size-1 rounded-full bg-secondary" />
                         <span>34.000.000đ</span>

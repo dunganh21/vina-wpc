@@ -40,7 +40,7 @@ const featuredProducts = [
 
 export function ProductPopular() {
   return (
-    <section className="pt-6 pb-10 lg:py-16">
+    <section className="pt-7 pb-10 lg:py-11">
       <div className="page-container">
         {/* Section Header */}
         <div className="mb-5 flex flex-row items-end justify-between lg:mb-7">
@@ -72,7 +72,7 @@ export function ProductPopular() {
         </div>
 
         {/* Mobile "Xem tất cả" button */}
-        <div className="mb-6 flex justify-start lg:hidden">
+        <div className="flex justify-start lg:hidden">
           <Button
             className="px-8 py-4"
             onClick={() => console.log('View all products')}

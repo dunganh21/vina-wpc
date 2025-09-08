@@ -117,7 +117,7 @@ export function ShoppingCart({
   }, [showCart, onClose]);
 
   return (
-    <dialog id="cart_modal" className="modal modal-top lg:modal-end">
+    <dialog id="cart_modal" className="modal modal-top lg:modal-end p-0 m-0">
       <div className="modal-box m-0 mt-0 h-auto max-h-[85vh] w-full rounded-none bg-white shadow-elevated lg:ml-auto lg:h-screen lg:max-h-screen">
         <div className="flex h-full flex-col gap-4">
           {/* Header */}

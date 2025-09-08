@@ -40,11 +40,11 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
         : variant;
 
     return (
-      <div className="flex w-full flex-col gap-2">
+      <div className="flex h-full max-h-20 w-full flex-col gap-2">
         {/* Input Container */}
         <div
           className={cn(
-            'relative flex items-center gap-2 px-4 py-4',
+            'relative flex items-center gap-2 px-2 py-2 lg:px-4 lg:py-4',
             {
               // Default state with focus behavior
               'border border-gray bg-white focus-within:border-2 focus-within:border-primary':

@@ -26,7 +26,7 @@ export function Button({
 }: ButtonProps) {
   const getButtonStyles = () => {
     const baseStyles =
-      'inline-flex cursor-pointer items-center justify-center gap-2 px-8 py-4 font-primary font-normal transition-all duration-200 rounded-none hover:opacity-90 active:opacity-100';
+      'inline-flex cursor-pointer items-center justify-center gap-2 px-8 py-4 font-primary font-normal transition-all duration-200 rounded-none';
 
     // Handle disabled state
     if (disabled || state === 'disabled') {
@@ -65,9 +65,10 @@ export function Button({
 
     // White variant styles (for dark backgrounds)
     if (variant === 'white') {
-      return cn(baseStyles, 'bg-white text-neutral', {
-        'bg-secondary text-white': state === 'hover' || state === 'pressed',
-      });
+      return cn(
+        baseStyles,
+        'bg-white text-neutral hover:bg-secondary hover:text-white active:bg-secondary active:text-white'
+      );
     }
 
     return baseStyles;
