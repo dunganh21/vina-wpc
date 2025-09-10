@@ -1,9 +1,10 @@
 'use client';
 
-import React, { useState } from 'react';
+import { useScrollReveal } from '@/hooks/useScrollReveal';
+import { cn } from '@/lib/utils';
 import Image from 'next/image';
 import Link from 'next/link';
-import { cn } from '@/lib/utils';
+import { useState } from 'react';
 import { Button } from './Button';
 import { ButtonIcon } from './ButtonIcon';
 import { ColorOption } from './ColorOption';
@@ -26,6 +27,8 @@ interface ProductCardProps {
   onAddToCart?: () => void;
   onBuyNow?: () => void;
   className?: string;
+  staggerDelay?: number;
+  elementType?: 'text' | 'image' | 'card' | 'background' | 'ui';
 }
 
 export function ProductCard({
@@ -40,11 +43,20 @@ export function ProductCard({
   onAddToCart,
   onBuyNow,
   className,
+  staggerDelay = 0,
+  elementType = 'card',
 }: ProductCardProps) {
   const [isHovered, setIsHovered] = useState(false);
   const [selectedColor, setSelectedColor] = useState(
     colors.find((color) => color.selected)?.id || colors[0]?.id || ''
   );
+
+  // Add scroll reveal animation
+  const { ref } = useScrollReveal<HTMLDivElement>({
+    animationClass: 'animate-product-card',
+    staggerDelay,
+    elementType,
+  });
 
   const handleColorSelect = (colorId: string) => {
     setSelectedColor(colorId);
@@ -53,6 +65,7 @@ export function ProductCard({
 
   const CardContent = (
     <div
+      ref={ref}
       className={cn(
         'group cursor-pointer border border-black/10 bg-white shadow-card transition-all duration-300',
         'hover:-translate-y-1 hover:shadow-elevated',
@@ -93,8 +106,6 @@ export function ProductCard({
             e.stopPropagation();
             onBuyNow?.();
           }}
-          variant="white"
-          mode="dark"
           className={cn(
             'absolute right-4 bottom-4 left-4 hidden shadow-sm transition-all duration-300 lg:block',
             isHovered

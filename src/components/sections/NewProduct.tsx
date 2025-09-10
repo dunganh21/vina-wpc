@@ -4,9 +4,26 @@ import { useState } from 'react';
 import Image from 'next/image';
 import { ProductTooltipCard } from '@/components/ui/ProductTooltipCard';
 import { ColorOption } from '@/components/ui/ColorOption';
+import { useScrollReveal } from '@/hooks/useScrollReveal';
 
 export function NewProduct() {
   const [selectedColor, setSelectedColor] = useState('1');
+
+  // Animation refs - Reduced delays for better flow
+  const { ref: contentRef } = useScrollReveal<HTMLDivElement>({ 
+    animationClass: 'animate-slide-left',
+    staggerDelay: 0,
+    elementType: 'text'
+  });
+  const { ref: imageRef } = useScrollReveal<HTMLDivElement>({ 
+    animationClass: 'animate-product-card',
+    staggerDelay: 100,
+    elementType: 'background'
+  });
+  const { ref: tooltipRef } = useScrollReveal<HTMLDivElement>({ 
+    staggerDelay: 200,
+    elementType: 'card'
+  });
 
   const colors = [
     { id: '1', color: '#9F8760' },
@@ -23,7 +40,7 @@ export function NewProduct() {
         {/* Single Responsive Layout: Flexible Row with Wrap */}
         <div className="flex flex-row flex-wrap gap-11 lg:items-start lg:gap-16 xl:gap-24">
           {/* Content Section */}
-          <div className="w-full space-y-4 lg:w-80 lg:space-y-6 xl:w-96">
+          <div ref={contentRef} className="w-full space-y-4 lg:w-80 lg:space-y-6 xl:w-96 animate-slide-left">
             {/* Header */}
             <div className="space-y-2 lg:space-y-3">
               <h2 className="subtitle-2">Sản phẩm mới</h2>
@@ -53,7 +70,7 @@ export function NewProduct() {
           {/* Image Section with Overlay Card */}
           <div className="relative flex-1">
             {/* Responsive Image Container */}
-            <div className="relative aspect-[1.3/1] overflow-hidden bg-base-200 lg:aspect-[3/2]">
+            <div ref={imageRef} className="relative aspect-[1.3/1] overflow-hidden bg-base-200 lg:aspect-[3/2] animate-product-card">
               <Image
                 src="/images/hero-bg.jpg"
                 alt="Wood paneling in modern interior"
@@ -65,7 +82,7 @@ export function NewProduct() {
             </div>
 
             {/* Responsive Overlay Product Card */}
-            <div className="absolute -top-6 right-0 lg:top-[12%] lg:left-[25%]">
+            <div ref={tooltipRef} className="absolute -top-6 right-0 lg:top-[12%] lg:left-[25%] animate-on-scroll">
               <ProductTooltipCard
                 image="/images/product-test.jpg"
                 title="Scandinavian Light"

@@ -5,11 +5,11 @@ import { Input } from '@/components/ui/Input';
 import { TextArea } from '@/components/ui/TextArea';
 import { Select } from '@/components/ui/Select';
 import { cn } from '@/lib/utils';
-import Image from 'next/image';
 import { useState } from 'react';
 
 export function ContactSection() {
   const [formMode, setFormMode] = useState<0 | 1>(0);
+
 
   return (
     <section className="page-container bg-white">
@@ -152,10 +152,7 @@ export function ContactSection() {
                     />
 
                     {/* Submit Button */}
-                    <Button
-                      type="submit"
-                      className="w-full bg-primary text-white hover:bg-primary/90"
-                    >
+                    <Button type="submit" className="w-full">
                       Nhận tư vấn
                     </Button>
                   </div>
@@ -189,10 +186,7 @@ export function ContactSection() {
                     />
 
                     {/* Submit Button */}
-                    <Button
-                      type="submit"
-                      className="w-full bg-primary text-white hover:bg-primary/90"
-                    >
+                    <Button type="submit" className="w-full">
                       Nhận tư vấn
                     </Button>
                   </div>
@@ -207,14 +201,7 @@ export function ContactSection() {
 
         {/* Columns 3-4: Hero Image (50%) - Desktop only */}
         <div className="hidden lg:block lg:w-1/2">
-          <div className="relative h-full w-full">
-            <Image
-              src="/images/blog-hero.jpg"
-              alt="Manufacturing facility"
-              fill
-              className="object-cover"
-            />
-          </div>
+          <div className="relative h-full w-full bg-cover bg-center bg-no-repeat" style={{ backgroundImage: `url('/images/blog-hero.jpg')` }} />
         </div>
       </div>
 

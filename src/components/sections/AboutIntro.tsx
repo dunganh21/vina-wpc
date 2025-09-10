@@ -1,25 +1,37 @@
+'use client';
+
 import Image from 'next/image';
+import { useScrollReveal } from '@/hooks/useScrollReveal';
 
 export function AboutIntro() {
+  // Animation refs
+  const { ref: breadcrumbRef } = useScrollReveal<HTMLDivElement>({ staggerDelay: 0 });
+  const { ref: headingRef } = useScrollReveal<HTMLHeadingElement>({ staggerDelay: 200 });
+  const { ref: contentRef } = useScrollReveal<HTMLDivElement>({ staggerDelay: 400 });
+  const { ref: imageRef } = useScrollReveal<HTMLDivElement>({ 
+    animationClass: 'animate-product-card',
+    staggerDelay: 600 
+  });
+
   return (
     <section className="page-container py-6 lg:py-0">
       {/* Flex Layout - Column on mobile, Row on desktop */}
       <div className="flex flex-col space-y-2 lg:flex-row lg:items-start">
         {/* Column 1 - Heading */}
         <div className="space-y-2 lg:flex-[0_0_25%] lg:space-y-3 lg:pt-20">
-          <div className="flex items-center gap-1">
+          <div ref={breadcrumbRef} className="flex items-center gap-1 animate-on-scroll">
             <span className="subtitle-2 text-inherit">Trang chủ</span>
             <span className="opacity-50">/</span>
             <span className="subtitle-2 text-inherit opacity-50">
               Giới thiệu
             </span>
           </div>
-          <h2 className="lg:w-[80%]">Bền vững từ tâm nâng tầm cuộc sống</h2>
+          <h2 ref={headingRef} className="lg:w-[80%] animate-on-scroll">Bền vững từ tâm nâng tầm cuộc sống</h2>
         </div>
 
         {/* Column 2 - Content */}
         <div className="lg:flex-[0_0_25%] lg:pt-30">
-          <div className="body-2 mb-8 space-y-4 lg:mb-0 lg:w-[75%] lg:space-y-3">
+          <div ref={contentRef} className="body-2 mb-8 space-y-4 lg:mb-0 lg:w-[75%] lg:space-y-3 animate-on-scroll">
             <p>
               Một doanh nghiệp mới thành lập không chỉ khát khao được giới thiệu
               sản phẩm của mình đến với thị trường, đối với chúng tôi hơn hết là
@@ -50,7 +62,7 @@ export function AboutIntro() {
 
         {/* Column 3 - Image (1/2 container width on desktop) */}
         <div className="overflow-hidden lg:flex-1 lg:pt-30 2xl:pt-0">
-          <div className="relative aspect-[1/1] w-full">
+          <div ref={imageRef} className="relative aspect-[1/1] w-full animate-product-card">
             <Image
               src="/images/house.jpg"
               alt="VINA WPC Factory"

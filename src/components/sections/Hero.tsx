@@ -16,7 +16,7 @@ export function Hero() {
             src="/images/hero-background.jpg"
             alt="VINA WPC Hero Background"
             fill
-            className="object-cover"
+            className="object-cover animate-hero-bg"
             priority
           />
           <div
@@ -29,14 +29,14 @@ export function Hero() {
 
         <div className="page-container relative z-10 flex h-full flex-shrink-0 flex-col justify-between pt-24 pb-10 text-white lg:pt-32 lg:pb-13">
           <div className="mx-auto max-w-4xl text-center">
-            <h1 className="hero-title font-semibold text-white lg:mb-2">
+            <h1 className="hero-title font-semibold text-white lg:mb-2 animate-hero-title">
               VINA WPC
             </h1>
-            <p style={{ fontSize: 'clamp(1rem, 0.6479rem + 1.5023vw, 2rem)' }}>
+            <p className="animate-hero-subtitle" style={{ fontSize: 'clamp(1rem, 0.6479rem + 1.5023vw, 2rem)' }}>
               Bền vững từ tâm - nâng tầm cuộc sống
             </p>
           </div>
-          <div className="flex items-center justify-between gap-4">
+          <div className="flex items-center justify-between gap-4 animate-hero-nav">
             <PageIndicator
               currentPage={currentPage}
               totalPages={4}

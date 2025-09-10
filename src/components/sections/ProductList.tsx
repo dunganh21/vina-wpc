@@ -194,10 +194,12 @@ export function ProductList() {
                 showFilters ? 'grid-cols-3' : 'grid-cols-4'
               )}
             >
-              {products.map((product) => (
+              {products.map((product, index) => (
                 <ProductCard
                   key={product.id}
                   {...product}
+                  staggerDelay={index * 50}
+                  elementType="card"
                   onAddToCart={() => console.log('Add to cart:', product.title)}
                   onBuyNow={() => console.log('Buy now:', product.title)}
                 />
@@ -209,10 +211,12 @@ export function ProductList() {
         {/* Mobile Layout - Products Only */}
         <div className="mb-8 lg:hidden">
           <div className="grid grid-cols-2 gap-2">
-            {products.map((product) => (
+            {products.map((product, index) => (
               <ProductCard
                 key={product.id}
                 {...product}
+                staggerDelay={index * 50}
+                elementType="card"
                 onAddToCart={() => console.log('Add to cart:', product.title)}
                 onBuyNow={() => console.log('Buy now:', product.title)}
               />

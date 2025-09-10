@@ -62,10 +62,12 @@ export function ProductPopular() {
 
         {/* Product Grid */}
         <div className="mb-8 grid grid-cols-2 gap-2 lg:mb-12 lg:grid-cols-4 lg:gap-7">
-          {featuredProducts.map((product) => (
+          {featuredProducts.map((product, index) => (
             <ProductCard
               key={product.id}
               {...product}
+              staggerDelay={index * 80}
+              elementType="card"
               onAddToCart={() => console.log('Add to cart:', product.title)}
             />
           ))}

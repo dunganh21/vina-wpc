@@ -3,6 +3,7 @@
 import { NewsCard } from '@/components/ui/NewsCard';
 import { Button } from '@/components/ui/Button';
 import { ButtonIcon, PageIndicator } from '../ui';
+import { useScrollReveal } from '@/hooks/useScrollReveal';
 
 const selectedNews = [
   {
@@ -48,11 +49,30 @@ const selectedNews = [
 ];
 
 export function NewsSection() {
+  // Animation refs - Reduced delays for faster feel
+  const { ref: headerRef } = useScrollReveal<HTMLDivElement>({ 
+    staggerDelay: 0,
+    elementType: 'text'
+  });
+  const { ref: controlsRef } = useScrollReveal<HTMLDivElement>({ 
+    staggerDelay: 200,
+    elementType: 'ui'
+  });
+  
+  // Individual animation refs for each news card - Much faster stagger
+  const cardRefs = selectedNews.map((_, index) => 
+    // eslint-disable-next-line react-hooks/rules-of-hooks
+    useScrollReveal<HTMLDivElement>({ 
+      staggerDelay: 100 + (index * 80), // 100ms base delay + 80ms between cards
+      elementType: 'card'
+    })
+  );
+
   return (
     <section className="pt-7 pb-18 lg:pt-9 lg:pb-22">
       <div className="page-container">
         {/* Header */}
-        <div className="mb-4 flex items-center justify-between lg:mb-5">
+        <div ref={headerRef} className="mb-4 flex items-center justify-between lg:mb-5 animate-on-scroll">
           <h2 className="h2">Tin tức</h2>
           <Button
             onClick={() => console.log('View all articles')}
@@ -64,19 +84,20 @@ export function NewsSection() {
 
         {/* News Grid */}
         <div className="mb-6 grid grid-cols-1 gap-4 md:grid-cols-2 lg:mb-12 lg:gap-8 xl:grid-cols-4">
-          {selectedNews.map((article) => (
-            <NewsCard
-              key={article.id}
-              title={article.title}
-              excerpt={article.excerpt}
-              date={article.date}
-              category={article.category}
-              imageUrl={article.imageUrl}
-              readTime={article.readTime}
-              onReadMore={() =>
-                console.log(`Reading article: ${article.title}`)
-              }
-            />
+          {selectedNews.map((article, index) => (
+            <div key={article.id} ref={cardRefs[index].ref} className="animate-on-scroll">
+              <NewsCard
+                title={article.title}
+                excerpt={article.excerpt}
+                date={article.date}
+                category={article.category}
+                imageUrl={article.imageUrl}
+                readTime={article.readTime}
+                onReadMore={() =>
+                  console.log(`Reading article: ${article.title}`)
+                }
+              />
+            </div>
           ))}
         </div>
 
@@ -90,7 +111,7 @@ export function NewsSection() {
           </Button>
         </div>
 
-        <div className="hidden items-center justify-between lg:flex">
+        <div ref={controlsRef} className="hidden items-center justify-between lg:flex animate-on-scroll">
           {/* Pagination Dots */}
           <PageIndicator
             currentPage={1}

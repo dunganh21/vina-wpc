@@ -6,6 +6,7 @@ import { NewsCard } from '@/components/ui/NewsCard';
 import { Input } from '@/components/ui/Input';
 import Pagination from '@/components/ui/Pagination';
 import Image from 'next/image';
+import { useScrollReveal } from '@/hooks/useScrollReveal';
 
 interface BlogPost {
   id: string;
@@ -50,6 +51,24 @@ export function BlogPage({ className }: BlogPageProps) {
   const postsPerPage = 12;
   const totalPages = Math.ceil(mockBlogPosts.length / postsPerPage);
 
+  // Animation refs
+  const { ref: headerRef } = useScrollReveal<HTMLDivElement>({ 
+    elementType: 'text',
+    staggerDelay: 0 
+  });
+  const { ref: searchRef } = useScrollReveal<HTMLDivElement>({ 
+    elementType: 'ui',
+    staggerDelay: 100 
+  });
+  const { ref: filtersRef } = useScrollReveal<HTMLDivElement>({ 
+    elementType: 'ui',
+    staggerDelay: 200 
+  });
+  const { ref: gridRef } = useScrollReveal<HTMLDivElement>({ 
+    elementType: 'card',
+    staggerDelay: 300 
+  });
+
   const handlePageChange = (page: number) => {
     setCurrentPage(page);
   };
@@ -71,7 +90,7 @@ export function BlogPage({ className }: BlogPageProps) {
       {/* Header Section */}
       <div className="page-container space-y-4 py-8 lg:space-y-4 lg:py-12">
         {/* Breadcrumb */}
-        <div className="flex items-center gap-1 text-secondary">
+        <div ref={headerRef} className="flex items-center gap-1 text-secondary animate-on-scroll">
           <span className="subtitle-2 text-primary">Trang chủ</span>
           <span className="subtitle-2 text-primary">/</span>
           <span className="subtitle-2 text-primary opacity-50">Blog</span>
@@ -83,7 +102,7 @@ export function BlogPage({ className }: BlogPageProps) {
         </h1>
 
         {/* Search Bar */}
-        <div className="w-full max-w-none">
+        <div ref={searchRef} className="w-full max-w-none animate-on-scroll">
           <Input
             type="search"
             placeholder="Tìm kiếm"
@@ -105,7 +124,7 @@ export function BlogPage({ className }: BlogPageProps) {
         </div>
 
         {/* Filter Tags */}
-        <div className="flex flex-wrap gap-1">
+        <div ref={filtersRef} className="flex flex-wrap gap-1 animate-on-scroll">
           {filterCategories.map((category) => (
             <button
               key={category}
@@ -127,7 +146,7 @@ export function BlogPage({ className }: BlogPageProps) {
 
       {/* Blog Grid */}
       <div className="page-container pb-10 lg:pb-16">
-        <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+        <div ref={gridRef} className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 animate-on-scroll">
           {mockBlogPosts
             .slice((currentPage - 1) * postsPerPage, currentPage * postsPerPage)
             .map((post) => (

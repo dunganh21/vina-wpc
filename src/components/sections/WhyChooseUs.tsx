@@ -1,3 +1,7 @@
+'use client';
+
+import { useScrollReveal } from '@/hooks/useScrollReveal';
+
 const features = [
   {
     title: 'Chuyên môn bạn có thể tin tưởng.',
@@ -32,12 +36,42 @@ const features = [
 ];
 
 export function WhyChooseUs() {
+  // Animation refs for mobile layout - Reduced delays
+  const { ref: mobileHeaderRef } = useScrollReveal<HTMLHeadingElement>({ 
+    staggerDelay: 0,
+    elementType: 'text'
+  });
+  
+  // Individual animation refs for mobile feature items - Faster stagger
+  const mobileFeatureRefs = features.map((_, index) => 
+    // eslint-disable-next-line react-hooks/rules-of-hooks
+    useScrollReveal<HTMLDivElement>({ 
+      staggerDelay: 100 + (index * 80), // 100ms base delay + 80ms between items
+      elementType: 'card'
+    })
+  );
+
+  // Animation refs for desktop layout - Reduced delays
+  const { ref: desktopHeaderRef } = useScrollReveal<HTMLHeadingElement>({ 
+    staggerDelay: 0,
+    elementType: 'text'
+  });
+  
+  // Individual animation refs for desktop feature rows - Faster stagger
+  const desktopFeatureRefs = features.map((_, index) => 
+    // eslint-disable-next-line react-hooks/rules-of-hooks
+    useScrollReveal<HTMLDivElement>({ 
+      staggerDelay: 100 + (index * 80), // 100ms base delay + 80ms between rows
+      elementType: 'card'
+    })
+  );
+
   return (
     <section className="py-6 lg:py-16">
       <div className="page-container">
         {/* Mobile Layout */}
         <div className="space-y-6 lg:hidden">
-          <h2 className="h2">
+          <h2 ref={mobileHeaderRef} className="h2 animate-on-scroll">
             Tại sao bạn nên chọn
             <br />
             VINA WPC
@@ -45,7 +79,7 @@ export function WhyChooseUs() {
 
           <div className="space-y-4">
             {features.map((feature, index) => (
-              <div key={index}>
+              <div key={index} ref={mobileFeatureRefs[index].ref} className="animate-on-scroll">
                 <div className="space-y-2">
                   <h3
                     className="h6"
@@ -68,11 +102,15 @@ export function WhyChooseUs() {
           {/* Feature Rows */}
           <div className="space-y-6">
             {features.map((feature, index) => (
-              <div key={index}>
+              <div key={index} ref={desktopFeatureRefs[index].ref} className="animate-on-scroll">
                 <div className="flex items-start">
                   {/* Empty Column 1 (for alignment with header) */}
                   <div className="flex-1">
-                    {index === 0 && <h3>Tại sao bạn nên chọn VINA WPC</h3>}
+                    {index === 0 && (
+                      <h3 ref={desktopHeaderRef} className="animate-on-scroll">
+                        Tại sao bạn nên chọn VINA WPC
+                      </h3>
+                    )}
                   </div>
 
                   {/* Feature Title - Column 2 */}

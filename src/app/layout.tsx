@@ -3,6 +3,7 @@ import { Header } from '@/components/layout/Header';
 import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
 import './globals.css';
+import '../styles/animations.css';
 
 const inter = Inter({
   subsets: ['latin', 'vietnamese'],

@@ -3,6 +3,7 @@
 import { cn } from '@/lib/utils';
 import Image from 'next/image';
 import { NewsCard } from '@/components/ui/NewsCard';
+import { useScrollReveal } from '@/hooks/useScrollReveal';
 
 interface BlogPost {
   id: string;
@@ -96,12 +97,37 @@ export function BlogDetailPage({
   post,
   relatedPosts = [],
 }: BlogDetailPageProps) {
+  // Animation refs
+  const { ref: breadcrumbRef } = useScrollReveal<HTMLDivElement>({ 
+    elementType: 'text',
+    staggerDelay: 0 
+  });
+  const { ref: titleRef } = useScrollReveal<HTMLDivElement>({ 
+    elementType: 'text',
+    staggerDelay: 100 
+  });
+  const { ref: imageRef } = useScrollReveal<HTMLDivElement>({ 
+    elementType: 'background',
+    staggerDelay: 200 
+  });
+  const { ref: metaRef } = useScrollReveal<HTMLDivElement>({ 
+    elementType: 'ui',
+    staggerDelay: 300 
+  });
+  const { ref: contentRef } = useScrollReveal<HTMLDivElement>({ 
+    elementType: 'text',
+    staggerDelay: 400 
+  });
+  const { ref: relatedRef } = useScrollReveal<HTMLDivElement>({ 
+    elementType: 'text',
+    staggerDelay: 0 
+  });
   return (
     <section className="w-full pt-6 lg:pt-44">
       {/* Blog Content Container - Max width 900px */}
       <div className="mx-auto mb-6 w-full max-w-[900px] space-y-2 lg:mb-14 lg:space-y-6">
         {/* 1. Breadcrumb */}
-        <div className="flex max-w-[80%] items-center gap-1 text-secondary">
+        <div ref={breadcrumbRef} className="flex max-w-[80%] items-center gap-1 text-secondary animate-on-scroll">
           <span className="subtitle-2 shrink-0 text-primary">Trang chủ</span>
           <span className="subtitle-2 text-primary">/</span>
           <span className="subtitle-2 text-primary">Blog</span>
@@ -112,13 +138,13 @@ export function BlogDetailPage({
         </div>
 
         {/* 2. Subject */}
-        <div className="space-y-3 lg:space-y-4">
+        <div ref={titleRef} className="space-y-3 lg:space-y-4 animate-on-scroll">
           <h1 className="h2">{post.subject}</h1>
         </div>
       </div>
 
       {/* 3. Image - Full Width with preserved aspect ratio */}
-      <div className="mb-4 w-full 2xl:mb-15">
+      <div ref={imageRef} className="mb-4 w-full 2xl:mb-15 animate-on-scroll">
         <div className="aspect-[16/9] w-full overflow-hidden lg:aspect-[21/9]">
           <Image
             src={post.image}
@@ -132,7 +158,7 @@ export function BlogDetailPage({
       </div>
 
       {/* 3.1. Mobile share buttons */}
-      <div className="mx-auto mb-8 flex w-full max-w-[900px] items-center justify-between px-4 2xl:hidden">
+      <div ref={metaRef} className="mx-auto mb-8 flex w-full max-w-[900px] items-center justify-between px-4 2xl:hidden animate-on-scroll">
         <div className="subtitle-3 flex items-center gap-1">
           <span>Gỗ Nhựa WPC</span>
           <span className="inline-block h-1 w-1 bg-primary"></span>
@@ -167,7 +193,7 @@ export function BlogDetailPage({
           </div>
         </div>
 
-        <div className="mx-auto w-full max-w-[900px] px-4">
+        <div ref={contentRef} className="mx-auto w-full max-w-[900px] px-4 animate-on-scroll">
           <div
             className="prose"
             dangerouslySetInnerHTML={{ __html: post.content }}
@@ -180,7 +206,7 @@ export function BlogDetailPage({
 
       {/* Related Articles - Optional */}
       {relatedPosts.length > 0 && (
-        <div className="mx-auto w-full max-w-[900px] py-18 lg:py-[200px]">
+        <div ref={relatedRef} className="mx-auto w-full max-w-[900px] py-18 lg:py-[200px] animate-on-scroll">
           <div className="space-y-6 lg:space-y-8">
             {/* Section Title */}
             <h2 className="text-2xl font-semibold text-neutral lg:text-[32px] lg:leading-[37px]">

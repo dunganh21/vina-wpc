@@ -1,0 +1,144 @@
+/* VINA WPC Animation System - First Appearance Only */
+
+/* Respect user accessibility preferences */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* Premium easing curves */
+:root {
+  --ease-out-quart: cubic-bezier(0.23, 1, 0.32, 1);
+  --ease-out-expo: cubic-bezier(0.19, 1, 0.22, 1);
+}
+
+/* ===== HERO ANIMATIONS ===== */
+
+@keyframes hero-fade-in-up {
+  from {
+    opacity: 0;
+    transform: translateY(40px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes hero-fade-in-up-subtle {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes hero-fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes hero-bg-scale {
+  from {
+    opacity: 0;
+    transform: scale(1.05);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* Hero animation classes */
+.animate-hero-bg {
+  animation: hero-bg-scale 1.2s var(--ease-out-quart) forwards;
+}
+
+.animate-hero-title {
+  opacity: 0;
+  animation: hero-fade-in-up 0.8s var(--ease-out-quart) 0.3s forwards;
+}
+
+.animate-hero-subtitle {
+  opacity: 0;
+  animation: hero-fade-in-up-subtle 0.8s var(--ease-out-quart) 0.6s forwards;
+}
+
+.animate-hero-nav {
+  opacity: 0;
+  animation: hero-fade-in 0.6s var(--ease-out-quart) 0.9s forwards;
+}
+
+/* ===== SCROLL ANIMATIONS ===== */
+/* Keyframes removed - using CSS transitions instead for better performance */
+
+/* Base scroll animation class - initially hidden */
+.animate-on-scroll {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: all 0.8s var(--ease-out-quart);
+}
+
+/* Revealed state when in viewport */
+.animate-on-scroll.animate-in {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Product card specific animation */
+.animate-product-card {
+  opacity: 0;
+  transform: translateY(30px) scale(0.95);
+  transition: all 0.8s var(--ease-out-quart);
+}
+
+.animate-product-card.animate-in {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
+
+/* Content slide in from left */
+.animate-slide-left {
+  opacity: 0;
+  transform: translateX(-30px);
+  transition: all 0.8s var(--ease-out-quart);
+}
+
+.animate-slide-left.animate-in {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+
+
+/* ===== PERFORMANCE OPTIMIZATIONS ===== */
+
+/* Ensure animations use GPU acceleration */
+.animate-hero-bg,
+.animate-hero-title,
+.animate-hero-subtitle,
+.animate-hero-nav,
+.animate-on-scroll,
+.animate-product-card,
+.animate-slide-left {
+  will-change: transform, opacity;
+}
+
+/* Remove will-change after animation completes to free memory */
+.animation-complete {
+  will-change: auto;
+}
+
