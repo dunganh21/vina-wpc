@@ -1,5 +1,7 @@
 import { Footer } from '@/components/layout';
 import { Header } from '@/components/layout/Header';
+import { CartProvider } from '@/lib/cart-context';
+import { ToastProvider } from '@/lib/toast-context';
 import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
 import './globals.css';
@@ -25,9 +27,13 @@ export default function RootLayout({
   return (
     <html lang="vi">
       <body className={`${inter.variable} bg-white font-primary antialiased`}>
-        <Header />
-        {children}
-        <Footer />
+        <ToastProvider>
+          <CartProvider>
+            <Header />
+            {children}
+            <Footer />
+          </CartProvider>
+        </ToastProvider>
       </body>
     </html>
   );

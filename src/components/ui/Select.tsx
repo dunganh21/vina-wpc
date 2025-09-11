@@ -1,177 +1,221 @@
 'use client';
 
+import { useState, useRef, useEffect, useMemo } from 'react';
 import { cn } from '@/lib/utils';
-import { forwardRef, useState } from 'react';
 
-export interface SelectProps
-  extends React.SelectHTMLAttributes<HTMLSelectElement> {
-  placeholder?: string;
-  error?: string;
-  helperText?: string;
-  variant?: 'default' | 'active' | 'error' | 'disabled';
-  options?: { value: string; label: string }[];
+interface SizeSelectorProps {
+  label?: string;
+  options: { label: string; value: string }[];
+  defaultValue?: string;
+  value?: string;
+  className?: string;
+  disabled?: boolean;
+  required?: boolean;
+  name?: string;
+  id?: string;
+  onChange?: (value: string) => void;
+  onSelect?: (value: string, option: { label: string; value: string }) => void;
 }
 
-export const Select = forwardRef<HTMLSelectElement, SelectProps>(
-  (
-    {
-      placeholder,
-      error,
-      helperText,
-      variant = 'default',
-      className,
-      disabled,
-      options = [],
-      value,
-      onChange,
-      ...props
-    },
-    ref
-  ) => {
-    const [isOpen, setIsOpen] = useState(false);
-    const hasError = !!error;
-    const isDisabled = disabled || variant === 'disabled';
+export function Select({
+  label = 'Kích thước',
+  options,
+  defaultValue,
+  value,
+  className,
+  disabled = false,
+  required = false,
+  name,
+  id,
+  onChange,
+  onSelect,
+}: SizeSelectorProps) {
+  const [isOpen, setIsOpen] = useState<boolean>(false);
+  const [selectedValue, setSelectedValue] = useState<string>(
+    value || defaultValue || (required ? options?.[0]?.value : '')
+  );
+  const dropdownRef = useRef<HTMLDivElement>(null);
 
-    // Determine the actual variant based on state
-    const actualVariant = hasError
-      ? 'error'
-      : isDisabled
-        ? 'disabled'
-        : variant;
+  // Handle controlled component
+  useEffect(() => {
+    if (value !== undefined) {
+      setSelectedValue(value);
+    }
+  }, [value]);
 
-    const displayValue = value 
-      ? options.find(option => option.value === value)?.label || placeholder
-      : placeholder;
+  // Auto-close when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (
+        dropdownRef.current &&
+        !dropdownRef.current.contains(event.target as Node)
+      ) {
+        setIsOpen(false);
+      }
+    };
 
+    if (isOpen) {
+      document.addEventListener('mousedown', handleClickOutside);
+      return () =>
+        document.removeEventListener('mousedown', handleClickOutside);
+    }
+  }, [isOpen]);
+
+  // Close on Escape key
+  useEffect(() => {
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') {
+        setIsOpen(false);
+      }
+    };
+
+    if (isOpen) {
+      document.addEventListener('keydown', handleKeyDown);
+      return () => document.removeEventListener('keydown', handleKeyDown);
+    }
+  }, [isOpen]);
+
+  const handleSelect = (selectedOption: string) => {
+    const newValue = selectedOption;
+    setSelectedValue(newValue);
+    setIsOpen(false);
+
+    // Call both callbacks
+    onChange?.(newValue);
+    onSelect?.(newValue, {
+      label:
+        options.find((option) => option.value === selectedOption)?.label ||
+        selectedOption,
+      value: selectedOption,
+    });
+  };
+
+  const handleToggle = () => {
+    if (!disabled) {
+      setIsOpen(!isOpen);
+    }
+  };
+
+  const displayValue = useMemo(() => {
     return (
-      <div className="flex w-full flex-col gap-2">
-        {/* Select Container */}
-        <div
-          className={cn(
-            'relative flex items-center gap-2 px-4 py-4',
-            {
-              // Default state with focus behavior
-              'border border-[#e6e6e6] bg-white focus-within:border-2 focus-within:border-primary':
-                actualVariant === 'default',
+      options.find((option) => option.value === selectedValue)?.label ||
+      selectedValue
+    );
+  }, [selectedValue]);
 
-              // Active/Open state
-              'border-2 border-primary bg-white': actualVariant === 'active' || isOpen,
+  console.log('[DEBUG] / displayValue:', displayValue);
 
-              // Error state
-              'border-2 border-[#d83833] bg-[#fff0f0]':
-                actualVariant === 'error',
+  return (
+    <div
+      className={cn('relative w-full max-w-md', className)}
+      ref={dropdownRef}
+    >
+      {/* Hidden input for form integration */}
+      <input
+        type="hidden"
+        name={name}
+        id={id}
+        value={selectedValue}
+        required={required}
+      />
 
-              // Disabled state
-              'border border-[#e6e6e6] bg-[#f5f5f5]': actualVariant === 'disabled',
-            },
-            className
-          )}
-          onClick={() => !isDisabled && setIsOpen(!isOpen)}
-        >
-          {/* Display Value */}
-          <div className="flex-1">
-            <div 
-              className={cn(
-                'font-normal text-[14px] leading-[19px] text-[#424c43]',
-                {
-                  'opacity-50': actualVariant === 'disabled',
-                  'opacity-70': !value && placeholder,
-                }
-              )}
-              style={{ fontFamily: '"Inter Variable", sans-serif' }}
-            >
-              {displayValue}
-            </div>
-          </div>
-
-          {/* Dropdown Arrow */}
-          <div className="flex-shrink-0">
-            <svg
-              width="24"
-              height="24"
-              viewBox="0 0 24 24"
-              fill="none"
-              className={cn(
-                'text-[#424c43] transition-transform duration-200',
-                {
-                  'rotate-180': isOpen,
-                  'opacity-50': isDisabled,
-                }
-              )}
-            >
-              <path
-                d="M6 9L12 15L18 9"
-                stroke="currentColor"
-                strokeWidth="2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              />
-            </svg>
-          </div>
-
-          {/* Hidden Native Select */}
-          <select
-            ref={ref}
-            disabled={isDisabled}
-            value={value}
-            onChange={onChange}
-            className="absolute inset-0 w-full opacity-0 cursor-pointer"
-            onFocus={() => setIsOpen(true)}
-            onBlur={() => setIsOpen(false)}
-            {...props}
+      {/* Main selector button */}
+      <button
+        type="button"
+        onClick={handleToggle}
+        disabled={disabled}
+        aria-expanded={isOpen}
+        aria-haspopup="listbox"
+        className={cn(
+          'flex min-h-14 w-full cursor-pointer items-center gap-2 border border-base-300 bg-base-100 px-4 py-4 transition-all duration-200',
+          {
+            'hover:border-neutral hover:shadow-sm': !disabled,
+            'cursor-not-allowed opacity-50': disabled,
+            'border-primary shadow-sm': isOpen,
+          }
+        )}
+      >
+        <div className="flex flex-1 flex-col gap-0.5 text-left">
+          {/* Label using body-2 class */}
+          <div
+            className={cn('body-2', {
+              'text-primary': !disabled,
+              'text-neutral': disabled,
+            })}
           >
-            {placeholder && <option value="">{placeholder}</option>}
-            {options.map((option) => (
-              <option key={option.value} value={option.value}>
-                {option.label}
-              </option>
-            ))}
-          </select>
+            {label}
+            {required && <span className="ml-1 text-red-500">*</span>}
+          </div>
+          {/* Value using h6 class */}
+          <div
+            className={cn('h6', {
+              'text-primary': selectedValue && !disabled,
+              'text-secondary': !selectedValue && !disabled,
+              'text-neutral': disabled,
+            })}
+          >
+            {displayValue}
+          </div>
         </div>
 
-        {/* Helper Text / Error Message */}
-        {(helperText || error) && (
-          <div className="flex items-start gap-1 px-2">
-            {/* Warning icon for errors */}
-            {hasError && (
-              <div className="flex-shrink-0">
-                <svg
-                  width="16"
-                  height="16"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  className="text-[#d83833]"
-                >
-                  <path
-                    d="M12 9V13M12 17H12.01M21 12C21 16.9706 16.9706 21 12 21C7.02944 21 3 16.9706 3 12C3 7.02944 7.02944 3 12 3C16.9706 3 21 7.02944 21 12Z"
-                    stroke="currentColor"
-                    strokeWidth="2"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                  />
-                </svg>
-              </div>
-            )}
+        {/* Arrow icon with primary color and rotation animation */}
+        <div
+          className={cn(
+            'h-6 w-6 flex-shrink-0 transition-all duration-300 ease-in-out',
+            {
+              'bg-primary': !disabled,
+              'bg-neutral': disabled,
+              'rotate-180 transform': isOpen,
+            }
+          )}
+          style={{
+            maskImage: 'url(/icons/arrow-down.svg)',
+            WebkitMaskImage: 'url(/icons/arrow-down.svg)',
+            maskRepeat: 'no-repeat',
+            WebkitMaskRepeat: 'no-repeat',
+            maskPosition: 'center',
+            WebkitMaskPosition: 'center',
+            maskSize: 'contain',
+            WebkitMaskSize: 'contain',
+          }}
+        />
+      </button>
 
-            <div className="flex-1">
-              <p
-                className={cn(
-                  'text-[11px] leading-[18px] font-normal',
-                  {
-                    'text-secondary opacity-70': !hasError,
-                    'text-[#d83833]': hasError,
-                  }
-                )}
-                style={{ fontFamily: '"Be Vietnam Pro", sans-serif' }}
-              >
-                {error || helperText}
-              </p>
-            </div>
-          </div>
+      {/* Dropdown options with animation */}
+      <div
+        className={cn(
+          'absolute top-full right-0 left-0 z-50 origin-top overflow-hidden border-r border-b border-l border-base-300 bg-base-100 shadow-card transition-all duration-300 ease-out',
+          {
+            'translate-y-0 scale-y-100 opacity-100': isOpen,
+            'pointer-events-none -translate-y-2 scale-y-95 opacity-0': !isOpen,
+          }
         )}
+      >
+        <div role="listbox" className="max-h-70 overflow-y-auto">
+          {options.map((option, index) => (
+            <button
+              key={option.value}
+              type="button"
+              role="option"
+              aria-selected={option.value === selectedValue}
+              onClick={() => handleSelect(option.value)}
+              className={cn(
+                'w-full cursor-pointer border-b border-base-300 px-4 py-6 text-left transition-all duration-200 last:border-b-0',
+                {
+                  'bg-base-200 text-primary': option.value === selectedValue,
+                  'text-secondary hover:bg-base-200':
+                    option.value !== selectedValue,
+                }
+              )}
+              style={{
+                animationDelay: `${index * 50}ms`,
+              }}
+            >
+              <div className="body-3">{option.label}</div>
+            </button>
+          ))}
+        </div>
       </div>
-    );
-  }
-);
-
-Select.displayName = 'Select';
+    </div>
+  );
+}

@@ -84,6 +84,7 @@ export function NewProduct() {
             {/* Responsive Overlay Product Card */}
             <div ref={tooltipRef} className="absolute -top-6 right-0 lg:top-[12%] lg:left-[25%] animate-on-scroll">
               <ProductTooltipCard
+                id="scandinavian-light-wr205-featured"
                 image="/images/product-test.jpg"
                 title="Scandinavian Light"
                 subtitle="Tấm ốp gỗ sồi WR205"

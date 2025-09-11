@@ -13,6 +13,6 @@ export { ProductCard } from './ProductCard';
 export { ProductTooltipCard } from './ProductTooltipCard';
 export { RoomType } from './RoomType';
 export { ShoppingCart } from './ShoppingCart';
-export { SizeSelector } from './SizeSelector';
+export { Select as SizeSelector } from './Select';
 export { StarRating } from './StarRating';
 export { TextArea } from './TextArea';

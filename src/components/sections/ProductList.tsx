@@ -200,8 +200,6 @@ export function ProductList() {
                   {...product}
                   staggerDelay={index * 50}
                   elementType="card"
-                  onAddToCart={() => console.log('Add to cart:', product.title)}
-                  onBuyNow={() => console.log('Buy now:', product.title)}
                 />
               ))}
             </div>
@@ -217,8 +215,6 @@ export function ProductList() {
                 {...product}
                 staggerDelay={index * 50}
                 elementType="card"
-                onAddToCart={() => console.log('Add to cart:', product.title)}
-                onBuyNow={() => console.log('Buy now:', product.title)}
               />
             ))}
           </div>

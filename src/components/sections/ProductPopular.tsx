@@ -68,7 +68,6 @@ export function ProductPopular() {
               {...product}
               staggerDelay={index * 80}
               elementType="card"
-              onAddToCart={() => console.log('Add to cart:', product.title)}
             />
           ))}
         </div>

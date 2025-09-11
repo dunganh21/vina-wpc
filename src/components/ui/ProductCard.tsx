@@ -2,6 +2,7 @@
 
 import { useScrollReveal } from '@/hooks/useScrollReveal';
 import { cn } from '@/lib/utils';
+import { useCart } from '@/lib/cart-context';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useState } from 'react';
@@ -16,6 +17,7 @@ interface ColorOption {
 }
 
 interface ProductCardProps {
+  id: string;
   image: string;
   title: string;
   subtitle: string;
@@ -24,14 +26,13 @@ interface ProductCardProps {
   slug?: string;
   colors?: ColorOption[];
   onColorSelect?: (colorId: string) => void;
-  onAddToCart?: () => void;
-  onBuyNow?: () => void;
   className?: string;
   staggerDelay?: number;
   elementType?: 'text' | 'image' | 'card' | 'background' | 'ui';
 }
 
 export function ProductCard({
+  id,
   image,
   title,
   subtitle,
@@ -40,8 +41,6 @@ export function ProductCard({
   slug,
   colors = [],
   onColorSelect,
-  onAddToCart,
-  onBuyNow,
   className,
   staggerDelay = 0,
   elementType = 'card',
@@ -50,6 +49,7 @@ export function ProductCard({
   const [selectedColor, setSelectedColor] = useState(
     colors.find((color) => color.selected)?.id || colors[0]?.id || ''
   );
+  const { addItem } = useCart();
 
   // Add scroll reveal animation
   const { ref } = useScrollReveal<HTMLDivElement>({
@@ -61,6 +61,18 @@ export function ProductCard({
   const handleColorSelect = (colorId: string) => {
     setSelectedColor(colorId);
     onColorSelect?.(colorId);
+  };
+
+  const handleAddToCart = () => {
+    addItem({
+      id,
+      title,
+      subtitle,
+      price,
+      dimensions,
+      imageUrl: image,
+      slug,
+    });
   };
 
   const CardContent = (
@@ -93,7 +105,7 @@ export function ProductCard({
             onClick={(e) => {
               e.preventDefault();
               e.stopPropagation();
-              onAddToCart?.();
+              handleAddToCart();
             }}
             className="rounded-none"
           />
@@ -104,7 +116,7 @@ export function ProductCard({
           onClick={(e) => {
             e.preventDefault();
             e.stopPropagation();
-            onBuyNow?.();
+            handleAddToCart();
           }}
           className={cn(
             'absolute right-4 bottom-4 left-4 hidden shadow-sm transition-all duration-300 lg:block',

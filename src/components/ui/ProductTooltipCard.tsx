@@ -4,29 +4,43 @@ import React from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { cn } from '@/lib/utils';
+import { useCart } from '@/lib/cart-context';
 import { ButtonIcon } from './ButtonIcon';
 
 interface ProductTooltipCardProps {
+  id: string;
   image: string;
   title: string;
   subtitle: string;
   price: string;
   dimensions: string;
   slug?: string;
-  onAddToCart?: () => void;
   className?: string;
 }
 
 export function ProductTooltipCard({
+  id,
   image,
   title,
   subtitle,
   price,
   dimensions,
   slug,
-  onAddToCart,
   className,
 }: ProductTooltipCardProps) {
+  const { addItem } = useCart();
+
+  const handleAddToCart = () => {
+    addItem({
+      id,
+      title,
+      subtitle,
+      price,
+      dimensions,
+      imageUrl: image,
+      slug,
+    });
+  };
   const CardContent = (
     <div
       className={cn(
@@ -73,7 +87,7 @@ export function ProductTooltipCard({
         onClick={(e) => {
           e.preventDefault();
           e.stopPropagation();
-          onAddToCart?.();
+          handleAddToCart();
         }}
         className="absolute top-0 right-0 rounded-none"
       />

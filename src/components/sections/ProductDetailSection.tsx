@@ -4,8 +4,9 @@ import { useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { ColorOption } from '@/components/ui/ColorOption';
-import { SizeSelector } from '@/components/ui/SizeSelector';
+import { Select } from '@/components/ui/Select';
 import { Button } from '@/components/ui/Button';
+import { useCart } from '@/lib/cart-context';
 
 const productData = {
   id: 'WR205',
@@ -24,7 +25,12 @@ const productData = {
     { id: 'brown-medium', color: '#6B5B3A' },
     { id: 'brown-dark', color: '#4A3D28' },
   ],
-  sizes: ['900×120×15mm', '900×120×20mm', '900×140×15mm', '900×140×20mm'],
+  sizes: [
+    { label: '900×120×15mm', value: '900×120×15mm' },
+    { label: '900×120×20mm', value: '900×120×20mm' },
+    { label: '900×140×15mm', value: '900×140×15mm' },
+    { label: '900×140×20mm', value: '900×140×20mm' },
+  ],
   image: '/images/prd-lg-1.jpg',
 };
 
@@ -34,9 +40,25 @@ export function ProductDetailSection() {
     productData.specifications.size
   );
   const [quantity, setQuantity] = useState(46);
+  const { addItem } = useCart();
 
   const handleQuantityChange = (delta: number) => {
     setQuantity(Math.max(1, quantity + delta));
+  };
+
+  const handleAddToCart = () => {
+    const selectedColorData = productData.colors.find(c => c.id === selectedColor);
+    const colorName = selectedColorData ? 'Nâu' : 'Nâu'; // Default to 'Nâu' as shown in UI
+    
+    addItem({
+      id: `${productData.id}-${selectedColor}-${selectedSize}`,
+      title: productData.name,
+      subtitle: `${colorName} • ${selectedSize} • ${quantity}m²`,
+      price: `${(productData.price * quantity).toLocaleString('vi-VN')}đ`,
+      dimensions: selectedSize,
+      imageUrl: productData.image,
+      slug: 'wr205', // Based on the product ID
+    });
   };
 
   const totalPrice = productData.price * quantity;
@@ -90,7 +112,7 @@ export function ProductDetailSection() {
             <div className="mt-5 lg:mt-10">
               {/* Size Selection */}
 
-              <SizeSelector
+              <Select
                 label="Kích thước"
                 options={productData.sizes}
                 value={selectedSize}
@@ -171,6 +193,7 @@ export function ProductDetailSection() {
                 variant="button-outline"
                 className="flex-1"
                 icon="shopping-cart.svg"
+                onClick={handleAddToCart}
               >
                 Thêm vào giỏ hàng
               </Button>

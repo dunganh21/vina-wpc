@@ -301,15 +301,13 @@ export function SearchModal({
                     }}
                   >
                     <ProductTooltipCard
+                      id={product.id}
                       image={product.image}
                       title={product.title}
                       subtitle={product.subtitle}
                       price={product.price}
                       dimensions={product.dimensions}
                       slug={product.slug}
-                      onAddToCart={() =>
-                        console.log('Add to cart:', product.id)
-                      }
                       className="w-full border border-[#dcdcdc] transition-all duration-200 hover:border-[#f57f41]/30 hover:shadow-lg"
                     />
                   </div>

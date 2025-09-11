@@ -51,19 +51,19 @@ export const TextArea = forwardRef<HTMLTextAreaElement, TextAreaProps>(
         {/* TextArea Container */}
         <div
           className={cn(
-            // Base styles
-            'relative bg-white h-[148px] w-full transition-all duration-200',
+            // Base styles - using system colors
+            'relative bg-base-100 h-[148px] w-full transition-all duration-200',
             
-            // Default state - gray border
-            'border border-[#dcdcdc]',
+            // Default state - using system colors
+            'border border-base-300',
             
-            // Focus state - primary border with 2px width (overrides default)
-            'focus-within:border-2 focus-within:border-[#3c5f3e]',
+            // Focus state - using system colors
+            'focus-within:border-2 focus-within:border-primary focus-within:-m-px',
             
-            // Error state - overrides other states
+            // Error state - overrides other states (keeping red for error indication)
             {
-              'border-2 border-[#d83833] bg-[#fff0f0] focus-within:border-[#d83833]': hasError,
-              'border-[#dcdcdc] bg-[#f5f5f5]': disabled,
+              'border-2 border-[#d83833] bg-[#fff0f0] focus-within:border-[#d83833] -m-px': hasError,
+              'border border-base-300 bg-base-200': disabled,
             },
             
             className
@@ -79,21 +79,20 @@ export const TextArea = forwardRef<HTMLTextAreaElement, TextAreaProps>(
             className={cn(
               // Base textarea styles
               'w-full h-full resize-none bg-transparent outline-none px-4 py-3',
-              'font-normal text-[14px] leading-[19px] text-[#424c43]',
+              'body-2 text-secondary',
               
-              // Placeholder styles - lighter when not focused
-              'placeholder:text-[#424c43] placeholder:opacity-70',
+              // Placeholder styles - using neutral muted color
+              'placeholder:text-neutral placeholder:opacity-40',
               
-              // Focus state - show cursor
-              'focus:placeholder:opacity-50',
+              // Focus state - make placeholder more subtle
+              'focus:placeholder:opacity-30',
               
               // Disabled state
               {
                 'opacity-50 cursor-not-allowed': disabled,
-                'text-[#dcdcdc]': disabled,
+                'text-base-300': disabled,
               }
             )}
-            style={{ fontFamily: '"Inter Variable", sans-serif' }}
             {...props}
           />
         </div>

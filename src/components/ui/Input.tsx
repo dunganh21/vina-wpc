@@ -46,19 +46,19 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
           className={cn(
             'relative flex items-center gap-2 px-2 py-2 lg:px-4 lg:py-4',
             {
-              // Default state with focus behavior
-              'border border-gray bg-white focus-within:border-2 focus-within:border-primary':
+              // Default state - using system colors
+              'border border-base-300 bg-base-100 focus-within:border-2 focus-within:border-primary focus-within:-m-px':
                 actualVariant === 'default',
 
-              // Active/Typing state
-              'border-2 border-primary bg-white': actualVariant === 'active',
+              // Active/Typing state - using system colors
+              'border-2 border-primary bg-base-100 -m-px': actualVariant === 'active',
 
-              // Error state
-              'border-2 border-[#d83833] bg-[#fff0f0]':
+              // Error state - using system colors (keeping red for error indication)
+              'border-2 border-[#d83833] bg-[#fff0f0] -m-px':
                 actualVariant === 'error',
 
-              // Disabled state
-              'border border-gray bg-gray': actualVariant === 'disabled',
+              // Disabled state - using system colors
+              'border border-base-300 bg-base-200': actualVariant === 'disabled',
             },
             className
           )}

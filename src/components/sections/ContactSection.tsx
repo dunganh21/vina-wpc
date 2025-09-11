@@ -3,13 +3,15 @@
 import { Button } from '@/components/ui/Button';
 import { Input } from '@/components/ui/Input';
 import { TextArea } from '@/components/ui/TextArea';
-import { Select } from '@/components/ui/Select';
+
 import { cn } from '@/lib/utils';
 import { useState } from 'react';
+import { Select } from '../ui/Select';
+import { useCart } from '@/lib/cart-context';
 
 export function ContactSection() {
   const [formMode, setFormMode] = useState<0 | 1>(0);
-
+  const { items: cartItems, itemCount, totalPrice } = useCart();
 
   return (
     <section className="page-container bg-white">
@@ -53,7 +55,7 @@ export function ContactSection() {
                   )}
                   onClick={() => setFormMode(1)}
                 >
-                  Mua hàng (1 sản phẩm trong giỏ hàng)
+                  Mua hàng ({itemCount} sản phẩm trong giỏ hàng)
                 </button>
               </div>
             </div>
@@ -70,28 +72,17 @@ export function ContactSection() {
                   <div className="flex items-center justify-between">
                     <div className="flex-1">
                       <h3 className="h5 text-primary">Giỏ hàng</h3>
-                      <div className="body-3 flex items-center gap-1 text-secondary">
-                        <span>1 sản phẩm</span>
-                        <div className="size-1 rounded-full bg-secondary" />
-                        <span>34.000.000đ</span>
-                      </div>
-                    </div>
-                    <div className="size-6">
-                      <svg
-                        width="24"
-                        height="24"
-                        viewBox="0 0 24 24"
-                        fill="none"
-                        className="text-secondary"
-                      >
-                        <path
-                          d="M6 9L12 15L18 9"
-                          stroke="currentColor"
-                          strokeWidth="2"
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                        />
-                      </svg>
+                      {cartItems.length > 0 ? (
+                        <div className="body-3 flex items-center gap-1 text-secondary">
+                          <span>{itemCount} sản phẩm</span>
+                          <div className="size-1 rounded-full bg-secondary" />
+                          <span>{totalPrice.toLocaleString('vi-VN')}đ</span>
+                        </div>
+                      ) : (
+                        <div className="body-3 text-secondary">
+                          Chưa có sản phẩm trong giỏ hàng
+                        </div>
+                      )}
                     </div>
                   </div>
                 </div>
@@ -115,22 +106,22 @@ export function ContactSection() {
 
                     {/* Product Dropdown */}
                     <Select
-                      placeholder="Bạn đang quan tâm đến sản phẩm nào?"
+                      label="Bạn đang quan tâm đến sản phẩm nào?"
                       options={[
                         {
-                          value: 'san-pham-nha-bep',
+                          value: 'kitchen',
                           label: 'Sản phẩm nhà bếp',
                         },
                         {
-                          value: 'san-pham-phong-tam',
+                          value: 'bathroom',
                           label: 'Sản phẩm phòng tắm',
                         },
                         {
-                          value: 'san-pham-ngoai-troi',
+                          value: 'outdoor',
                           label: 'Sản phẩm ngoài trời',
                         },
                         {
-                          value: 'san-pham-noi-that',
+                          value: 'interior',
                           label: 'Sản phẩm nội thất',
                         },
                       ]}
@@ -201,7 +192,10 @@ export function ContactSection() {
 
         {/* Columns 3-4: Hero Image (50%) - Desktop only */}
         <div className="hidden lg:block lg:w-1/2">
-          <div className="relative h-full w-full bg-cover bg-center bg-no-repeat" style={{ backgroundImage: `url('/images/blog-hero.jpg')` }} />
+          <div
+            className="relative h-full w-full bg-cover bg-center bg-no-repeat"
+            style={{ backgroundImage: `url('/images/blog-hero.jpg')` }}
+          />
         </div>
       </div>
 

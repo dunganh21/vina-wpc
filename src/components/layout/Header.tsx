@@ -4,6 +4,7 @@ import React, { useState, useEffect, useCallback } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { cn } from '@/lib/utils';
+import { useCart } from '@/lib/cart-context';
 import { Logo } from '@/components/ui/Logo';
 import { Button } from '@/components/ui/Button';
 import { ButtonIcon } from '@/components/ui/ButtonIcon';
@@ -102,7 +103,7 @@ export function Header({ className }: Omit<NavbarProps, 'variant'>) {
   const [variant, setVariant] = useState<NavbarVariant>('light');
   const [showCart, setShowCart] = useState(false);
   const [showSearch, setShowSearch] = useState(false);
-  const [cartItemCount, setCartItemCount] = useState(0);
+  const { itemCount } = useCart();
   const pathname = usePathname();
 
   useEffect(() => {
@@ -277,7 +278,7 @@ export function Header({ className }: Omit<NavbarProps, 'variant'>) {
               >
                 <span className="hidden xl:inline">Giỏ hàng</span>
               </Button>
-              <CartBadge count={cartItemCount} variant={variant} />
+              <CartBadge count={itemCount} variant={variant} />
             </div>
 
             <Link href="/contact">
@@ -305,7 +306,7 @@ export function Header({ className }: Omit<NavbarProps, 'variant'>) {
                   setShowSearch(false); // Ensure search modal is closed
                 }}
               />
-              <CartBadge count={cartItemCount} variant={variant} />
+              <CartBadge count={itemCount} variant={variant} />
             </div>
 
             <Link href="/contact">
@@ -327,7 +328,6 @@ export function Header({ className }: Omit<NavbarProps, 'variant'>) {
           console.log('Header: Closing cart modal');
           setShowCart(false);
         }, [])}
-        onCartUpdate={setCartItemCount}
       />
 
       {/* Search Modal */}
