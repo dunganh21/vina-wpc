@@ -210,7 +210,6 @@ export function Header({ className }: Omit<NavbarProps, 'variant'>) {
               icon="search.svg"
               className="h-[46px] w-[46px] border-y-0 border-l-0 text-white"
               onClick={() => {
-                console.log('Mobile search button clicked');
                 setShowSearch(true);
                 setShowCart(false); // Ensure cart modal is closed
               }}
@@ -256,7 +255,6 @@ export function Header({ className }: Omit<NavbarProps, 'variant'>) {
               icon="search.svg"
               className="h-full border-t-0 border-b-0 px-6"
               onClick={() => {
-                console.log('Desktop search button clicked');
                 setShowSearch(true);
                 setShowCart(false); // Ensure cart modal is closed
               }}
@@ -271,7 +269,6 @@ export function Header({ className }: Omit<NavbarProps, 'variant'>) {
                 icon="shopping-cart.svg"
                 className="h-full border-t-0 border-b-0 border-l-0 px-6"
                 onClick={() => {
-                  console.log('Desktop cart button clicked');
                   setShowCart(true);
                   setShowSearch(false); // Ensure search modal is closed
                 }}
@@ -301,7 +298,6 @@ export function Header({ className }: Omit<NavbarProps, 'variant'>) {
                 icon="shopping-cart.svg"
                 className="h-[46px] w-[46px] border-y-0 border-r-0"
                 onClick={() => {
-                  console.log('Mobile cart button clicked');
                   setShowCart(true);
                   setShowSearch(false); // Ensure search modal is closed
                 }}
@@ -325,7 +321,6 @@ export function Header({ className }: Omit<NavbarProps, 'variant'>) {
       <ShoppingCart
         showCart={showCart}
         onClose={useCallback(() => {
-          console.log('Header: Closing cart modal');
           setShowCart(false);
         }, [])}
       />
@@ -335,7 +330,6 @@ export function Header({ className }: Omit<NavbarProps, 'variant'>) {
         isOpen={showSearch}
         variant={variant}
         onClose={useCallback(() => {
-          console.log('Header: Closing search modal');
           setShowSearch(false);
         }, [])}
       />

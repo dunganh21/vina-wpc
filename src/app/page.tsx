@@ -1,11 +1,11 @@
 import {
   Hero,
-  NewProduct,
-  NewsSection,
   ProductCategories,
   ProductOverview,
 } from '@/components/sections';
 import { ProductPopularServer } from '@/components/sections/ProductPopularServer';
+import { NewProductServer } from '@/components/sections/NewProductServer';
+import { NewsServer } from '@/components/sections/NewsServer';
 import { AboutIntroHero } from '@/components/sections/AboutIntroHero';
 
 export default function Home() {
@@ -13,7 +13,7 @@ export default function Home() {
     <main className="min-h-screen bg-base-100">
       <Hero />
 
-      <NewProduct />
+      <NewProductServer />
 
       <ProductPopularServer />
 
@@ -23,7 +23,7 @@ export default function Home() {
 
       <AboutIntroHero />
 
-      <NewsSection />
+      <NewsServer />
     </main>
   );
 }

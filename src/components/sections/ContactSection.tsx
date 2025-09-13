@@ -8,10 +8,134 @@ import { cn } from '@/lib/utils';
 import { useState } from 'react';
 import { Select } from '../ui/Select';
 import { useCart } from '@/lib/cart-context';
+import { showToast } from '@/lib/toast-service';
 
 export function ContactSection() {
   const [formMode, setFormMode] = useState<0 | 1>(0);
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const { items: cartItems, itemCount, totalPrice } = useCart();
+
+  // Form state for consultation form
+  const [consultationForm, setConsultationForm] = useState({
+    name: '',
+    product: '',
+    phone: '',
+    message: '',
+  });
+
+  // Form state for purchase form
+  const [purchaseForm, setPurchaseForm] = useState({
+    name: '',
+    phone: '',
+    message: '',
+  });
+
+  // Handle consultation form submission
+  const handleConsultationSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+
+    // Basic validation
+    if (!consultationForm.name || !consultationForm.phone) {
+      showToast({
+        title: 'Thông tin không đầy đủ',
+        message: 'Vui lòng nhập đầy đủ họ tên và số điện thoại',
+        type: 'error',
+        duration: 3000,
+      });
+      return;
+    }
+
+    setIsSubmitting(true);
+
+    try {
+      // Simulate API call delay
+      await new Promise(resolve => setTimeout(resolve, 1500));
+
+      // Show success toast
+      showToast({
+        title: 'Gửi yêu cầu thành công!',
+        message: 'Chúng tôi sẽ liên hệ với bạn trong thời gian sớm nhất',
+        type: 'success',
+        duration: 3000,
+      });
+
+      // Reset form
+      setConsultationForm({
+        name: '',
+        product: '',
+        phone: '',
+        message: '',
+      });
+
+    } catch {
+      showToast({
+        title: 'Có lỗi xảy ra',
+        message: 'Không thể gửi yêu cầu. Vui lòng thử lại sau',
+        type: 'error',
+        duration: 3000,
+      });
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
+
+  // Handle purchase form submission
+  const handlePurchaseSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+
+    // Basic validation
+    if (!purchaseForm.name || !purchaseForm.phone) {
+      showToast({
+        title: 'Thông tin không đầy đủ',
+        message: 'Vui lòng nhập đầy đủ họ tên và số điện thoại',
+        type: 'error',
+        duration: 3000,
+      });
+      return;
+    }
+
+    if (cartItems.length === 0) {
+      showToast({
+        title: 'Giỏ hàng trống',
+        message: 'Vui lòng thêm sản phẩm vào giỏ hàng trước khi đặt mua',
+        type: 'error',
+        duration: 3000,
+      });
+      return;
+    }
+
+    setIsSubmitting(true);
+
+    try {
+      // Simulate API call delay
+      await new Promise(resolve => setTimeout(resolve, 1500));
+
+      // Show success toast
+      showToast({
+        title: 'Đặt hàng thành công!',
+        message: `Đơn hàng ${itemCount} sản phẩm đã được gửi. Chúng tôi sẽ liên hệ với bạn sớm nhất`,
+        type: 'success',
+        duration: 3000,
+      });
+
+      // Reset form
+      setPurchaseForm({
+        name: '',
+        phone: '',
+        message: '',
+      });
+
+    } catch {
+      showToast({
+        title: 'Có lỗi xảy ra',
+        message: 'Không thể đặt hàng. Vui lòng thử lại sau',
+        type: 'error',
+        duration: 3000,
+      });
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
 
   return (
     <section className="page-container bg-white">
@@ -90,9 +214,10 @@ export function ContactSection() {
             </div>
             {/* Contact Form */}
             <div className="space-y-4">
-              <form className="relative flex flex-col gap-3">
+              <div className="relative flex flex-col gap-3">
                 {/* Consultation Form */}
-                <div
+                <form
+                  onSubmit={handleConsultationSubmit}
                   className={cn(
                     'transition-all duration-500 ease-in-out',
                     formMode === 0
@@ -102,7 +227,13 @@ export function ContactSection() {
                 >
                   <div className="flex flex-col gap-3">
                     {/* Name Input */}
-                    <Input placeholder="Họ tên" className="w-full" />
+                    <Input
+                      placeholder="Họ tên"
+                      className="w-full"
+                      value={consultationForm.name}
+                      onChange={(e) => setConsultationForm(prev => ({ ...prev, name: e.target.value }))}
+                      required
+                    />
 
                     {/* Product Dropdown */}
                     <Select
@@ -126,6 +257,8 @@ export function ContactSection() {
                         },
                       ]}
                       className="w-full"
+                      value={consultationForm.product}
+                      onChange={(value) => setConsultationForm(prev => ({ ...prev, product: value }))}
                     />
 
                     {/* Phone Input */}
@@ -133,6 +266,9 @@ export function ContactSection() {
                       type="tel"
                       placeholder="Số điện thoại"
                       className="w-full"
+                      value={consultationForm.phone}
+                      onChange={(e) => setConsultationForm(prev => ({ ...prev, phone: e.target.value }))}
+                      required
                     />
 
                     {/* Message TextArea */}
@@ -140,17 +276,24 @@ export function ContactSection() {
                       placeholder="Lời nhắn của bạn"
                       showCharacterCount={false}
                       className="w-full"
+                      value={consultationForm.message}
+                      onChange={(e) => setConsultationForm(prev => ({ ...prev, message: e.target.value }))}
                     />
 
                     {/* Submit Button */}
-                    <Button type="submit" className="w-full">
-                      Nhận tư vấn
+                    <Button
+                      type="submit"
+                      className="w-full"
+                      disabled={isSubmitting}
+                    >
+                      {isSubmitting ? 'Đang gửi...' : 'Nhận tư vấn'}
                     </Button>
                   </div>
-                </div>
+                </form>
 
                 {/* Purchase Form */}
-                <div
+                <form
+                  onSubmit={handlePurchaseSubmit}
                   className={cn(
                     'transition-all duration-500 ease-in-out',
                     formMode === 1
@@ -160,13 +303,22 @@ export function ContactSection() {
                 >
                   <div className="flex flex-col gap-3">
                     {/* Name Input */}
-                    <Input placeholder="Họ tên" className="w-full" />
+                    <Input
+                      placeholder="Họ tên"
+                      className="w-full"
+                      value={purchaseForm.name}
+                      onChange={(e) => setPurchaseForm(prev => ({ ...prev, name: e.target.value }))}
+                      required
+                    />
 
                     {/* Phone Input */}
                     <Input
                       type="tel"
                       placeholder="Số điện thoại"
                       className="w-full"
+                      value={purchaseForm.phone}
+                      onChange={(e) => setPurchaseForm(prev => ({ ...prev, phone: e.target.value }))}
+                      required
                     />
 
                     {/* Message TextArea */}
@@ -174,15 +326,21 @@ export function ContactSection() {
                       placeholder="Lời nhắn của bạn"
                       showCharacterCount={false}
                       className="w-full"
+                      value={purchaseForm.message}
+                      onChange={(e) => setPurchaseForm(prev => ({ ...prev, message: e.target.value }))}
                     />
 
                     {/* Submit Button */}
-                    <Button type="submit" className="w-full">
-                      Nhận tư vấn
+                    <Button
+                      type="submit"
+                      className="w-full"
+                      disabled={isSubmitting}
+                    >
+                      {isSubmitting ? 'Đang gửi...' : 'Đặt mua'}
                     </Button>
                   </div>
-                </div>
-              </form>
+                </form>
+              </div>
             </div>
           </div>
         </div>

@@ -3,67 +3,24 @@
 import { useRouter } from 'next/navigation';
 import { NewsCard } from '@/components/ui/NewsCard';
 import { Button } from '@/components/ui/Button';
-import { ButtonIcon, PageIndicator } from '../ui';
 import { useScrollReveal } from '@/hooks/useScrollReveal';
+import type { BlogPost } from '@/types/product';
 
-const selectedNews = [
-  {
-    id: 1,
-    title: 'Xu hướng thiết kế nội thất với gỗ nhựa WPC năm 2024',
-    excerpt:
-      'Khám phá những xu hướng mới nhất trong thiết kế nội thất sử dụng vật liệu gỗ nhựa WPC. Từ màu sắc đến kiểu dáng, tất cả đều hướng đến sự bền vững và thẩm mỹ.',
-    date: '15 Tháng 8, 2024',
-    category: 'Xu hướng',
-    imageUrl: '/images/prd-lg-1.jpg',
-    readTime: '5 phút đọc',
-  },
-  {
-    id: 2,
-    title: 'Hướng dẫn lắp đặt sàn gỗ WPC cho người mới bắt đầu',
-    excerpt:
-      'Quy trình lắp đặt sàn gỗ WPC chi tiết từ A-Z. Những lưu ý quan trọng và mẹo hay giúp bạn có được kết quả hoàn hảo.',
-    date: '10 Tháng 8, 2024',
-    category: 'Hướng dẫn',
-    imageUrl: '/images/prd-lg-2.png',
-    readTime: '7 phút đọc',
-  },
-  {
-    id: 3,
-    title: 'So sánh gỗ nhựa WPC với gỗ tự nhiên: Ưu và nhược điểm',
-    excerpt:
-      'Phân tích chi tiết về ưu nhược điểm của gỗ nhựa WPC so với gỗ tự nhiên. Giúp bạn đưa ra lựa chọn phù hợp cho không gian của mình.',
-    date: '5 Tháng 8, 2024',
-    category: 'So sánh',
-    imageUrl: '/images/prd-lg-3.png',
-    readTime: '4 phút đọc',
-  },
-  {
-    id: 4,
-    title: 'Bảo dưỡng sàn gỗ WPC: Bí quyết giữ độ bền lâu dài',
-    excerpt:
-      'Những cách bảo dưỡng đơn giản nhưng hiệu quả để sàn gỗ WPC luôn như mới. Tăng tuổi thọ và duy trì vẻ đẹp cho sản phẩm.',
-    date: '1 Tháng 8, 2024',
-    category: 'Bảo dưỡng',
-    imageUrl: '/images/prd-lg-4.png',
-    readTime: '6 phút đọc',
-  },
-];
+interface NewsSectionProps {
+  blogPosts: BlogPost[];
+}
 
-export function NewsSection() {
+export function NewsSection({ blogPosts }: NewsSectionProps) {
   // Animation refs - Reduced delays for faster feel
   const { ref: headerRef } = useScrollReveal<HTMLDivElement>({
     staggerDelay: 0,
     elementType: 'text',
   });
-  const { ref: controlsRef } = useScrollReveal<HTMLDivElement>({
-    staggerDelay: 200,
-    elementType: 'ui',
-  });
 
   const router = useRouter();
 
   // Individual animation refs for each news card - Much faster stagger
-  const cardRefs = selectedNews.map((_, index) =>
+  const cardRefs = blogPosts.map((_, index) =>
     // eslint-disable-next-line react-hooks/rules-of-hooks
     useScrollReveal<HTMLDivElement>({
       staggerDelay: 100 + index * 80, // 100ms base delay + 80ms between cards
@@ -90,20 +47,19 @@ export function NewsSection() {
 
         {/* News Grid */}
         <div className="mb-6 grid grid-cols-1 gap-4 md:grid-cols-2 lg:mb-12 lg:gap-8 xl:grid-cols-4">
-          {selectedNews.map((article, index) => (
+          {blogPosts.map((post, index) => (
             <div
-              key={article.id}
+              key={post.slug}
               ref={cardRefs[index].ref}
-              className="animate-on-scroll flex"
+              className="animate-on-scroll w-full"
             >
               <NewsCard
-                title={article.title}
-                excerpt={article.excerpt}
-                date={article.date}
-                category={article.category}
-                imageUrl={article.imageUrl}
-                readTime={article.readTime}
-                onReadMore={() => router.push(`/blog/${article.id}`)}
+                title={post.title}
+                excerpt={post.excerpt}
+                date={post.date}
+                category={post.category}
+                imageUrl={post.image}
+                slug={post.slug}
               />
             </div>
           ))}
@@ -116,11 +72,10 @@ export function NewsSection() {
           </Button>
         </div>
 
-        <div
+        {/* <div
           ref={controlsRef}
           className="animate-on-scroll hidden items-center justify-between lg:flex"
         >
-          {/* Pagination Dots */}
           <PageIndicator
             currentPage={1}
             totalPages={4}
@@ -128,7 +83,6 @@ export function NewsSection() {
             variant="dark"
           />
 
-          {/* Navigation Arrows */}
           <div className="flex items-center gap-0.5">
             <ButtonIcon
               variant="button-outline"
@@ -145,7 +99,7 @@ export function NewsSection() {
               aria-label="Next page"
             />
           </div>
-        </div>
+        </div> */}
       </div>
     </section>
   );

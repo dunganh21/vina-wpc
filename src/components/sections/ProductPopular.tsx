@@ -17,9 +17,9 @@ function transformProductForCard(product: Product) {
     id: product.slug,
     slug: product.slug,
     image: primaryImage,
-    title: product.collection || 'SCANDINAVIAN LIGHT',
-    subtitle: product.title,
-    price: product.price || '850.000đ/m²',
+    title: product.title,
+    subtitle: product.collection,
+    price: product.price,
     dimensions: extractDimensions(product.specifications),
   };
 }
@@ -68,10 +68,13 @@ export function ProductPopular({ cmsProducts = [] }: ProductPopularProps) {
 
   // Use CMS data if available, otherwise fallback to static data
   // Take first 4 products for featured section
-  const featuredProducts = cmsProducts.length > 0
-    ? cmsProducts.slice(0, 4).map(transformProductForCard)
-    : fallbackProducts;
-  
+  const featuredProducts =
+    cmsProducts.length > 0
+      ? cmsProducts.slice(0, 4).map(transformProductForCard)
+      : fallbackProducts;
+
+  console.log('[DEBUG] / ProductPopular / featuredProducts:', featuredProducts);
+
   return (
     <section className="pt-7 pb-10 lg:py-11">
       <div className="page-container">
@@ -84,10 +87,7 @@ export function ProductPopular({ cmsProducts = [] }: ProductPopularProps) {
 
           {/* Desktop "Xem tất cả" button */}
           <div className="hidden lg:block">
-            <Button
-              variant="button"
-              onClick={() => router.push('/products')}
-            >
+            <Button variant="button" onClick={() => router.push('/products')}>
               Xem tất cả
             </Button>
           </div>
@@ -116,8 +116,7 @@ export function ProductPopular({ cmsProducts = [] }: ProductPopularProps) {
         </div>
 
         {/* Desktop Navigation - Pagination and Arrows */}
-        <div className="hidden items-center justify-between lg:flex">
-          {/* Pagination Dots */}
+        {/* <div className="hidden items-center justify-between lg:flex">
           <PageIndicator
             currentPage={1}
             totalPages={4}
@@ -125,7 +124,6 @@ export function ProductPopular({ cmsProducts = [] }: ProductPopularProps) {
             variant="dark"
           />
 
-          {/* Navigation Arrows */}
           <div className="flex items-center gap-0.5">
             <ButtonIcon
               variant="button-outline"
@@ -142,7 +140,7 @@ export function ProductPopular({ cmsProducts = [] }: ProductPopularProps) {
               aria-label="Next page"
             />
           </div>
-        </div>
+        </div> */}
       </div>
     </section>
   );

@@ -5,6 +5,7 @@ import { cn } from '@/lib/utils';
 import { Input } from '@/components/ui/Input';
 import { Button } from '@/components/ui/Button';
 import { ProductTooltipCard } from '@/components/ui/ProductTooltipCard';
+import type { Product } from '@/types/product';
 
 interface SearchModalProps {
   isOpen: boolean;
@@ -23,37 +24,6 @@ const recentSearchTags = [
   'Lifestyle',
 ];
 
-// Mock search results - replace with real search API
-const mockSearchResults = [
-  {
-    id: '1',
-    image: '/images/product-1.jpg',
-    title: 'SCANDINAVIAN LIGHT',
-    subtitle: 'Tấm ốp gỗ sồi WR205',
-    price: '850.000đ/m²',
-    dimensions: '900×120×15mm',
-    slug: 'tam-op-go-soi-wr205',
-  },
-  {
-    id: '2',
-    image: '/images/product-2.jpg',
-    title: 'SCANDINAVIAN LIGHT',
-    subtitle: 'Tấm ốp gỗ sồi WR205',
-    price: '850.000đ/m²',
-    dimensions: '900×120×15mm',
-    slug: 'tam-op-go-soi-wr205-2',
-  },
-  {
-    id: '3',
-    image: '/images/product-3.jpg',
-    title: 'SCANDINAVIAN LIGHT',
-    subtitle: 'Tấm ốp gỗ sồi WR205',
-    price: '850.000đ/m²',
-    dimensions: '900×120×15mm',
-    slug: 'tam-op-go-soi-wr205-3',
-  },
-];
-
 export function SearchModal({
   isOpen,
   onClose,
@@ -61,9 +31,7 @@ export function SearchModal({
   variant = 'light',
 }: SearchModalProps) {
   const [searchQuery, setSearchQuery] = useState('');
-  const [searchResults, setSearchResults] = useState<typeof mockSearchResults>(
-    []
-  );
+  const [searchResults, setSearchResults] = useState<Product[]>([]);
   const [showResults, setShowResults] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const inputRef = useRef<HTMLInputElement>(null);
@@ -116,19 +84,28 @@ export function SearchModal({
       setIsLoading(true);
       setShowResults(false);
 
-      // Simulate API delay for realistic loading state
-      await new Promise((resolve) => setTimeout(resolve, 800));
+      try {
+        // Search products only via API
+        const response = await fetch(
+          `/api/search/products?q=${encodeURIComponent(searchQuery)}`
+        );
+        const data = await response.json();
+        console.log('[DEBUG] / handleSearch / data:', data);
 
-      // Simulate search results
-      const filteredResults = mockSearchResults.filter(
-        (product) =>
-          product.subtitle.toLowerCase().includes(searchQuery.toLowerCase()) ||
-          product.title.toLowerCase().includes(searchQuery.toLowerCase())
-      );
-
-      setSearchResults(filteredResults);
-      setIsLoading(false);
-      setShowResults(true);
+        if (response.ok) {
+          setSearchResults(data.products || []);
+        } else {
+          console.error('Search API error:', data.error);
+          setSearchResults([]);
+        }
+        setIsLoading(false);
+        setShowResults(true);
+      } catch (error) {
+        console.error('Search error:', error);
+        setSearchResults([]);
+        setIsLoading(false);
+        setShowResults(true);
+      }
     }
   };
 
@@ -138,18 +115,27 @@ export function SearchModal({
     setIsLoading(true);
     setShowResults(false);
 
-    // Simulate search delay
-    await new Promise((resolve) => setTimeout(resolve, 600));
+    try {
+      // Search products with the tag via API
+      const response = await fetch(
+        `/api/search/products?q=${encodeURIComponent(tag)}`
+      );
+      const data = await response.json();
 
-    // Auto-search when clicking a tag
-    const filteredResults = mockSearchResults.filter(
-      (product) =>
-        product.subtitle.toLowerCase().includes(tag.toLowerCase()) ||
-        product.title.toLowerCase().includes(tag.toLowerCase())
-    );
-    setSearchResults(filteredResults);
-    setIsLoading(false);
-    setShowResults(true);
+      if (response.ok) {
+        setSearchResults(data.products || []);
+      } else {
+        console.error('Tag search API error:', data.error);
+        setSearchResults([]);
+      }
+      setIsLoading(false);
+      setShowResults(true);
+    } catch (error) {
+      console.error('Tag search error:', error);
+      setSearchResults([]);
+      setIsLoading(false);
+      setShowResults(true);
+    }
   };
 
   return (
@@ -288,9 +274,9 @@ export function SearchModal({
 
               {/* Product Results Grid */}
               <div className="flex flex-col gap-4 lg:flex-row">
-                {searchResults.map((product, index) => (
+                {searchResults.slice(0, 3).map((product, index) => (
                   <div
-                    key={product.id}
+                    key={product.slug}
                     className={cn(
                       'animate-in fade-in slide-in-from-bottom-2 flex-1',
                       'transition-transform duration-200 ease-out hover:scale-[1.02]'
@@ -301,12 +287,16 @@ export function SearchModal({
                     }}
                   >
                     <ProductTooltipCard
-                      id={product.id}
-                      image={product.image}
+                      id={product.slug}
+                      image={
+                        product.gallery[0] || '/images/product-placeholder.jpg'
+                      }
                       title={product.title}
-                      subtitle={product.subtitle}
-                      price={product.price}
-                      dimensions={product.dimensions}
+                      subtitle={product.collection}
+                      price={product.price || 'Liên hệ'}
+                      dimensions={
+                        product.dimensions?.[0] || 'Đa dạng kích thước'
+                      }
                       slug={product.slug}
                       className="w-full border border-[#dcdcdc] transition-all duration-200 hover:border-[#f57f41]/30 hover:shadow-lg"
                     />

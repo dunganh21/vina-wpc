@@ -25,10 +25,10 @@ export interface Product {
   specifications: string; // Technical specifications
   features: string[]; // List of product features
   gallery: string[]; // Array of product image URLs
-  price?: string; // Optional price (some products may not have pricing)
-  rooms?: string[]; // Room types where product is suitable
+  price: string; // Optional price (some products may not have pricing)
+  rooms: string[]; // Room types where product is suitable
   colors: ProductColor[]; // Available color variants
-  dimensions?: string[]; // Available dimensions for selection
+  dimensions: string[]; // Available dimensions for selection
   slug: string; // URL-friendly identifier
 }
 

@@ -8,7 +8,7 @@ import { useRouter } from 'next/navigation';
 
 export function Footer() {
   const router = useRouter();
-  
+
   return (
     <footer className="relative bg-white/85">
       {/* Upper section with background image */}
@@ -72,27 +72,35 @@ export function Footer() {
                 <div className="space-y-2 lg:space-y-4">
                   <p className="subtitle-4 text-white/85">Sản phẩm</p>
                   <div className="space-y-2 lg:space-y-3">
-                    <p 
-                      className="h5-footer cursor-pointer transition-colors hover:text-white/90" 
-                      onClick={() => router.push('/products?category=san-go-noi-that')}
+                    <p
+                      className="h5-footer cursor-pointer transition-colors hover:text-white/90"
+                      onClick={() =>
+                        router.push('/products?collection=san-wpc')
+                      }
                     >
                       Sàn gỗ nội thất
                     </p>
-                    <p 
-                      className="h5-footer cursor-pointer transition-colors hover:text-white/90" 
-                      onClick={() => router.push('/products?category=tran-nha-trang-tri')}
+                    <p
+                      className="h5-footer cursor-pointer transition-colors hover:text-white/90"
+                      onClick={() =>
+                        router.push('/products?collection=tran-wpc')
+                      }
                     >
                       Trần nhà & trần trang trí
                     </p>
-                    <p 
-                      className="h5-footer cursor-pointer transition-colors hover:text-white/90" 
-                      onClick={() => router.push('/products?category=op-tuong-ngoai-that')}
+                    <p
+                      className="h5-footer cursor-pointer transition-colors hover:text-white/90"
+                      onClick={() =>
+                        router.push('/products?collection=op-tuong-wpc')
+                      }
                     >
                       Ốp tường ngoại thất
                     </p>
-                    <p 
-                      className="h5-footer cursor-pointer transition-colors hover:text-white/90" 
-                      onClick={() => router.push('/products?category=san-ngoai-troi')}
+                    <p
+                      className="h5-footer cursor-pointer transition-colors hover:text-white/90"
+                      onClick={() =>
+                        router.push('/products?collection=san-ngoai-troi')
+                      }
                     >
                       Sàn ngoài trời
                     </p>

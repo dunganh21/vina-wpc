@@ -45,7 +45,7 @@ export function ProductTooltipCard({
   const CardContent = (
     <div
       className={cn(
-        'relative flex w-full max-w-[520px] min-w-[320px] overflow-hidden bg-white shadow-tooltip cursor-pointer',
+        'relative flex w-full max-w-[520px] min-w-[320px] cursor-pointer overflow-hidden bg-white shadow-tooltip',
         className
       )}
     >
@@ -65,8 +65,8 @@ export function ProductTooltipCard({
       <div className="flex flex-1 flex-col justify-between bg-white px-[14px] py-[14px]">
         {/* Header */}
         <div className="max-w-[337px] space-y-0.5">
-          <div className="subtitle-4">{title}</div>
-          <h5 className="text-primary">{subtitle}</h5>
+          <div className="subtitle-4">{subtitle}</div>
+          <h5 className="text-primary">{title}</h5>
         </div>
 
         {/* Price and Dimensions */}

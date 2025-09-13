@@ -98,8 +98,6 @@ export function BlogDetailPage({
   post,
   relatedPosts = [],
 }: BlogDetailPageProps) {
-  console.log('[DEBUG] / post:', post);
-
   // Animation refs
   const { ref: breadcrumbRef } = useScrollReveal<HTMLDivElement>({
     elementType: 'text',

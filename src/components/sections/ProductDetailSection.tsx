@@ -7,6 +7,7 @@ import { ColorOption } from '@/components/ui/ColorOption';
 import { Select } from '@/components/ui/Select';
 import { Button } from '@/components/ui/Button';
 import { useCart } from '@/lib/cart-context';
+import { useRouter } from 'next/navigation';
 
 interface ProductData {
   id: string;
@@ -38,12 +39,15 @@ interface ProductDetailSectionProps {
   productData: ProductData;
 }
 
-export function ProductDetailSection({ productData }: ProductDetailSectionProps) {
+export function ProductDetailSection({
+  productData,
+}: ProductDetailSectionProps) {
+  const router = useRouter();
   const [selectedColor, setSelectedColor] = useState(productData.colors[0].id);
   const [selectedSize, setSelectedSize] = useState(
     productData.specifications.size
   );
-  const [quantity, setQuantity] = useState(46);
+  const [quantity, setQuantity] = useState(1);
   const { addItem } = useCart();
 
   const handleQuantityChange = (delta: number) => {
@@ -51,9 +55,11 @@ export function ProductDetailSection({ productData }: ProductDetailSectionProps)
   };
 
   const handleAddToCart = () => {
-    const selectedColorData = productData.colors.find(c => c.id === selectedColor);
+    const selectedColorData = productData.colors.find(
+      (c) => c.id === selectedColor
+    );
     const colorName = selectedColorData ? 'Nâu' : 'Nâu'; // Default to 'Nâu' as shown in UI
-    
+
     addItem({
       id: `${productData.id}-${selectedColor}-${selectedSize}`,
       title: productData.name,
@@ -62,7 +68,10 @@ export function ProductDetailSection({ productData }: ProductDetailSectionProps)
       image: productData.image,
       slug: productData.id,
       collection: productData.category,
-      colors: productData.colors.map(c => ({ name: c.name || 'Default', hex: c.color })),
+      colors: productData.colors.map((c) => ({
+        name: c.name || 'Default',
+        hex: c.color,
+      })),
     });
   };
 
@@ -191,7 +200,12 @@ export function ProductDetailSection({ productData }: ProductDetailSectionProps)
 
             {/* Action Buttons */}
             <div className="flex gap-3">
-              <Button variant="button" className="flex-1" icon="phone.svg">
+              <Button
+                variant="button"
+                className="flex-1"
+                icon="phone.svg"
+                onClick={() => router.push('/contact')}
+              >
                 Liên hệ đặt hàng
               </Button>
               <Button
