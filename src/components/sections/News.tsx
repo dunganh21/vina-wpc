@@ -1,5 +1,6 @@
 'use client';
 
+import { useRouter } from 'next/navigation';
 import { NewsCard } from '@/components/ui/NewsCard';
 import { Button } from '@/components/ui/Button';
 import { ButtonIcon, PageIndicator } from '../ui';
@@ -50,21 +51,23 @@ const selectedNews = [
 
 export function NewsSection() {
   // Animation refs - Reduced delays for faster feel
-  const { ref: headerRef } = useScrollReveal<HTMLDivElement>({ 
+  const { ref: headerRef } = useScrollReveal<HTMLDivElement>({
     staggerDelay: 0,
-    elementType: 'text'
+    elementType: 'text',
   });
-  const { ref: controlsRef } = useScrollReveal<HTMLDivElement>({ 
+  const { ref: controlsRef } = useScrollReveal<HTMLDivElement>({
     staggerDelay: 200,
-    elementType: 'ui'
+    elementType: 'ui',
   });
-  
+
+  const router = useRouter();
+
   // Individual animation refs for each news card - Much faster stagger
-  const cardRefs = selectedNews.map((_, index) => 
+  const cardRefs = selectedNews.map((_, index) =>
     // eslint-disable-next-line react-hooks/rules-of-hooks
-    useScrollReveal<HTMLDivElement>({ 
-      staggerDelay: 100 + (index * 80), // 100ms base delay + 80ms between cards
-      elementType: 'card'
+    useScrollReveal<HTMLDivElement>({
+      staggerDelay: 100 + index * 80, // 100ms base delay + 80ms between cards
+      elementType: 'card',
     })
   );
 
@@ -72,10 +75,13 @@ export function NewsSection() {
     <section className="pt-7 pb-18 lg:pt-9 lg:pb-22">
       <div className="page-container">
         {/* Header */}
-        <div ref={headerRef} className="mb-4 flex items-center justify-between lg:mb-5 animate-on-scroll">
+        <div
+          ref={headerRef}
+          className="animate-on-scroll mb-4 flex items-center justify-between lg:mb-5"
+        >
           <h2 className="h2">Tin tức</h2>
           <Button
-            onClick={() => console.log('View all articles')}
+            onClick={() => router.push('/blogs')}
             className="hidden px-8 lg:flex"
           >
             Xem tất cả
@@ -85,7 +91,11 @@ export function NewsSection() {
         {/* News Grid */}
         <div className="mb-6 grid grid-cols-1 gap-4 md:grid-cols-2 lg:mb-12 lg:gap-8 xl:grid-cols-4">
           {selectedNews.map((article, index) => (
-            <div key={article.id} ref={cardRefs[index].ref} className="animate-on-scroll">
+            <div
+              key={article.id}
+              ref={cardRefs[index].ref}
+              className="animate-on-scroll flex"
+            >
               <NewsCard
                 title={article.title}
                 excerpt={article.excerpt}
@@ -93,9 +103,7 @@ export function NewsSection() {
                 category={article.category}
                 imageUrl={article.imageUrl}
                 readTime={article.readTime}
-                onReadMore={() =>
-                  console.log(`Reading article: ${article.title}`)
-                }
+                onReadMore={() => router.push(`/blog/${article.id}`)}
               />
             </div>
           ))}
@@ -103,15 +111,15 @@ export function NewsSection() {
 
         {/* Mobile Button */}
         <div className="flex justify-end lg:hidden">
-          <Button
-            onClick={() => console.log('View all articles')}
-            className="px-8"
-          >
+          <Button onClick={() => router.push('/blogs')} className="px-8">
             Xem tất cả
           </Button>
         </div>
 
-        <div ref={controlsRef} className="hidden items-center justify-between lg:flex animate-on-scroll">
+        <div
+          ref={controlsRef}
+          className="animate-on-scroll hidden items-center justify-between lg:flex"
+        >
           {/* Pagination Dots */}
           <PageIndicator
             currentPage={1}

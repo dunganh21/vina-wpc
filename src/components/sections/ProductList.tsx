@@ -1,127 +1,200 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useMemo, useEffect } from 'react';
 import { ProductCard } from '@/components/ui/ProductCard';
 import { FilterSidebarDesktop } from '@/components/ui/FilterSidebarDesktop';
 import { FilterSidebarMobile } from '@/components/ui/FilterSidebarMobile';
 import Pagination from '@/components/ui/Pagination';
 import Image from 'next/image';
 import { cn } from '@/lib/utils';
+import type { Product } from '@/types/product';
 
-const products = [
-  {
-    id: '1',
-    slug: 'scandinavian-light-wr205-1',
-    image: '/images/prd-lg-1.jpg',
-    title: 'SCANDINAVIAN LIGHT',
-    subtitle: 'Tấm ốp gỗ sồi WR205',
-    price: '850.000đ/m²',
-    dimensions: '900×120×15mm',
-  },
-  {
-    id: '2',
-    slug: 'scandinavian-light-wr205-2',
-    image: '/images/prd-lg-2.png',
-    title: 'SCANDINAVIAN LIGHT',
-    subtitle: 'Tấm ốp gỗ sồi WR205',
-    price: '850.000đ/m²',
-    dimensions: '900×120×15mm',
-  },
-  {
-    id: '3',
-    slug: 'scandinavian-light-wr205-3',
-    image: '/images/prd-lg-3.png',
-    title: 'SCANDINAVIAN LIGHT',
-    subtitle: 'Tấm ốp gỗ sồi WR205',
-    price: '850.000đ/m²',
-    dimensions: '900×120×15mm',
-  },
-  {
-    id: '4',
-    slug: 'scandinavian-light-wr205-4',
-    image: '/images/prd-lg-4.png',
-    title: 'SCANDINAVIAN LIGHT',
-    subtitle: 'Tấm ốp gỗ sồi WR205',
-    price: '850.000đ/m²',
-    dimensions: '900×120×15mm',
-  },
-  {
-    id: '5',
-    slug: 'scandinavian-light-wr205-5',
-    image: '/images/prd-lg-1.jpg',
-    title: 'SCANDINAVIAN LIGHT',
-    subtitle: 'Tấm ốp gỗ sồi WR205',
-    price: '850.000đ/m²',
-    dimensions: '900×120×15mm',
-  },
-  {
-    id: '6',
-    slug: 'scandinavian-light-wr205-6',
-    image: '/images/prd-lg-2.png',
-    title: 'SCANDINAVIAN LIGHT',
-    subtitle: 'Tấm ốp gỗ sồi WR205',
-    price: '850.000đ/m²',
-    dimensions: '900×120×15mm',
-  },
-  {
-    id: '7',
-    slug: 'scandinavian-light-wr205-7',
-    image: '/images/prd-lg-3.png',
-    title: 'SCANDINAVIAN LIGHT',
-    subtitle: 'Tấm ốp gỗ sồi WR205',
-    price: '850.000đ/m²',
-    dimensions: '900×120×15mm',
-  },
-  {
-    id: '8',
-    slug: 'scandinavian-light-wr205-8',
-    image: '/images/prd-lg-4.png',
-    title: 'SCANDINAVIAN LIGHT',
-    subtitle: 'Tấm ốp gỗ sồi WR205',
-    price: '850.000đ/m²',
-    dimensions: '900×120×15mm',
-  },
-  {
-    id: '9',
-    slug: 'scandinavian-light-wr205-9',
-    image: '/images/prd-lg-1.jpg',
-    title: 'SCANDINAVIAN LIGHT',
-    subtitle: 'Tấm ốp gỗ sồi WR205',
-    price: '850.000đ/m²',
-    dimensions: '900×120×15mm',
-  },
-  {
-    id: '10',
-    slug: 'scandinavian-light-wr205-10',
-    image: '/images/prd-lg-2.png',
-    title: 'SCANDINAVIAN LIGHT',
-    subtitle: 'Tấm ốp gỗ sồi WR205',
-    price: '850.000đ/m²',
-    dimensions: '900×120×15mm',
-  },
-  {
-    id: '11',
-    slug: 'scandinavian-light-wr205-11',
-    image: '/images/prd-lg-3.png',
-    title: 'SCANDINAVIAN LIGHT',
-    subtitle: 'Tấm ốp gỗ sồi WR205',
-    price: '850.000đ/m²',
-    dimensions: '900×120×15mm',
-  },
-  {
-    id: '12',
-    slug: 'scandinavian-light-wr205-12',
-    image: '/images/prd-lg-4.png',
-    title: 'SCANDINAVIAN LIGHT',
-    subtitle: 'Tấm ốp gỗ sồi WR205',
-    price: '850.000đ/m²',
-    dimensions: '900×120×15mm',
-  },
-];
+interface FilterData {
+  categories: string[];
+  priceRanges: string[];
+  rooms: string[];
+}
 
-export function ProductList() {
+// Transform CMS Product data to ProductCard props format
+function transformProductForCard(product: Product) {
+  const primaryImage = product.gallery?.[0] || '/images/prd-lg-1.jpg';
+  const extractDimensions = (specs: string): string => {
+    const match = specs.match(/Kích thước:\s*([^\n]+)/);
+    return match ? match[1].trim() : '900×120×15mm';
+  };
+
+  return {
+    id: product.slug,
+    slug: product.slug,
+    image: primaryImage,
+    title: product.title,
+    subtitle: product.collection,
+    price: product.price || '850.000đ/m²',
+    dimensions: extractDimensions(product.specifications),
+  };
+}
+
+interface ProductListProps {
+  cmsProducts?: Product[];
+}
+
+export function ProductList({ cmsProducts = [] }: ProductListProps) {
   const [showFilters, setShowFilters] = useState(false);
-  const [sortAsc, setSortAsc] = useState(true);
+  const [sortAsc, setSortAsc] = useState(true); // true = low to high (default)
+  const [filters, setFilters] = useState<FilterData>({ categories: [], priceRanges: [], rooms: [] });
+  const [currentPage, setCurrentPage] = useState(1);
+  const itemsPerPage = 12;
+
+  // Initialize filters from URL search params
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      const searchParams = new URLSearchParams(window.location.search);
+
+      const roomsParam = searchParams.get('rooms');
+      const collectionsParam = searchParams.get('collection');
+      const priceParam = searchParams.get('price');
+
+      // Convert URL room format to display format
+      const convertRoomFromUrl = (urlRoom: string): string => {
+        const roomMap: { [key: string]: string } = {
+          'phongkhach': 'phòng khách',
+          'phongngu': 'phòng ngủ',
+          'phongbep': 'phòng bếp',
+          'phongtam': 'phòng tắm',
+          'sanvuon': 'sân vườn',
+          'bancong': 'ban công',
+          'hanhlang': 'hành lang',
+          'vanphong': 'văn phòng',
+        };
+        return roomMap[urlRoom.toLowerCase()] || urlRoom;
+      };
+
+      const initialFilters: FilterData = {
+        categories: collectionsParam ? collectionsParam.split(',').map(c => c.trim()) : [],
+        rooms: roomsParam ? roomsParam.split(',').map(r => convertRoomFromUrl(r.trim())) : [],
+        priceRanges: priceParam ? priceParam.split(',').map(p => p.trim()) : [],
+      };
+
+      // Only update if there are actual filter params
+      if (initialFilters.categories.length > 0 || initialFilters.rooms.length > 0 || initialFilters.priceRanges.length > 0) {
+        setFilters(initialFilters);
+        setShowFilters(true); // Auto-open filters when URL params are present
+      }
+    }
+  }, []);
+
+  // Transform and filter/sort products
+  const { filteredProducts, totalPages } = useMemo(() => {
+    let products = cmsProducts.map(transformProductForCard);
+
+    // Apply filters
+    if (filters.categories.length > 0) {
+      products = products.filter(product =>
+        filters.categories.some(category => {
+          const productData = cmsProducts.find(p => p.slug === product.slug);
+          if (!productData) return false;
+          return productData.collection.toLowerCase().includes(category.toLowerCase()) ||
+                 productData.title.toLowerCase().includes(category.toLowerCase());
+        })
+      );
+    }
+
+    if (filters.rooms.length > 0) {
+      products = products.filter(product => {
+        const productData = cmsProducts.find(p => p.slug === product.slug);
+        if (!productData?.rooms) return false;
+        return filters.rooms.some(filterRoom => {
+          // Handle both URL format (phongkhach) and display format (phòng khách)
+          const normalizedFilterRoom = filterRoom.toLowerCase().replace(/\s+/g, '');
+          return productData.rooms?.some(productRoom => {
+            const normalizedProductRoom = productRoom.toLowerCase().replace(/\s+/g, '');
+            return normalizedProductRoom.includes(normalizedFilterRoom) ||
+                   productRoom.toLowerCase().includes(filterRoom.toLowerCase());
+          });
+        });
+      });
+    }
+
+    if (filters.priceRanges.length > 0) {
+      products = products.filter(product => {
+        if (!product.price || product.price === 'Liên hệ') return false;
+        const priceNum = parseInt(product.price.replace(/[^\d]/g, ''));
+        return filters.priceRanges.some(range => {
+          switch (range) {
+            case 'under-250': return priceNum < 250000;
+            case '600-850': return priceNum >= 600000 && priceNum <= 850000;
+            case '850-1000': return priceNum >= 850000 && priceNum <= 1000000;
+            case 'over-1000': return priceNum > 1000000;
+            default: return true;
+          }
+        });
+      });
+    }
+
+    // Apply sorting
+    products.sort((a, b) => {
+      const priceA = a.price === 'Liên hệ' ? 0 : parseInt(a.price.replace(/[^\d]/g, ''));
+      const priceB = b.price === 'Liên hệ' ? 0 : parseInt(b.price.replace(/[^\d]/g, ''));
+      return sortAsc ? priceA - priceB : priceB - priceA;
+    });
+
+    const totalPages = Math.ceil(products.length / itemsPerPage);
+    return { filteredProducts: products, totalPages };
+  }, [cmsProducts, filters, sortAsc]);
+
+  // Get products for current page
+  const paginatedProducts = useMemo(() => {
+    const startIndex = (currentPage - 1) * itemsPerPage;
+    return filteredProducts.slice(startIndex, startIndex + itemsPerPage);
+  }, [filteredProducts, currentPage]);
+
+  const handleFilterChange = (newFilters: FilterData) => {
+    setFilters(newFilters);
+    setCurrentPage(1); // Reset to first page when filters change
+
+    // Update URL with new filters
+    if (typeof window !== 'undefined') {
+      const searchParams = new URLSearchParams();
+
+      if (newFilters.categories.length > 0) {
+        searchParams.set('collection', newFilters.categories.join(','));
+      }
+
+      if (newFilters.rooms.length > 0) {
+        // Convert display format to URL format
+        const convertRoomToUrl = (displayRoom: string): string => {
+          const roomMap: { [key: string]: string } = {
+            'phòng khách': 'phongkhach',
+            'phòng ngủ': 'phongngu',
+            'phòng bếp': 'phongbep',
+            'phòng tắm': 'phongtam',
+            'sân vườn': 'sanvuon',
+            'ban công': 'bancong',
+            'hành lang': 'hanhlang',
+            'văn phòng': 'vanphong',
+          };
+          return roomMap[displayRoom.toLowerCase()] || displayRoom.replace(/\s+/g, '').toLowerCase();
+        };
+
+        const roomsForUrl = newFilters.rooms.map(convertRoomToUrl);
+        searchParams.set('rooms', roomsForUrl.join(','));
+      }
+
+      if (newFilters.priceRanges.length > 0) {
+        searchParams.set('price', newFilters.priceRanges.join(','));
+      }
+
+      const newUrl = searchParams.toString()
+        ? `${window.location.pathname}?${searchParams.toString()}`
+        : window.location.pathname;
+
+      window.history.replaceState({}, '', newUrl);
+    }
+  };
+
+  const handlePageChange = (page: number) => {
+    setCurrentPage(page);
+  };
 
   return (
     <section className="py-10 lg:py-16">
@@ -150,7 +223,7 @@ export function ProductList() {
           >
             <span className="h5">Sắp xếp:</span>
             <span className="h5 font-normal">
-              Giá từ {sortAsc ? 'cao' : 'thấp'} &gt; {sortAsc ? 'thấp' : 'cao'}
+              Giá từ {sortAsc ? 'thấp' : 'cao'} &gt; {sortAsc ? 'cao' : 'thấp'}
             </span>
             <Image
               src="/icons/arrow-up.svg"
@@ -183,7 +256,8 @@ export function ProductList() {
               )}
             >
               <FilterSidebarDesktop
-                onFilterChange={(filters) => console.log('Filters:', filters)}
+                onFilterChange={handleFilterChange}
+                initialFilters={filters}
               />
             </div>
 
@@ -194,7 +268,7 @@ export function ProductList() {
                 showFilters ? 'grid-cols-3' : 'grid-cols-4'
               )}
             >
-              {products.map((product, index) => (
+              {paginatedProducts.map((product, index) => (
                 <ProductCard
                   key={product.id}
                   {...product}
@@ -209,7 +283,7 @@ export function ProductList() {
         {/* Mobile Layout - Products Only */}
         <div className="mb-8 lg:hidden">
           <div className="grid grid-cols-2 gap-2">
-            {products.map((product, index) => (
+            {paginatedProducts.map((product, index) => (
               <ProductCard
                 key={product.id}
                 {...product}
@@ -224,17 +298,18 @@ export function ProductList() {
         <FilterSidebarMobile
           showFilters={showFilters}
           onClose={() => setShowFilters(false)}
-          onFilterChange={(filters) => console.log('Mobile Filters:', filters)}
+          onFilterChange={handleFilterChange}
+          initialFilters={filters}
         />
 
         {/* Pagination */}
         <div className="flex justify-end">
           <Pagination
-            currentPage={1}
-            totalPages={5}
-            onPageChange={(page) => console.log('Go to page:', page)}
-            onPrevious={() => console.log('Previous page')}
-            onNext={() => console.log('Next page')}
+            currentPage={currentPage}
+            totalPages={totalPages}
+            onPageChange={handlePageChange}
+            onPrevious={() => currentPage > 1 && handlePageChange(currentPage - 1)}
+            onNext={() => currentPage < totalPages && handlePageChange(currentPage + 1)}
           />
         </div>
       </div>

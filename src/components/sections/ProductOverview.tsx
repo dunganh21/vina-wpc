@@ -4,8 +4,10 @@ import { Button } from '@/components/ui/Button';
 import { RoomType } from '@/components/ui/RoomType';
 import { useScrollReveal } from '@/hooks/useScrollReveal';
 import Image from 'next/image';
+import { useRouter } from 'next/navigation';
 
 export function ProductOverview() {
+  const router = useRouter();
   const { ref: backgroundRef } = useScrollReveal<HTMLDivElement>({
     staggerDelay: 0,
     elementType: 'background',
@@ -81,16 +83,19 @@ export function ProductOverview() {
                     category="Phòng khách"
                     icon="living-room.svg"
                     className="border-b border-white/10 px-2 py-4 lg:px-6"
+                    onClick={() => router.push('/products?rooms=phongkhach')}
                   />
                   <RoomType
                     category="Phòng bếp"
                     icon="kitchen.svg"
                     className="border-b border-white/10 px-2 py-4 lg:px-6"
+                    onClick={() => router.push('/products?rooms=phongbep')}
                   />
                   <RoomType
                     category="Phòng ngủ"
                     icon="bed-room.svg"
                     className="px-2 py-4 lg:px-6"
+                    onClick={() => router.push('/products?rooms=phongngu')}
                   />
                 </div>
               </div>
@@ -98,7 +103,11 @@ export function ProductOverview() {
 
             {/* Right - Button */}
             <div className="animate-on-scroll" ref={col3Ref}>
-              <Button variant="white" className="w-full lg:w-auto">
+              <Button 
+                variant="white" 
+                className="w-full lg:w-auto"
+                onClick={() => router.push('/products')}
+              >
                 Xem tất cả sản phẩm
               </Button>
             </div>

@@ -16,13 +16,15 @@ interface ToastProviderProps {
 
 export function ToastProvider({ children }: ToastProviderProps) {
   const [toasts, setToasts] = useState<ToastProps[]>([]);
+  const [idCounter, setIdCounter] = useState(0);
 
   const removeToast = (id: string) => {
     setToasts((prev) => prev.filter((toast) => toast.id !== id));
   };
 
   const showToast = (toast: Omit<ToastProps, 'id' | 'onClose'>) => {
-    const id = Date.now().toString();
+    setIdCounter(prev => prev + 1);
+    const id = `toast-${idCounter}`;
     const newToast: ToastProps = {
       ...toast,
       id,

@@ -18,7 +18,7 @@ export function CartProvider({ children }: CartProviderProps) {
   const addItemWithToast = (item: Omit<CartItem, 'quantity'>) => {
     cartStorage.addItem(item);
     // Show success toast
-    showCartSuccess(item.subtitle);
+    showCartSuccess(item.title);
   };
 
   const contextValue: CartContextType = {
@@ -39,9 +39,7 @@ export function CartProvider({ children }: CartProviderProps) {
   }
 
   return (
-    <CartContext.Provider value={contextValue}>
-      {children}
-    </CartContext.Provider>
+    <CartContext.Provider value={contextValue}>{children}</CartContext.Provider>
   );
 }
 

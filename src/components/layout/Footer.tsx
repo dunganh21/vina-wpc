@@ -4,8 +4,11 @@ import React from 'react';
 import { Logo } from '@/components/ui/Logo';
 import Image from 'next/image';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 
 export function Footer() {
+  const router = useRouter();
+  
   return (
     <footer className="relative bg-white/85">
       {/* Upper section with background image */}
@@ -69,10 +72,30 @@ export function Footer() {
                 <div className="space-y-2 lg:space-y-4">
                   <p className="subtitle-4 text-white/85">Sản phẩm</p>
                   <div className="space-y-2 lg:space-y-3">
-                    <p className="h5-footer">Sàn gỗ nội thất</p>
-                    <p className="h5-footer">Trần nhà & trần trang trí</p>
-                    <p className="h5-footer">Ốp tường ngoại thất</p>
-                    <p className="h5-footer">Sàn ngoài trời</p>
+                    <p 
+                      className="h5-footer cursor-pointer transition-colors hover:text-white/90" 
+                      onClick={() => router.push('/products?category=san-go-noi-that')}
+                    >
+                      Sàn gỗ nội thất
+                    </p>
+                    <p 
+                      className="h5-footer cursor-pointer transition-colors hover:text-white/90" 
+                      onClick={() => router.push('/products?category=tran-nha-trang-tri')}
+                    >
+                      Trần nhà & trần trang trí
+                    </p>
+                    <p 
+                      className="h5-footer cursor-pointer transition-colors hover:text-white/90" 
+                      onClick={() => router.push('/products?category=op-tuong-ngoai-that')}
+                    >
+                      Ốp tường ngoại thất
+                    </p>
+                    <p 
+                      className="h5-footer cursor-pointer transition-colors hover:text-white/90" 
+                      onClick={() => router.push('/products?category=san-ngoai-troi')}
+                    >
+                      Sàn ngoài trời
+                    </p>
                   </div>
                 </div>
                 <div className="space-y-2 lg:space-y-4">
@@ -130,7 +153,9 @@ export function Footer() {
                     <div className="flex items-center gap-2 px-0.5">
                       {/* Facebook */}
                       <a
-                        href="#"
+                        href="https://www.facebook.com/vinawpc"
+                        target="_blank"
+                        rel="noopener noreferrer"
                         className="h-5 w-5 transition-opacity hover:opacity-80"
                       >
                         <Image
@@ -144,7 +169,9 @@ export function Footer() {
 
                       {/* Instagram */}
                       <a
-                        href="#"
+                        href="https://www.instagram.com/vinawpc"
+                        target="_blank"
+                        rel="noopener noreferrer"
                         className="h-5 w-5 transition-opacity hover:opacity-80"
                       >
                         <Image
@@ -158,7 +185,9 @@ export function Footer() {
 
                       {/* YouTube */}
                       <a
-                        href="#"
+                        href="https://www.youtube.com/@vinawpc"
+                        target="_blank"
+                        rel="noopener noreferrer"
                         className="h-6 w-6 transition-opacity hover:opacity-80"
                       >
                         <Image

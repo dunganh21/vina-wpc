@@ -11,7 +11,7 @@ export function useCartWithToast() {
     cart.addItem(item);
     
     // Show success toast using simple service
-    showCartSuccess(item.subtitle);
+    showCartSuccess(item.collection);
   };
 
   return {

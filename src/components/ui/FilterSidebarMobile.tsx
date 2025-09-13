@@ -20,62 +20,83 @@ interface FilterSidebarMobileProps {
   onFilterChange?: (value: FilterData) => void;
   showFilters: boolean;
   onClose: () => void;
+  initialFilters?: FilterData;
 }
 
 const defaultCategories: FilterOption[] = [
-  { id: 'wall-cladding', label: 'Wall Cladding', defaultChecked: true },
-  { id: 'flooring', label: 'Flooring', defaultChecked: false },
-  { id: 'ceiling-tiles', label: 'Ceiling Tiles', defaultChecked: false },
-  {
-    id: 'modular-partitions',
-    label: 'Modular Partitions',
-    defaultChecked: false,
-  },
-  { id: 'office-furniture', label: 'Office Furniture', defaultChecked: false },
-  {
-    id: 'conference-room',
-    label: 'Conference Room Equipment',
-    defaultChecked: false,
-  },
-  { id: 'interior-signage', label: 'Interior Signage', defaultChecked: false },
-  { id: 'display-windows', label: 'Display Windows', defaultChecked: false },
+  { id: 'sàn wpc', label: 'Sàn WPC', defaultChecked: false },
+  { id: 'ốp tường wpc', label: 'Ốp Tường WPC', defaultChecked: false },
+  { id: 'hàng rào wpc', label: 'Hàng Rào WPC', defaultChecked: false },
+  { id: 'lam che nắng wpc', label: 'Lam Che Nắng WPC', defaultChecked: false },
+  { id: 'sàn gỗ ngoài trời', label: 'Sàn Gỗ Ngoài Trời', defaultChecked: false },
+  { id: 'tấm ốp 3d', label: 'Tấm Ốp 3D', defaultChecked: false },
 ];
 
 const defaultPriceRanges: FilterOption[] = [
   { id: 'over-1000', label: '> 1.000.000đ', defaultChecked: false },
-  { id: '850-1000', label: '850.000đ', defaultChecked: false },
-  { id: '600-850', label: '600.000đ', defaultChecked: false },
+  { id: '850-1000', label: '850.000đ - 1.000.000đ', defaultChecked: false },
+  { id: '600-850', label: '600.000đ - 850.000đ', defaultChecked: false },
   { id: 'under-250', label: '< 250.000đ', defaultChecked: false },
 ];
 
 const defaultRooms: FilterOption[] = [
-  { id: 'living-room', label: 'Phòng khách', defaultChecked: false },
-  { id: 'bedroom', label: 'Phòng ngủ', defaultChecked: false },
-  { id: 'kitchen', label: 'Phòng bếp', defaultChecked: false },
+  { id: 'phòng khách', label: 'Phòng khách', defaultChecked: false },
+  { id: 'phòng ngủ', label: 'Phòng ngủ', defaultChecked: false },
+  { id: 'phòng bếp', label: 'Phòng bếp', defaultChecked: false },
+  { id: 'phòng tắm', label: 'Phòng tắm', defaultChecked: false },
+  { id: 'sân vườn', label: 'Sân vườn', defaultChecked: false },
+  { id: 'ban công', label: 'Ban công', defaultChecked: false },
+  { id: 'hành lang', label: 'Hành lang', defaultChecked: false },
+  { id: 'văn phòng', label: 'Văn phòng', defaultChecked: false },
 ];
 
 export function FilterSidebarMobile({
   onFilterChange,
   showFilters,
   onClose,
+  initialFilters,
 }: FilterSidebarMobileProps) {
-  const [categories, setCategories] = useState<string[]>([]);
-  const [priceRanges, setPriceRanges] = useState<string[]>([]);
-  const [rooms, setRooms] = useState<string[]>([]);
+  const [categories, setCategories] = useState<string[]>(initialFilters?.categories || []);
+  const [priceRanges, setPriceRanges] = useState<string[]>(initialFilters?.priceRanges || []);
+  const [rooms, setRooms] = useState<string[]>(initialFilters?.rooms || []);
+
+  // Update local state when initialFilters change
+  useEffect(() => {
+    if (initialFilters) {
+      setCategories(initialFilters.categories || []);
+      setPriceRanges(initialFilters.priceRanges || []);
+      setRooms(initialFilters.rooms || []);
+    }
+  }, [initialFilters]);
 
   const handleCategoryChange = (id: string) => {
-    setCategories((prev) => [...prev, id]);
-    onFilterChange?.({ categories: categories, priceRanges, rooms });
+    setCategories((prev) => {
+      const newCategories = prev.includes(id)
+        ? prev.filter(cat => cat !== id)
+        : [...prev, id];
+      onFilterChange?.({ categories: newCategories, priceRanges, rooms });
+      return newCategories;
+    });
   };
 
   const handlePriceChange = (id: string) => {
-    setPriceRanges((prev) => [...prev, id]);
-    onFilterChange?.({ categories, priceRanges: priceRanges, rooms });
+    setPriceRanges((prev) => {
+      const newPriceRanges = prev.includes(id)
+        ? prev.filter(price => price !== id)
+        : [...prev, id];
+      onFilterChange?.({ categories, priceRanges: newPriceRanges, rooms });
+      return newPriceRanges;
+    });
   };
 
   const handleRoomChange = (id: string) => {
-    setRooms((prev) => [...prev, id]);
-    onFilterChange?.({ categories, priceRanges, rooms: rooms });
+    setRooms((prev) => {
+      const newRooms = prev.includes(id)
+        ? prev.filter(room => room !== id)
+        : [...prev, id];
+      onFilterChange?.({ categories, priceRanges, rooms: newRooms });
+      return newRooms;
+    });
   };
 
   useEffect(() => {

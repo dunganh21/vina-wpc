@@ -1,20 +1,13 @@
 'use client';
 
 import { useScrollReveal } from '@/hooks/useScrollReveal';
-import { cn } from '@/lib/utils';
 import { useCart } from '@/lib/cart-context';
+import { cn } from '@/lib/utils';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useState } from 'react';
 import { Button } from './Button';
 import { ButtonIcon } from './ButtonIcon';
-import { ColorOption } from './ColorOption';
-
-interface ColorOption {
-  id: string;
-  color: string;
-  selected?: boolean;
-}
 
 interface ProductCardProps {
   id: string;
@@ -24,7 +17,6 @@ interface ProductCardProps {
   price: string;
   dimensions: string;
   slug?: string;
-  colors?: ColorOption[];
   onColorSelect?: (colorId: string) => void;
   className?: string;
   staggerDelay?: number;
@@ -39,16 +31,13 @@ export function ProductCard({
   price,
   dimensions,
   slug,
-  colors = [],
   onColorSelect,
   className,
   staggerDelay = 0,
   elementType = 'card',
 }: ProductCardProps) {
   const [isHovered, setIsHovered] = useState(false);
-  const [selectedColor, setSelectedColor] = useState(
-    colors.find((color) => color.selected)?.id || colors[0]?.id || ''
-  );
+
   const { addItem } = useCart();
 
   // Add scroll reveal animation
@@ -57,11 +46,6 @@ export function ProductCard({
     staggerDelay,
     elementType,
   });
-
-  const handleColorSelect = (colorId: string) => {
-    setSelectedColor(colorId);
-    onColorSelect?.(colorId);
-  };
 
   const handleAddToCart = () => {
     addItem({
@@ -133,28 +117,17 @@ export function ProductCard({
       <div className="space-y-4 p-2 lg:space-y-8 lg:p-4">
         {/* Header */}
         <div className="lg:space-y-0.5">
-          <div className="subtitle-4">{title}</div>
-          <h5>{subtitle}</h5>
+          <div className="subtitle-4">{subtitle}</div>
+          <h5 className="h-10 w-[80%]">{title}</h5>
         </div>
 
         {/* Price and Details */}
-        <div className="flex items-center justify-between">
+        <div className="mt-auto flex items-center justify-between">
           <div className="flex flex-col lg:flex-row lg:items-center lg:gap-1">
             <span className="h6">{price}</span>
             <div className="hidden h-1 w-1 bg-neutral lg:block"></div>
             <span className="body-3">{dimensions}</span>
           </div>
-
-          {/* Color Options */}
-          {!!colors.length && (
-            <div onClick={(e) => e.stopPropagation()}>
-              <ColorOption
-                colors={colors}
-                selectedColor={selectedColor}
-                handleColorSelect={handleColorSelect}
-              />
-            </div>
-          )}
         </div>
       </div>
     </div>

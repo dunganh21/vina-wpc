@@ -1,0 +1,153 @@
+# Enable local backend for development
+local_backend: true
+
+backend:
+  name: git-gateway
+  branch: main
+
+# Editorial workflow for content review (production)
+publish_mode: editorial_workflow
+
+# Media configuration
+media_folder: 'public/images'
+public_folder: '/images'
+
+# SEO and meta configuration
+slug:
+  encoding: 'unicode'
+  clean_accents: false
+
+# Vietnamese interface
+locale: 'vi'
+
+# Site configuration
+site_url: 'https://your-domain.vercel.app'
+display_url: 'https://your-domain.vercel.app'
+
+collections:
+  - name: 'blog'
+    label: 'Bài viết Blog'
+    label_singular: 'Bài viết'
+    folder: 'content/blog'
+    create: true
+    slug: '{{slug}}'
+    preview_path: '/blog/{{slug}}'
+    fields:
+      - { label: 'Tiêu đề', name: 'title', widget: 'string', required: true }
+      - { label: 'Ngày đăng', name: 'date', widget: 'datetime', default: '' }
+      - {
+          label: 'Trạng thái',
+          name: 'published',
+          widget: 'boolean',
+          default: true,
+        }
+      - {
+          label: 'Danh mục',
+          name: 'category',
+          widget: 'string',
+          default: 'Gỗ Nhựa WPC',
+        }
+      - { label: 'Thẻ tag', name: 'tags', widget: 'list', required: false }
+      - {
+          label: 'Ảnh đại diện',
+          name: 'image',
+          widget: 'image',
+          required: true,
+        }
+      - {
+          label: 'Alt text cho ảnh',
+          name: 'imageAlt',
+          widget: 'string',
+          required: false,
+        }
+      - { label: 'Mô tả ngắn', name: 'excerpt', widget: 'text', required: true }
+      - {
+          label: 'Meta Description (SEO)',
+          name: 'metaDescription',
+          widget: 'string',
+          pattern: ['.{50,160}', 'Từ 50-160 ký tự'],
+          required: false,
+        }
+      - {
+          label: 'Tác giả',
+          name: 'author',
+          widget: 'string',
+          default: 'VINA WPC',
+        }
+      - {
+          label: 'Thời gian đọc (phút)',
+          name: 'readTime',
+          widget: 'number',
+          default: 5,
+        }
+      - { label: 'Nội dung', name: 'body', widget: 'markdown', required: true }
+
+  - name: 'products'
+    label: 'Sản phẩm'
+    label_singular: 'Sản phẩm'
+    folder: 'content/products'
+    create: true
+    slug: '{{slug}}'
+    preview_path: '/products/{{slug}}'
+    fields:
+      - { label: 'Tên sản phẩm', name: 'title', widget: 'string' }
+      - { label: 'Mô tả ngắn', name: 'description', widget: 'text' }
+      - {
+          label: 'Bộ sưu tập',
+          name: 'collection',
+          widget: 'select',
+          options:
+            [
+              'Sàn WPC',
+              'Ốp Tường WPC',
+              'Hàng Rào WPC',
+              'Lam Che Nắng WPC',
+              'Sàn Gỗ Ngoài Trời',
+              'Tấm Ốp 3D',
+            ],
+        }
+      - {
+          label: 'Thông số kỹ thuật',
+          name: 'specifications',
+          widget: 'markdown',
+        }
+      - {
+          label: 'Tính năng nổi bật',
+          name: 'features',
+          widget: 'list',
+          field: { label: 'Tính năng', name: 'feature', widget: 'string' },
+        }
+      - {
+          label: 'Thư viện ảnh',
+          name: 'gallery',
+          widget: 'list',
+          field: { label: 'Ảnh', name: 'image', widget: 'image' },
+        }
+      - { label: 'Giá bán', name: 'price', widget: 'string', required: false }
+      - {
+          label: 'Phòng phù hợp',
+          name: 'rooms',
+          widget: 'select',
+          multiple: true,
+          options:
+            [
+              'Phòng khách',
+              'Phòng bếp',
+              'Phòng ngủ',
+              'Phòng tắm',
+              'Sân vườn',
+              'Ban công',
+              'Hành lang',
+              'Văn phòng',
+            ],
+          required: false,
+        }
+      - {
+          label: 'Màu sắc',
+          name: 'colors',
+          widget: 'list',
+          fields: [
+            { label: 'Tên màu', name: 'name', widget: 'string' },
+            { label: 'Mã màu', name: 'hex', widget: 'color' }
+          ]
+        }

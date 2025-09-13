@@ -3,32 +3,34 @@
 import Image from 'next/image';
 import { Button } from '@/components/ui/Button';
 import { useScrollReveal } from '@/hooks/useScrollReveal';
+import { useRouter } from 'next/navigation';
 
 export function AboutIntroHero() {
+  const router = useRouter();
   // Animation refs - Reduced delays for better user experience
-  const { ref: bgRef } = useScrollReveal<HTMLDivElement>({ 
+  const { ref: bgRef } = useScrollReveal<HTMLDivElement>({
     animationClass: 'animate-product-card',
     staggerDelay: 0,
-    elementType: 'background'
+    elementType: 'background',
   });
-  const { ref: subtitleRef } = useScrollReveal<HTMLParagraphElement>({ 
+  const { ref: subtitleRef } = useScrollReveal<HTMLParagraphElement>({
     staggerDelay: 100,
-    elementType: 'text'
+    elementType: 'text',
   });
-  const { ref: headingRef } = useScrollReveal<HTMLHeadingElement>({ 
+  const { ref: headingRef } = useScrollReveal<HTMLHeadingElement>({
     staggerDelay: 200,
-    elementType: 'text'
+    elementType: 'text',
   });
-  const { ref: buttonRef } = useScrollReveal<HTMLDivElement>({ 
+  const { ref: buttonRef } = useScrollReveal<HTMLDivElement>({
     staggerDelay: 300,
-    elementType: 'ui'
+    elementType: 'ui',
   });
 
   return (
     <section className="py-7 lg:pt-18 lg:pb-10">
       <div className="page-container relative min-h-[60vh] overflow-hidden lg:min-h-[80vh]">
         {/* Background Image */}
-        <div ref={bgRef} className="absolute inset-0 animate-product-card">
+        <div ref={bgRef} className="animate-product-card absolute inset-0">
           <Image
             src="/images/blog-hero.jpg"
             alt="VINA WPC Material Background - Curved Wood Structures"
@@ -49,18 +51,27 @@ export function AboutIntroHero() {
             {/* Text Content - Right Side - Starts at 50% */}
             <div className="w-full max-w-lg space-y-2 p-6 lg:w-1/2 lg:space-y-5 lg:bg-transparent lg:p-0">
               {/* Subtitle */}
-              <p ref={subtitleRef} className="subtitle-2 text-white animate-on-scroll">Giới thiệu về VINA WPC</p>
+              <p
+                ref={subtitleRef}
+                className="subtitle-2 animate-on-scroll text-white"
+              >
+                Giới thiệu về VINA WPC
+              </p>
 
               {/* Main Text */}
-              <h2 ref={headingRef} className="h3 text-white animate-on-scroll">
+              <h2 ref={headingRef} className="h3 animate-on-scroll text-white">
                 Sản phẩm thân thiện với môi trường, có tính thẩm mỹ hiện đại phù
                 hợp với nhiều không gian nội thất, không chỉ đẹp mà còn bền bỉ
                 theo thời gian.
               </h2>
 
               {/* CTA Button */}
-              <div ref={buttonRef} className="mt-4 animate-on-scroll">
-                <Button variant="white" className="w-fit">
+              <div ref={buttonRef} className="animate-on-scroll mt-4">
+                <Button
+                  variant="white"
+                  className="w-fit"
+                  onClick={() => router.push('/about')}
+                >
                   Về chúng tôi
                 </Button>
               </div>

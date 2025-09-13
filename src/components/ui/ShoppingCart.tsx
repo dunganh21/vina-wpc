@@ -4,6 +4,7 @@ import Image from 'next/image';
 import { useEffect } from 'react';
 import { Button } from './Button';
 import { useCart } from '@/lib/cart-context';
+import { useRouter } from 'next/navigation';
 
 interface ShoppingCartProps {
   showCart: boolean;
@@ -11,6 +12,7 @@ interface ShoppingCartProps {
 }
 
 export function ShoppingCart({ showCart, onClose }: ShoppingCartProps) {
+  const router = useRouter();
   const {
     items: cartItems,
     updateQuantity,
@@ -189,7 +191,15 @@ export function ShoppingCart({ showCart, onClose }: ShoppingCartProps) {
               </div>
 
               {/* Contact Button */}
-              <Button variant="button" className="w-full" icon="send.svg">
+              <Button 
+                variant="button" 
+                className="w-full" 
+                icon="send.svg"
+                onClick={() => {
+                  onClose();
+                  router.push('/contact?mode=purchase');
+                }}
+              >
                 Liên hệ mua hàng
               </Button>
             </div>

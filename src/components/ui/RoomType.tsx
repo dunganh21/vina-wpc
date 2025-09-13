@@ -7,12 +7,14 @@ interface RoomTypeProps {
   category: string;
   icon?: string;
   className?: string;
+  onClick?: () => void;
 }
 
 export function RoomType({
   category,
   icon = 'living-room.svg',
   className = '',
+  onClick,
 }: RoomTypeProps) {
   const [isHovered, setIsHovered] = useState(false);
 
@@ -40,6 +42,7 @@ export function RoomType({
       )}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
+      onClick={onClick}
     >
       {/* Living room icon using mask pattern like Button components */}
       <div

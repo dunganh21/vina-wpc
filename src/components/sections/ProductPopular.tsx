@@ -2,8 +2,29 @@
 
 import { ProductCard } from '@/components/ui/ProductCard';
 import { Button, ButtonIcon, PageIndicator } from '@/components/ui';
+import { useRouter } from 'next/navigation';
+import type { Product } from '@/types/product';
 
-const featuredProducts = [
+// Transform CMS Product data to ProductCard props format
+function transformProductForCard(product: Product) {
+  const primaryImage = product.gallery?.[0] || '/images/prd-lg-1.jpg';
+  const extractDimensions = (specs: string): string => {
+    const match = specs.match(/Kích thước:\s*([^\n]+)/);
+    return match ? match[1].trim() : '900×120×15mm';
+  };
+
+  return {
+    id: product.slug,
+    slug: product.slug,
+    image: primaryImage,
+    title: product.collection || 'SCANDINAVIAN LIGHT',
+    subtitle: product.title,
+    price: product.price || '850.000đ/m²',
+    dimensions: extractDimensions(product.specifications),
+  };
+}
+
+const fallbackProducts = [
   {
     id: '1',
     image: '/images/prd-lg-1.jpg',
@@ -38,7 +59,19 @@ const featuredProducts = [
   },
 ];
 
-export function ProductPopular() {
+interface ProductPopularProps {
+  cmsProducts?: Product[];
+}
+
+export function ProductPopular({ cmsProducts = [] }: ProductPopularProps) {
+  const router = useRouter();
+
+  // Use CMS data if available, otherwise fallback to static data
+  // Take first 4 products for featured section
+  const featuredProducts = cmsProducts.length > 0
+    ? cmsProducts.slice(0, 4).map(transformProductForCard)
+    : fallbackProducts;
+  
   return (
     <section className="pt-7 pb-10 lg:py-11">
       <div className="page-container">
@@ -53,7 +86,7 @@ export function ProductPopular() {
           <div className="hidden lg:block">
             <Button
               variant="button"
-              onClick={() => console.log('View all products')}
+              onClick={() => router.push('/products')}
             >
               Xem tất cả
             </Button>
@@ -76,7 +109,7 @@ export function ProductPopular() {
         <div className="flex justify-start lg:hidden">
           <Button
             className="px-8 py-4"
-            onClick={() => console.log('View all products')}
+            onClick={() => router.push('/products')}
           >
             Xem tất cả
           </Button>

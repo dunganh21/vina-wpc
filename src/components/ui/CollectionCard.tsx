@@ -17,7 +17,10 @@ export default function CollectionCard({
   onLearnMore,
 }: CollectionCardProps) {
   return (
-    <div className="relative aspect-[3/4] w-full overflow-hidden lg:aspect-[4/3]">
+    <div 
+      className="relative aspect-[3/4] w-full cursor-pointer overflow-hidden transition-transform duration-300 hover:scale-105 lg:aspect-[4/3]"
+      onClick={onLearnMore}
+    >
       {/* Background Image */}
       <Image
         src={imageUrl}

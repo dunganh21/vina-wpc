@@ -26,7 +26,8 @@ export function NewsCard({
 }: NewsCardProps) {
   const CardContent = (
     <article
-      className={`group cursor-pointer border border-black/10 bg-white shadow-card transition-all duration-300 hover:-translate-y-1 hover:shadow-elevated ${className}`}
+      className={`group h-full cursor-pointer border border-black/10 bg-white shadow-card transition-all duration-300 hover:-translate-y-1 hover:shadow-elevated flex flex-col ${className}`}
+      onClick={onReadMore}
     >
       {/* Image */}
       <div className="relative aspect-[4/3] w-full overflow-hidden">
@@ -40,7 +41,7 @@ export function NewsCard({
       </div>
 
       {/* Content */}
-      <div className="space-y-1 p-4">
+      <div className="flex flex-1 flex-col space-y-1 p-4">
         {/* Category and Date */}
         <div className="flex items-center gap-1">
           <span className="subtitle-4">{category}</span>
@@ -49,10 +50,10 @@ export function NewsCard({
         </div>
 
         {/* Title */}
-        <h5>{title}</h5>
+        <h5 className="line-clamp-2 min-h-[2.5rem]">{title}</h5>
 
         {/* Excerpt */}
-        <p className="body-3">{excerpt}</p>
+        <p className="body-3 line-clamp-3 flex-1">{excerpt}</p>
       </div>
     </article>
   );

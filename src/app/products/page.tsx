@@ -1,5 +1,6 @@
 import { Metadata } from 'next';
-import { ProductsHero, ProductList } from '@/components/sections';
+import { ProductsHero } from '@/components/sections';
+import { ProductListServer } from '@/components/sections/ProductListServer';
 
 export const metadata: Metadata = {
   title: 'Sản phẩm - VINA WPC',
@@ -10,7 +11,7 @@ export default function ProductsPage() {
   return (
     <main>
       <ProductsHero />
-      <ProductList />
+      <ProductListServer />
     </main>
   );
 }

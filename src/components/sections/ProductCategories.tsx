@@ -3,6 +3,7 @@
 import { Button } from '@/components/ui/Button';
 import CollectionCard from '@/components/ui/CollectionCard';
 import { useScrollReveal } from '@/hooks/useScrollReveal';
+import { useRouter } from 'next/navigation';
 
 const categories = [
   {
@@ -40,6 +41,8 @@ const categories = [
 ];
 
 export function ProductCategories() {
+  const router = useRouter();
+  
   // Animation refs - Reduced delays for better user experience
   const { ref: subtitleRef } = useScrollReveal<HTMLParagraphElement>({ 
     staggerDelay: 0,
@@ -80,7 +83,11 @@ export function ProductCategories() {
 
           {/* Desktop Button */}
           <div ref={buttonRef} className="mt-4 hidden lg:mt-0 lg:block lg:flex-shrink-0 animate-on-scroll">
-            <Button variant="button" mode="light">
+            <Button 
+              variant="button" 
+              mode="light"
+              onClick={() => router.push('/products')}
+            >
               Xem tất cả
             </Button>
           </div>
@@ -96,7 +103,15 @@ export function ProductCategories() {
                 productCount={category.productCount}
                 imageUrl={category.imageUrl}
                 onLearnMore={() => {
-                  console.log(`Learn more about ${category.title}`);
+                  // Redirect to a representative product detail page for each category
+                  const productSlugs = {
+                    'san-go-noi-that': 'scandinavian-light-wr205',
+                    'tran-nha-trang-tri': 'modern-ceiling-wr301', 
+                    'op-tuong-ngoai-that': 'exterior-wall-wr401',
+                    'san-ngoai-troi': 'outdoor-deck-wr501'
+                  };
+                  const slug = productSlugs[category.id as keyof typeof productSlugs] || category.id;
+                  router.push(`/products/${slug}`);
                 }}
               />
             </div>
@@ -105,7 +120,11 @@ export function ProductCategories() {
 
         {/* Mobile Button */}
         <div className="mt-8 lg:hidden">
-          <Button variant="button" mode="light">
+          <Button 
+            variant="button" 
+            mode="light"
+            onClick={() => router.push('/products')}
+          >
             Xem tất cả
           </Button>
         </div>
