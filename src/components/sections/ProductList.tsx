@@ -4,6 +4,7 @@ import { useState, useMemo, useEffect } from 'react';
 import { ProductCard } from '@/components/ui/ProductCard';
 import { FilterSidebarDesktop } from '@/components/ui/FilterSidebarDesktop';
 import { FilterSidebarMobile } from '@/components/ui/FilterSidebarMobile';
+import { EmptyState } from '@/components/ui/EmptyState';
 import Pagination from '@/components/ui/Pagination';
 import Image from 'next/image';
 import { cn } from '@/lib/utils';
@@ -196,6 +197,17 @@ export function ProductList({ cmsProducts = [] }: ProductListProps) {
     setCurrentPage(page);
   };
 
+  const handleClearFilters = () => {
+    const emptyFilters = { categories: [], priceRanges: [], rooms: [] };
+    setFilters(emptyFilters);
+    setCurrentPage(1);
+
+    // Clear URL params
+    if (typeof window !== 'undefined') {
+      window.history.replaceState({}, '', window.location.pathname);
+    }
+  };
+
   return (
     <section className="py-10 lg:py-16">
       <div className="page-container">
@@ -264,10 +276,44 @@ export function ProductList({ cmsProducts = [] }: ProductListProps) {
             {/* Product Grid */}
             <div
               className={cn(
-                'grid gap-6 transition-all duration-300 ease-in-out',
+                'transition-all duration-300 ease-in-out',
+                filteredProducts.length === 0 ? '' : 'grid gap-6',
                 showFilters ? 'grid-cols-3' : 'grid-cols-4'
               )}
             >
+              {filteredProducts.length === 0 ? (
+                <EmptyState
+                  title="Không tìm thấy sản phẩm"
+                  description="Không có sản phẩm nào phù hợp với bộ lọc của bạn. Hãy thử điều chỉnh các tiêu chí tìm kiếm hoặc xóa bộ lọc để xem tất cả sản phẩm."
+                  actionText="Xóa tất cả bộ lọc"
+                  onAction={handleClearFilters}
+                  className="col-span-full"
+                />
+              ) : (
+                paginatedProducts.map((product, index) => (
+                  <ProductCard
+                    key={product.id}
+                    {...product}
+                    staggerDelay={index * 50}
+                    elementType="card"
+                  />
+                ))
+              )}
+            </div>
+          </div>
+        </div>
+
+        {/* Mobile Layout - Products Only */}
+        <div className="mb-8 lg:hidden">
+          {filteredProducts.length === 0 ? (
+            <EmptyState
+              title="Không tìm thấy sản phẩm"
+              description="Không có sản phẩm nào phù hợp với bộ lọc của bạn. Hãy thử điều chỉnh các tiêu chí tìm kiếm hoặc xóa bộ lọc để xem tất cả sản phẩm."
+              actionText="Xóa tất cả bộ lọc"
+              onAction={handleClearFilters}
+            />
+          ) : (
+            <div className="grid grid-cols-2 gap-2">
               {paginatedProducts.map((product, index) => (
                 <ProductCard
                   key={product.id}
@@ -277,21 +323,7 @@ export function ProductList({ cmsProducts = [] }: ProductListProps) {
                 />
               ))}
             </div>
-          </div>
-        </div>
-
-        {/* Mobile Layout - Products Only */}
-        <div className="mb-8 lg:hidden">
-          <div className="grid grid-cols-2 gap-2">
-            {paginatedProducts.map((product, index) => (
-              <ProductCard
-                key={product.id}
-                {...product}
-                staggerDelay={index * 50}
-                elementType="card"
-              />
-            ))}
-          </div>
+          )}
         </div>
 
         {/* Mobile Filter Overlay */}
@@ -303,15 +335,17 @@ export function ProductList({ cmsProducts = [] }: ProductListProps) {
         />
 
         {/* Pagination */}
-        <div className="flex justify-end">
-          <Pagination
-            currentPage={currentPage}
-            totalPages={totalPages}
-            onPageChange={handlePageChange}
-            onPrevious={() => currentPage > 1 && handlePageChange(currentPage - 1)}
-            onNext={() => currentPage < totalPages && handlePageChange(currentPage + 1)}
-          />
-        </div>
+        {filteredProducts.length > 0 && totalPages > 1 && (
+          <div className="flex justify-end">
+            <Pagination
+              currentPage={currentPage}
+              totalPages={totalPages}
+              onPageChange={handlePageChange}
+              onPrevious={() => currentPage > 1 && handlePageChange(currentPage - 1)}
+              onNext={() => currentPage < totalPages && handlePageChange(currentPage + 1)}
+            />
+          </div>
+        )}
       </div>
     </section>
   );
