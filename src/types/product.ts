@@ -28,6 +28,7 @@ export interface Product {
   price?: string; // Optional price (some products may not have pricing)
   rooms?: string[]; // Room types where product is suitable
   colors: ProductColor[]; // Available color variants
+  dimensions?: string[]; // Available dimensions for selection
   slug: string; // URL-friendly identifier
 }
 

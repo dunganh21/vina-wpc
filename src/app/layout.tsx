@@ -26,7 +26,10 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="vi">
-      <body className={`${inter.variable} bg-white font-primary antialiased`}>
+      <body
+        className={`${inter.variable} bg-white font-primary antialiased`}
+        suppressHydrationWarning={true}
+      >
         <ToastProvider>
           <CartProvider>
             <Header />

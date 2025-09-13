@@ -8,7 +8,7 @@ export { Logo } from './Logo';
 export { NewsCard } from './NewsCard';
 export { PageIndicator } from './PageIndicator';
 export { default as PageNavigator } from './PageNavigator';
-export { default as Pagination } from './Pagination';
+export { Pagination } from './Pagination';
 export { ProductCard } from './ProductCard';
 export { ProductTooltipCard } from './ProductTooltipCard';
 export { RoomType } from './RoomType';

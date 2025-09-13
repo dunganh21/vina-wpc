@@ -151,3 +151,10 @@ collections:
             { label: 'Mã màu', name: 'hex', widget: 'color' }
           ]
         }
+      - {
+          label: 'Kích thước',
+          name: 'dimensions',
+          widget: 'list',
+          field: { label: 'Kích thước', name: 'dimension', widget: 'string' },
+          default: ['900×120×15mm', '800×90×15mm', '700×50×15mm']
+        }

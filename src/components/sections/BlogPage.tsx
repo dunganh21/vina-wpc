@@ -1,72 +1,82 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useMemo, useEffect } from 'react';
 import { cn } from '@/lib/utils';
 import { NewsCard } from '@/components/ui/NewsCard';
 import { Input } from '@/components/ui/Input';
-import Pagination from '@/components/ui/Pagination';
+import { Pagination } from '@/components/ui/Pagination';
 import Image from 'next/image';
 import { useScrollReveal } from '@/hooks/useScrollReveal';
-
-interface BlogPost {
-  id: string;
-  slug: string;
-  title: string;
-  excerpt: string;
-  date: string;
-  category: string;
-  imageUrl: string;
-}
+import type { BlogPost } from '@/types/product';
 
 interface BlogPageProps {
+  blogPosts: BlogPost[];
   className?: string;
 }
 
-// Mock data - replace with actual data
-const mockBlogPosts: BlogPost[] = Array.from({ length: 36 }, (_, i) => ({
-  id: `${i + 1}`,
-  slug: `go-nhua-uu-diem-vuot-troi-${i + 1}`,
-  title: 'Gỗ nhựa là gì? Ưu điểm vượt trội trong thiết kế hiện đại',
-  excerpt:
-    'Khám phá khái niệm gỗ nhựa (WPC), đặc tính nổi bật và lý do vì sao đây là vật liệu "xanh" được ưa chuộng hiện nay.',
-  date: '08/08/2025',
-  category: 'Gỗ Nhựa WPC',
-  imageUrl: '/placeholder-blog.jpg',
-}));
+// Dynamic filter categories based on available blog posts
+const getFilterCategories = (posts: BlogPost[]) => {
+  const categories = posts.map(post => post.category);
+  return [...new Set(categories)].sort();
+};
 
-const filterCategories = [
-  'Gỗ nhựa WPC',
-  'Tin xuất khẩu',
-  'Sự kiện',
-  'Giải thưởng',
-  'Hoạt động xã hội',
-  'Lifestyle',
-];
-
-export function BlogPage({ className }: BlogPageProps) {
+export function BlogPage({ blogPosts, className }: BlogPageProps) {
   const [searchTerm, setSearchTerm] = useState('');
   const [activeFilter, setActiveFilter] = useState('');
   const [currentPage, setCurrentPage] = useState(1);
 
   const postsPerPage = 12;
-  const totalPages = Math.ceil(mockBlogPosts.length / postsPerPage);
+  const filterCategories = getFilterCategories(blogPosts);
+
+  // Filter and search logic
+  const filteredPosts = useMemo(() => {
+    let filtered = blogPosts;
+
+    // Apply search filter
+    if (searchTerm.trim()) {
+      const searchLower = searchTerm.toLowerCase();
+      filtered = filtered.filter(
+        (post) =>
+          post.title.toLowerCase().includes(searchLower) ||
+          post.excerpt.toLowerCase().includes(searchLower) ||
+          post.category.toLowerCase().includes(searchLower)
+      );
+    }
+
+    // Apply category filter
+    if (activeFilter) {
+      filtered = filtered.filter((post) => post.category === activeFilter);
+    }
+
+    return filtered;
+  }, [blogPosts, searchTerm, activeFilter]);
+
+  const totalPages = Math.ceil(filteredPosts.length / postsPerPage);
+
+  // Reset to page 1 when filters change
+  useEffect(() => {
+    setCurrentPage(1);
+  }, [searchTerm, activeFilter]);
 
   // Animation refs
-  const { ref: headerRef } = useScrollReveal<HTMLDivElement>({ 
+  const { ref: headerRef } = useScrollReveal<HTMLDivElement>({
     elementType: 'text',
-    staggerDelay: 0 
+    staggerDelay: 0
   });
-  const { ref: searchRef } = useScrollReveal<HTMLDivElement>({ 
+
+  const { ref: searchRef } = useScrollReveal<HTMLDivElement>({
     elementType: 'ui',
-    staggerDelay: 100 
+    staggerDelay: 100
   });
-  const { ref: filtersRef } = useScrollReveal<HTMLDivElement>({ 
+
+  const { ref: filtersRef } = useScrollReveal<HTMLDivElement>({
     elementType: 'ui',
-    staggerDelay: 200 
+    staggerDelay: 200
   });
-  const { ref: gridRef } = useScrollReveal<HTMLDivElement>({ 
+
+  const { ref: gridRef } = useScrollReveal<HTMLDivElement>({
     elementType: 'card',
-    staggerDelay: 300 
+    staggerDelay: 300
   });
 
   const handlePageChange = (page: number) => {
@@ -146,34 +156,49 @@ export function BlogPage({ className }: BlogPageProps) {
 
       {/* Blog Grid */}
       <div className="page-container pb-10 lg:pb-16">
-        <div ref={gridRef} className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 animate-on-scroll">
-          {mockBlogPosts
-            .slice((currentPage - 1) * postsPerPage, currentPage * postsPerPage)
-            .map((post) => (
-              <NewsCard
-                key={post.id}
-                title={post.title}
-                excerpt={post.excerpt}
-                date={post.date}
-                category={post.category}
-                imageUrl={post.imageUrl}
-                slug={post.slug}
-                className="h-full"
-              />
-            ))}
-        </div>
+        {filteredPosts.length === 0 ? (
+          <div className="flex flex-col items-center justify-center py-12 text-center">
+            <div className="mb-4 text-6xl opacity-30">📝</div>
+            <div className="h6 mb-2 text-secondary">Không tìm thấy bài viết</div>
+            <div className="body-3 text-secondary opacity-70">
+              {searchTerm || activeFilter
+                ? 'Thử thay đổi từ khóa tìm kiếm hoặc bộ lọc'
+                : 'Chưa có bài viết nào được đăng'
+              }
+            </div>
+          </div>
+        ) : (
+          <div ref={gridRef} className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 animate-on-scroll">
+            {filteredPosts
+              .slice((currentPage - 1) * postsPerPage, currentPage * postsPerPage)
+              .map((post) => (
+                <NewsCard
+                  key={post.slug}
+                  title={post.title}
+                  excerpt={post.excerpt}
+                  date={post.date}
+                  category={post.category}
+                  imageUrl={post.image}
+                  slug={post.slug}
+                  className="h-full"
+                />
+              ))}
+          </div>
+        )}
 
         {/* Pagination */}
-        <div className="mt-4 flex justify-start lg:mt-12">
-          <Pagination
-            currentPage={currentPage}
-            totalPages={totalPages}
-            onPageChange={handlePageChange}
-            onPrevious={handlePrevious}
-            onNext={handleNext}
-            maxVisiblePages={6}
-          />
-        </div>
+        {filteredPosts.length > 0 && totalPages > 1 && (
+          <div className="mt-4 flex justify-start lg:mt-12">
+            <Pagination
+              currentPage={currentPage}
+              totalPages={totalPages}
+              onPageChange={handlePageChange}
+              onPrevious={handlePrevious}
+              onNext={handleNext}
+              maxVisiblePages={6}
+            />
+          </div>
+        )}
       </div>
     </div>
   );

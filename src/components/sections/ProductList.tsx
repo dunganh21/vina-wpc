@@ -5,7 +5,7 @@ import { ProductCard } from '@/components/ui/ProductCard';
 import { FilterSidebarDesktop } from '@/components/ui/FilterSidebarDesktop';
 import { FilterSidebarMobile } from '@/components/ui/FilterSidebarMobile';
 import { EmptyState } from '@/components/ui/EmptyState';
-import Pagination from '@/components/ui/Pagination';
+import { Pagination } from '@/components/ui/Pagination';
 import Image from 'next/image';
 import { cn } from '@/lib/utils';
 import type { Product } from '@/types/product';

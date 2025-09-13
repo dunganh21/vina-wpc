@@ -9,6 +9,25 @@ import type { BlogPost, Product, ProductFilters } from '@/types/product';
 
 const contentDirectory = path.join(process.cwd(), 'content');
 
+// ==================== UTILITY FUNCTIONS ====================
+
+// Format date for display in Vietnamese format
+function formatDate(date: string | Date): string {
+  const dateObj = typeof date === 'string' ? new Date(date) : date;
+
+  // Check if date is valid
+  if (isNaN(dateObj.getTime())) {
+    return '';
+  }
+
+  // Format as DD/MM/YYYY
+  return dateObj.toLocaleDateString('vi-VN', {
+    day: '2-digit',
+    month: '2-digit',
+    year: 'numeric',
+  });
+}
+
 // ==================== CACHED DATA FUNCTIONS ====================
 // Using React cache for automatic deduplication and memoization
 
@@ -34,7 +53,7 @@ export const getBlogPosts = cache(async (): Promise<BlogPost[]> => {
         return {
           slug: filename.replace(/\.md$/, ''),
           title: data.title || '',
-          date: data.date || '',
+          date: data.date ? formatDate(data.date) : '',
           category: data.category || '',
           image: data.image || '',
           excerpt: data.excerpt || '',
@@ -64,7 +83,7 @@ export const getBlogPost = cache(
     return {
       slug,
       title: data.title || '',
-      date: data.date || '',
+      date: data.date ? formatDate(data.date) : '',
       category: data.category || '',
       image: data.image || '',
       excerpt: data.excerpt || '',
@@ -100,6 +119,7 @@ export const getProducts = cache(async (): Promise<Product[]> => {
           price: data.price,
           rooms: data.rooms || [],
           colors: data.colors || [],
+          dimensions: data.dimensions || [],
           collection: data.collection || '',
         } as Product;
       })
@@ -129,6 +149,7 @@ export const getProduct = cache(
       price: data.price,
       rooms: data.rooms || [],
       colors: data.colors || [],
+      dimensions: data.dimensions || [],
       collection: data.collection || '',
     };
   }

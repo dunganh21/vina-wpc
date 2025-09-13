@@ -8,33 +8,37 @@ import { Select } from '@/components/ui/Select';
 import { Button } from '@/components/ui/Button';
 import { useCart } from '@/lib/cart-context';
 
-const productData = {
-  id: 'WR205',
-  name: 'Tấm ốp gỗ sồi WR205',
-  category: 'TRANG CHỦ/SẢN PHẨM/SCANDINAVIAN LIGHT',
-  price: 850000,
-  unit: 'đ/m²',
-  description:
-    'Tấm ốp gỗ sồi trắng WR205 mang lại vẻ đẹp tự nhiên và hiện đại cho không gian sống. Với vân gỗ mềm, tông màu sáng giúp mở rộng thị giác và tăng cảm giác sách sẽ - lý tưởng cho không gian khách, phòng ngủ, quán cafe hoặc không gian spa.',
+interface ProductData {
+  id: string;
+  name: string;
+  category: string;
+  price: number;
+  unit: string;
+  description: string;
   specifications: {
-    size: '900×120×15mm',
-    area: '4m²',
-  },
-  colors: [
-    { id: 'brown-light', color: '#8B7355' },
-    { id: 'brown-medium', color: '#6B5B3A' },
-    { id: 'brown-dark', color: '#4A3D28' },
-  ],
-  sizes: [
-    { label: '900×120×15mm', value: '900×120×15mm' },
-    { label: '900×120×20mm', value: '900×120×20mm' },
-    { label: '900×140×15mm', value: '900×140×15mm' },
-    { label: '900×140×20mm', value: '900×140×20mm' },
-  ],
-  image: '/images/prd-lg-1.jpg',
-};
+    size: string;
+    area: string;
+  };
+  colors: Array<{
+    id: string;
+    color: string;
+    name?: string;
+  }>;
+  sizes: Array<{
+    label: string;
+    value: string;
+  }>;
+  image: string;
+  gallery?: string[];
+  features?: string[];
+  rooms?: string[];
+}
 
-export function ProductDetailSection() {
+interface ProductDetailSectionProps {
+  productData: ProductData;
+}
+
+export function ProductDetailSection({ productData }: ProductDetailSectionProps) {
   const [selectedColor, setSelectedColor] = useState(productData.colors[0].id);
   const [selectedSize, setSelectedSize] = useState(
     productData.specifications.size
@@ -53,11 +57,12 @@ export function ProductDetailSection() {
     addItem({
       id: `${productData.id}-${selectedColor}-${selectedSize}`,
       title: productData.name,
-      subtitle: `${colorName} • ${selectedSize} • ${quantity}m²`,
       price: `${(productData.price * quantity).toLocaleString('vi-VN')}đ`,
       dimensions: selectedSize,
-      imageUrl: productData.image,
-      slug: 'wr205', // Based on the product ID
+      image: productData.image,
+      slug: productData.id,
+      collection: productData.category,
+      colors: productData.colors.map(c => ({ name: c.name || 'Default', hex: c.color })),
     });
   };
 

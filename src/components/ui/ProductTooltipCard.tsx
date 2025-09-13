@@ -34,11 +34,12 @@ export function ProductTooltipCard({
     addItem({
       id,
       title,
-      subtitle,
       price,
       dimensions,
-      imageUrl: image,
-      slug,
+      image,
+      slug: slug || id,
+      collection: title,
+      colors: [],
     });
   };
   const CardContent = (

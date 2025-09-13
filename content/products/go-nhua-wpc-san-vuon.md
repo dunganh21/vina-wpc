@@ -42,4 +42,8 @@ colors:
     hex: '#8B4513'
   - name: 'Natural'
     hex: '#DEB887'
+dimensions:
+  - '900×120×15mm'
+  - '800×90×15mm'
+  - '700×50×15mm'
 ---

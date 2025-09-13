@@ -36,6 +36,10 @@ colors:
     hex: '#556B2F'
   - name: 'White Oak'
     hex: '#F5DEB3'
+dimensions:
+  - '900×120×15mm'
+  - '800×90×15mm'
+  - '700×50×15mm'
 rooms:
   - 'Phòng khách'
   - 'Phòng ngủ'

@@ -82,8 +82,8 @@ export function ShoppingCart({ showCart, onClose }: ShoppingCartProps) {
                       {/* Product Image */}
                       <div className="relative h-[125px] w-[114px] flex-shrink-0 overflow-hidden">
                         <Image
-                          src={item.imageUrl}
-                          alt={item.subtitle}
+                          src={item.image}
+                          alt={item.title}
                           fill
                           className="object-cover"
                           sizes="114px"
@@ -95,7 +95,7 @@ export function ShoppingCart({ showCart, onClose }: ShoppingCartProps) {
                         <div className="flex items-start justify-between">
                           <div className="space-y-1">
                             <div className="subtitle-4">{item.title}</div>
-                            <h6 className="text-primary">{item.subtitle}</h6>
+                            <h6 className="text-primary">{item.collection}</h6>
                           </div>
                           {/* Remove Button */}
                           <button

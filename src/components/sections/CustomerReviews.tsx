@@ -168,7 +168,7 @@ export function CustomerReviews({
             ))}
 
             {/* Pagination moved to Column 3 */}
-            <div className="mt-6 flex justify-center lg:justify-start">
+            {/* <div className="mt-6 flex justify-center lg:justify-start">
               <Pagination
                 currentPage={currentPage}
                 totalPages={totalPages}
@@ -177,7 +177,7 @@ export function CustomerReviews({
                 onNext={handleNext}
                 maxVisiblePages={3}
               />
-            </div>
+            </div> */}
           </div>
 
           {/* Column 4: Empty */}

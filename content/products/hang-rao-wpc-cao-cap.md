@@ -35,6 +35,10 @@ colors:
     hex: '#B8860B'
   - name: 'Espresso Brown'
     hex: '#4A3C28'
+dimensions:
+  - '1800×150×25mm'
+  - '1600×120×25mm'
+  - '1400×100×25mm'
 rooms:
   - 'Phòng khách'
   - 'Phòng ngủ'

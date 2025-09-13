@@ -1,9 +1,9 @@
-import { BlogPage } from '@/components/sections/BlogPage';
+import { BlogPageServer } from '@/components/sections/BlogPageServer';
 
 export default function Blog() {
   return (
     <main className="min-h-screen bg-white">
-      <BlogPage />
+      <BlogPageServer />
     </main>
   );
 }

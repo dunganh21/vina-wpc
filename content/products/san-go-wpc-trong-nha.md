@@ -35,6 +35,10 @@ colors:
     hex: '#F0E68C'
   - name: 'Cherry Red'
     hex: '#DC143C'
+dimensions:
+  - '900×120×15mm'
+  - '800×90×15mm'
+  - '700×50×15mm'
 rooms:
   - 'Phòng khách'
   - 'Phòng ngủ'

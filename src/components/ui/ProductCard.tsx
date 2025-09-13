@@ -51,11 +51,12 @@ export function ProductCard({
     addItem({
       id,
       title,
-      subtitle,
       price,
       dimensions,
-      imageUrl: image,
-      slug,
+      image,
+      slug: slug || id,
+      collection: title, // Use title as collection fallback
+      colors: [], // Empty colors array as fallback
     });
   };
 

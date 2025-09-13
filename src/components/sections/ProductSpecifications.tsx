@@ -1,46 +1,15 @@
 interface ProductSpecificationsProps {
-  specifications?: Array<{
+  specifications: Array<{
     label: string;
     description: string;
   }>;
-  className?: string;
 }
 
 export function ProductSpecifications({
-  specifications = [
-    { label: 'Kích thước', description: '900 x 120 x 15mm' },
-    {
-      label: 'Loại gỗ',
-      description: 'Gỗ sồi trắng tự nhiên (White Oak Rustic)',
-    },
-    { label: 'Kiểu cạnh', description: 'Ghép âm dương / Cạnh thẳng không vát' },
-    { label: 'Bề mặt', description: 'Sơn UV mờ hoặc dầu lau tự nhiên' },
-    {
-      label: 'Vân gỗ',
-      description: 'Rustic tự nhiên – có mắt gỗ & vết nứt nhẹ',
-    },
-    {
-      label: 'Loại gỗ',
-      description: 'Gỗ sồi trắng tự nhiên (White Oak Rustic)',
-    },
-    {
-      label: 'Độ ẩm tiêu chuẩn',
-      description: '8–12% (phù hợp khí hậu Việt Nam)',
-    },
-    {
-      label: 'Ứng dụng',
-      description: 'Ốp tường nội thất, ốp trần nhẹ, decor quán',
-    },
-    {
-      label: 'Phong cách phù hợp',
-      description: 'Bắc Âu, Japandi, Tối giản, Zen',
-    },
-    { label: 'Bảo hành', description: '5 năm cho mục đích nội thất trong nhà' },
-  ],
-  className = '',
+  specifications,
 }: ProductSpecificationsProps) {
   return (
-    <section className={`bg-white py-5 lg:py-15 ${className}`}>
+    <section className="bg-white py-5 lg:py-15">
       <div className="page-container">
         <div className="flex flex-col gap-8 lg:flex-row lg:gap-43">
           {/* Title Column */}
