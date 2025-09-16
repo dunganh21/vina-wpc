@@ -6,16 +6,16 @@
   <title>VINA WPC - Quản lý nội dung</title>
 </head>
 <body>
-  <!-- Use proven working Netlify CMS -->
-  <script src="https://unpkg.com/netlify-cms@^2.0.0/dist/netlify-cms.js"></script>
+  <!-- Use Decap CMS (formerly Netlify CMS) -->
+  <script src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"></script>
   
   <script>
-    console.log('Loading Netlify CMS...');
-    
+    console.log('Loading Decap CMS...');
+
     // Wait for CMS to load
     window.addEventListener('load', function() {
-      if (window.NetlifyCms) {
-        console.log('Netlify CMS loaded successfully');
+      if (window.DecapCms) {
+        console.log('Decap CMS loaded successfully');
         
         // Custom preview template for blog posts
         const BlogPreview = ({ entry, widgetFor, getAsset }) => {
@@ -43,10 +43,10 @@
         };
 
         // Register preview template
-        window.NetlifyCms.registerPreviewTemplate('blog', BlogPreview);
-        
+        window.DecapCms.registerPreviewTemplate('blog', BlogPreview);
+
         // Fix cursor position issues with Vietnamese input
-        window.NetlifyCms.registerEventListener({
+        window.DecapCms.registerEventListener({
           name: 'preSave',
           handler: function() {
             console.log('Pre-save event triggered');
@@ -54,7 +54,7 @@
         });
 
         // Configure CMS
-        window.NetlifyCms.init({
+        window.DecapCms.init({
           config: {
             load_config_file: true,
             slug: {
@@ -91,7 +91,7 @@
         }, 1000);
 
       } else {
-        console.error('Netlify CMS failed to load');
+        console.error('Decap CMS failed to load');
         setTimeout(arguments.callee, 1000);
       }
     });
