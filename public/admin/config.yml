@@ -1,8 +1,6 @@
-# Enable local backend for development
-local_backend: true
-
 backend:
-  name: git-gateway
+  name: github
+  repo: dunganh21/vina-wpc # Replace with your actual GitHub username/repo
   branch: main
 
 # Editorial workflow for content review (production)
@@ -20,9 +18,9 @@ slug:
 # Vietnamese interface
 locale: 'vi'
 
-# Site configuration
-site_url: 'https://your-domain.vercel.app'
-display_url: 'https://your-domain.vercel.app'
+# Site configuration - UPDATE WITH YOUR ACTUAL DOMAIN
+site_url: 'https://vina-wpc.vercel.app/'
+display_url: 'https://vina-wpc.vercel.app/'
 
 collections:
   - name: 'blog'
@@ -146,15 +144,16 @@ collections:
           label: 'Màu sắc',
           name: 'colors',
           widget: 'list',
-          fields: [
-            { label: 'Tên màu', name: 'name', widget: 'string' },
-            { label: 'Mã màu', name: 'hex', widget: 'color' }
-          ]
+          fields:
+            [
+              { label: 'Tên màu', name: 'name', widget: 'string' },
+              { label: 'Mã màu', name: 'hex', widget: 'color' },
+            ],
         }
       - {
           label: 'Kích thước',
           name: 'dimensions',
           widget: 'list',
           field: { label: 'Kích thước', name: 'dimension', widget: 'string' },
-          default: ['900×120×15mm', '800×90×15mm', '700×50×15mm']
+          default: ['900×120×15mm', '800×90×15mm', '700×50×15mm'],
         }
