@@ -41,7 +41,7 @@ export function Footer() {
                   <div>
                     <p className="subtitle-4 text-white/85">Địa chỉ</p>
                     <p className="h6 text-white">
-                      Khu 8, xã Gia Thanh, Phú Thọ, Việt Nam
+                      Khu 8, xã Dân Chủ, tỉnh Phú Thọ
                     </p>
                   </div>
 
