@@ -5,6 +5,7 @@ import Image from 'next/image';
 import { ProductTooltipCard } from '@/components/ui/ProductTooltipCard';
 import { ColorOption } from '@/components/ui/ColorOption';
 import { useScrollReveal } from '@/hooks/useScrollReveal';
+import { formatPrice } from '@/lib/product-utils';
 import type { Product } from '@/types/product';
 
 interface NewProductProps {
@@ -104,7 +105,7 @@ export function NewProduct({ product }: NewProductProps) {
                 image={product.gallery[0] || '/images/product-placeholder.jpg'}
                 title={product.title}
                 subtitle={product.collection}
-                price={product.price || 'Liên hệ'}
+                price={formatPrice(product.price)}
                 dimensions={product.dimensions?.[0] || 'Đa dạng kích thước'}
                 slug={product.slug}
               />

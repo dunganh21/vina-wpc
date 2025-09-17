@@ -14,7 +14,7 @@ interface CheckboxProps {
 
 export function Checkbox({
   defaultChecked = false,
-  checked = false,
+  checked,
   onChange,
   className,
   disabled = false,
@@ -25,15 +25,17 @@ export function Checkbox({
     onChange?.(e.target.checked);
   };
 
+  // Use controlled if checked is provided, otherwise uncontrolled
+  const isControlled = checked !== undefined;
+
   return (
     <input
       type="checkbox"
       id={id}
       name={name}
-      checked={checked}
+      {...(isControlled ? { checked } : { defaultChecked })}
       onChange={handleChange}
       disabled={disabled}
-      defaultChecked={defaultChecked}
       className={cn(
         'checkbox rounded-none checkbox-sm checkbox-neutral',
         className

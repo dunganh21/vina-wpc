@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useMemo, useEffect } from 'react';
+import { useState, useMemo } from 'react';
 import { ProductCard } from '@/components/ui/ProductCard';
 import { FilterSidebarDesktop } from '@/components/ui/FilterSidebarDesktop';
 import { FilterSidebarMobile } from '@/components/ui/FilterSidebarMobile';
@@ -8,6 +8,8 @@ import { EmptyState } from '@/components/ui/EmptyState';
 import { Pagination } from '@/components/ui/Pagination';
 import Image from 'next/image';
 import { cn } from '@/lib/utils';
+import { transformProductForCard, parsePrice } from '@/lib/product-utils';
+import { matchesPriceRange, roomToUrlSlug } from '@/lib/filter-constants';
 import type { Product } from '@/types/product';
 
 interface FilterData {
@@ -16,132 +18,119 @@ interface FilterData {
   rooms: string[];
 }
 
-// Transform CMS Product data to ProductCard props format
-function transformProductForCard(product: Product) {
-  const primaryImage = product.gallery?.[0] || '/images/prd-lg-1.jpg';
-  const extractDimensions = (specs: string): string => {
-    const match = specs.match(/Kích thước:\s*([^\n]+)/);
-    return match ? match[1].trim() : '900×120×15mm';
-  };
-
-  return {
-    id: product.slug,
-    slug: product.slug,
-    image: primaryImage,
-    title: product.title,
-    subtitle: product.collection,
-    price: product.price || '850.000đ/m²',
-    dimensions: extractDimensions(product.specifications),
-  };
-}
+// 🔧 Removed: Using centralized transformProductForCard from @/lib/product-utils
 
 interface ProductListProps {
   cmsProducts?: Product[];
+  serverFilteredProducts?: Product[];
+  initialFilters?: FilterData;
+  initialPage?: number;
+  initialSort?: boolean;
 }
 
-export function ProductList({ cmsProducts = [] }: ProductListProps) {
-  const [showFilters, setShowFilters] = useState(false);
-  const [sortAsc, setSortAsc] = useState(true); // true = low to high (default)
-  const [filters, setFilters] = useState<FilterData>({ categories: [], priceRanges: [], rooms: [] });
-  const [currentPage, setCurrentPage] = useState(1);
+export function ProductList({
+  cmsProducts = [],
+  serverFilteredProducts = [],
+  initialFilters = { categories: [], priceRanges: [], rooms: [] },
+  initialPage = 1,
+  initialSort = true,
+}: ProductListProps) {
+  const [showFilters, setShowFilters] = useState(
+    initialFilters.categories.length > 0 ||
+      initialFilters.rooms.length > 0 ||
+      initialFilters.priceRanges.length > 0
+  );
+  const [sortAsc, setSortAsc] = useState(initialSort); // true = low to high (default)
+  const [filters, setFilters] = useState<FilterData>(initialFilters);
+  const [currentPage, setCurrentPage] = useState(initialPage);
   const itemsPerPage = 12;
 
-  // Initialize filters from URL search params
-  useEffect(() => {
-    if (typeof window !== 'undefined') {
-      const searchParams = new URLSearchParams(window.location.search);
+  const productMap = useMemo(
+    () => new Map(cmsProducts.map((product) => [product.slug, product])),
+    [cmsProducts]
+  );
 
-      const roomsParam = searchParams.get('rooms');
-      const collectionsParam = searchParams.get('collection');
-      const priceParam = searchParams.get('price');
+  const transformedProducts = useMemo(() => {
+    const sourceProducts =
+      serverFilteredProducts.length > 0 ? serverFilteredProducts : cmsProducts;
 
-      // Convert URL room format to display format
-      const convertRoomFromUrl = (urlRoom: string): string => {
-        const roomMap: { [key: string]: string } = {
-          'phongkhach': 'phòng khách',
-          'phongngu': 'phòng ngủ',
-          'phongbep': 'phòng bếp',
-          'phongtam': 'phòng tắm',
-          'sanvuon': 'sân vườn',
-          'bancong': 'ban công',
-          'hanhlang': 'hành lang',
-          'vanphong': 'văn phòng',
-        };
-        return roomMap[urlRoom.toLowerCase()] || urlRoom;
-      };
+    return sourceProducts.map(transformProductForCard);
+  }, [serverFilteredProducts, cmsProducts]);
 
-      const initialFilters: FilterData = {
-        categories: collectionsParam ? collectionsParam.split(',').map(c => c.trim()) : [],
-        rooms: roomsParam ? roomsParam.split(',').map(r => convertRoomFromUrl(r.trim())) : [],
-        priceRanges: priceParam ? priceParam.split(',').map(p => p.trim()) : [],
-      };
-
-      // Only update if there are actual filter params
-      if (initialFilters.categories.length > 0 || initialFilters.rooms.length > 0 || initialFilters.priceRanges.length > 0) {
-        setFilters(initialFilters);
-        setShowFilters(true); // Auto-open filters when URL params are present
-      }
-    }
-  }, []);
-
-  // Transform and filter/sort products
   const { filteredProducts, totalPages } = useMemo(() => {
-    let products = cmsProducts.map(transformProductForCard);
+    let products = transformedProducts;
 
-    // Apply filters
-    if (filters.categories.length > 0) {
-      products = products.filter(product =>
-        filters.categories.some(category => {
-          const productData = cmsProducts.find(p => p.slug === product.slug);
+    const needsClientFiltering =
+      JSON.stringify(filters) !== JSON.stringify(initialFilters);
+
+    if (needsClientFiltering) {
+      // Apply filters with optimized lookups
+      if (filters.categories.length > 0) {
+        products = products.filter((product) => {
+          const productData = productMap.get(product.slug); // O(1) lookup!
           if (!productData) return false;
-          return productData.collection.toLowerCase().includes(category.toLowerCase()) ||
-                 productData.title.toLowerCase().includes(category.toLowerCase());
-        })
-      );
-    }
+          return filters.categories.some(
+            (category) =>
+              productData.collection
+                .toLowerCase()
+                .includes(category.toLowerCase()) ||
+              productData.title.toLowerCase().includes(category.toLowerCase())
+          );
+        });
+      }
 
-    if (filters.rooms.length > 0) {
-      products = products.filter(product => {
-        const productData = cmsProducts.find(p => p.slug === product.slug);
-        if (!productData?.rooms) return false;
-        return filters.rooms.some(filterRoom => {
-          // Handle both URL format (phongkhach) and display format (phòng khách)
-          const normalizedFilterRoom = filterRoom.toLowerCase().replace(/\s+/g, '');
-          return productData.rooms?.some(productRoom => {
-            const normalizedProductRoom = productRoom.toLowerCase().replace(/\s+/g, '');
-            return normalizedProductRoom.includes(normalizedFilterRoom) ||
-                   productRoom.toLowerCase().includes(filterRoom.toLowerCase());
+      if (filters.rooms.length > 0) {
+        products = products.filter((product) => {
+          const productData = productMap.get(product.slug); // O(1) lookup!
+          if (!productData?.rooms) return false;
+          return filters.rooms.some((filterRoom) => {
+            const normalizedFilterRoom = filterRoom
+              .toLowerCase()
+              .replace(/\s+/g, '');
+            return productData.rooms?.some((productRoom) => {
+              const normalizedProductRoom = productRoom
+                .toLowerCase()
+                .replace(/\s+/g, '');
+              return (
+                normalizedProductRoom.includes(normalizedFilterRoom) ||
+                productRoom.toLowerCase().includes(filterRoom.toLowerCase())
+              );
+            });
           });
         });
-      });
-    }
+      }
 
-    if (filters.priceRanges.length > 0) {
-      products = products.filter(product => {
-        if (!product.price || product.price === 'Liên hệ') return false;
-        const priceNum = parseInt(product.price.replace(/[^\d]/g, ''));
-        return filters.priceRanges.some(range => {
-          switch (range) {
-            case 'under-250': return priceNum < 250000;
-            case '600-850': return priceNum >= 600000 && priceNum <= 850000;
-            case '850-1000': return priceNum >= 850000 && priceNum <= 1000000;
-            case 'over-1000': return priceNum > 1000000;
-            default: return true;
-          }
+      if (filters.priceRanges.length > 0) {
+        products = products.filter((product) => {
+          const productData = productMap.get(product.slug); // O(1) lookup!
+          if (!productData?.price && productData?.price !== 0) return false;
+
+          // Use the parsePrice function for consistent parsing
+          const priceNum = parsePrice(productData.price);
+          if (priceNum === Infinity) return false; // Skip "Liên hệ" items
+
+          return filters.priceRanges.some((range) =>
+            matchesPriceRange(priceNum, range)
+          );
         });
-      });
+      }
     }
 
-    // Apply sorting
-    products.sort((a, b) => {
-      const priceA = a.price === 'Liên hệ' ? 0 : parseInt(a.price.replace(/[^\d]/g, ''));
-      const priceB = b.price === 'Liên hệ' ? 0 : parseInt(b.price.replace(/[^\d]/g, ''));
+    // 🔑 Performance Fix: Improved price sorting ("Liên hệ" items at bottom)
+    products = [...products].sort((a, b) => {
+      // Get original product data for accurate price parsing
+      const productDataA = productMap.get(a.slug);
+      const productDataB = productMap.get(b.slug);
+
+      const priceA = productDataA?.price ?? 0;
+      const priceB = productDataB?.price ?? 0;
+
       return sortAsc ? priceA - priceB : priceB - priceA;
     });
 
     const totalPages = Math.ceil(products.length / itemsPerPage);
     return { filteredProducts: products, totalPages };
-  }, [cmsProducts, filters, sortAsc]);
+  }, [transformedProducts, productMap, filters, sortAsc, initialFilters]);
 
   // Get products for current page
   const paginatedProducts = useMemo(() => {
@@ -153,7 +142,8 @@ export function ProductList({ cmsProducts = [] }: ProductListProps) {
     setFilters(newFilters);
     setCurrentPage(1); // Reset to first page when filters change
 
-    // Update URL with new filters
+    // 🔑 Senior Decision: Simplified URL update - keep existing logic for now
+    // Future enhancement: Use Next.js useRouter for better navigation
     if (typeof window !== 'undefined') {
       const searchParams = new URLSearchParams();
 
@@ -162,27 +152,20 @@ export function ProductList({ cmsProducts = [] }: ProductListProps) {
       }
 
       if (newFilters.rooms.length > 0) {
-        // Convert display format to URL format
-        const convertRoomToUrl = (displayRoom: string): string => {
-          const roomMap: { [key: string]: string } = {
-            'phòng khách': 'phongkhach',
-            'phòng ngủ': 'phongngu',
-            'phòng bếp': 'phongbep',
-            'phòng tắm': 'phongtam',
-            'sân vườn': 'sanvuon',
-            'ban công': 'bancong',
-            'hành lang': 'hanhlang',
-            'văn phòng': 'vanphong',
-          };
-          return roomMap[displayRoom.toLowerCase()] || displayRoom.replace(/\s+/g, '').toLowerCase();
-        };
-
-        const roomsForUrl = newFilters.rooms.map(convertRoomToUrl);
+        const roomsForUrl = newFilters.rooms.map(roomToUrlSlug);
         searchParams.set('rooms', roomsForUrl.join(','));
       }
 
       if (newFilters.priceRanges.length > 0) {
         searchParams.set('price', newFilters.priceRanges.join(','));
+      }
+
+      // Preserve current sort parameter when filters change
+      searchParams.set('sort', sortAsc ? 'price-asc' : 'price-desc');
+
+      // 🔑 Add page parameter to URL
+      if (currentPage > 1) {
+        searchParams.set('page', currentPage.toString());
       }
 
       const newUrl = searchParams.toString()
@@ -195,6 +178,44 @@ export function ProductList({ cmsProducts = [] }: ProductListProps) {
 
   const handlePageChange = (page: number) => {
     setCurrentPage(page);
+  };
+
+  const handleSortChange = () => {
+    const newSortAsc = !sortAsc;
+    setSortAsc(newSortAsc);
+
+    // Update URL with sort parameter
+    if (typeof window !== 'undefined') {
+      const searchParams = new URLSearchParams();
+
+      // Add current filters to URL
+      if (filters.categories.length > 0) {
+        searchParams.set('collection', filters.categories.join(','));
+      }
+
+      if (filters.rooms.length > 0) {
+        const roomsForUrl = filters.rooms.map(roomToUrlSlug);
+        searchParams.set('rooms', roomsForUrl.join(','));
+      }
+
+      if (filters.priceRanges.length > 0) {
+        searchParams.set('price', filters.priceRanges.join(','));
+      }
+
+      // Add sort parameter (use newSortAsc, not sortAsc which hasn't updated yet)
+      searchParams.set('sort', newSortAsc ? 'price-asc' : 'price-desc');
+
+      // Add page parameter if not first page
+      if (currentPage > 1) {
+        searchParams.set('page', currentPage.toString());
+      }
+
+      const newUrl = searchParams.toString()
+        ? `${window.location.pathname}?${searchParams.toString()}`
+        : window.location.pathname;
+
+      window.history.replaceState({}, '', newUrl);
+    }
   };
 
   const handleClearFilters = () => {
@@ -231,7 +252,7 @@ export function ProductList({ cmsProducts = [] }: ProductListProps) {
           </button>
           <button
             className="flex cursor-pointer items-baseline gap-2"
-            onClick={() => setSortAsc(!sortAsc)}
+            onClick={handleSortChange}
           >
             <span className="h5">Sắp xếp:</span>
             <span className="h5 font-normal">
@@ -341,8 +362,12 @@ export function ProductList({ cmsProducts = [] }: ProductListProps) {
               currentPage={currentPage}
               totalPages={totalPages}
               onPageChange={handlePageChange}
-              onPrevious={() => currentPage > 1 && handlePageChange(currentPage - 1)}
-              onNext={() => currentPage < totalPages && handlePageChange(currentPage + 1)}
+              onPrevious={() =>
+                currentPage > 1 && handlePageChange(currentPage - 1)
+              }
+              onNext={() =>
+                currentPage < totalPages && handlePageChange(currentPage + 1)
+              }
             />
           </div>
         )}

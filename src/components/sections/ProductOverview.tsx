@@ -5,6 +5,7 @@ import { RoomType } from '@/components/ui/RoomType';
 import { useScrollReveal } from '@/hooks/useScrollReveal';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
+import { roomToUrlSlug } from '@/lib/filter-constants';
 
 export function ProductOverview() {
   const router = useRouter();
@@ -83,19 +84,19 @@ export function ProductOverview() {
                     category="Phòng khách"
                     icon="living-room.svg"
                     className="border-b border-white/10 px-2 py-4 lg:px-6"
-                    onClick={() => router.push('/products?rooms=phongkhach')}
+                    onClick={() => router.push(`/products?rooms=${roomToUrlSlug('Phòng khách')}`)}
                   />
                   <RoomType
                     category="Phòng bếp"
                     icon="kitchen.svg"
                     className="border-b border-white/10 px-2 py-4 lg:px-6"
-                    onClick={() => router.push('/products?rooms=phongbep')}
+                    onClick={() => router.push(`/products?rooms=${roomToUrlSlug('Phòng bếp')}`)}
                   />
                   <RoomType
                     category="Phòng ngủ"
                     icon="bed-room.svg"
                     className="px-2 py-4 lg:px-6"
-                    onClick={() => router.push('/products?rooms=phongngu')}
+                    onClick={() => router.push(`/products?rooms=${roomToUrlSlug('Phòng ngủ')}`)}
                   />
                 </div>
               </div>

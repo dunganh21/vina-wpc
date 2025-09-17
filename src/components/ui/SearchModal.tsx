@@ -5,6 +5,7 @@ import { cn } from '@/lib/utils';
 import { Input } from '@/components/ui/Input';
 import { Button } from '@/components/ui/Button';
 import { ProductTooltipCard } from '@/components/ui/ProductTooltipCard';
+import { formatPrice } from '@/lib/product-utils';
 import type { Product } from '@/types/product';
 
 interface SearchModalProps {
@@ -293,7 +294,7 @@ export function SearchModal({
                       }
                       title={product.title}
                       subtitle={product.collection}
-                      price={product.price || 'Liên hệ'}
+                      price={formatPrice(product.price)}
                       dimensions={
                         product.dimensions?.[0] || 'Đa dạng kích thước'
                       }

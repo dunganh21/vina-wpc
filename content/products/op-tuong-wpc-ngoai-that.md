@@ -3,7 +3,6 @@ title: 'Ốp Tường WPC Ngoại Thất Chống Ẩm'
 description: 'Tấm ốp tường gỗ nhựa WPC chuyên dụng cho mặt tiền, ban công, khu vực ngoại thất. Chống ẩm, chống mối mọt tuyệt đối'
 collection: 'Ốp Tường WPC'
 specifications: |
-  - Kích thước: 900×120×15mm
   - Cấu tạo: 60% bột gỗ + 40% nhựa HDPE
   - Độ dày: 10mm tối ưu cho ốp tường
   - Trọng lượng: 1.5kg/m²
@@ -22,7 +21,7 @@ gallery:
   - '/images/prd-lg-4.png'
   - '/images/prd-lg-1.jpg'
   - '/images/prd-lg-2.png'
-price: '650.000đ/m²'
+price: 650000
 colors:
   - name: 'Wood Brown'
     hex: '#8B4513'

@@ -1,4 +1,5 @@
 import 'server-only';
+import { formatPrice, extractDimensions } from '@/lib/product-utils';
 import type {
   BlogPost,
   Product,
@@ -25,32 +26,6 @@ export function transformBlogPostToNews(post: BlogPost): NewsArticle {
 
 // Transform Product to ProductCard format
 export function transformProductToCard(product: Product): ProductSummary {
-  // Extract dimensions from specifications - look for dimension patterns
-  const extractDimensions = (specs: string): string => {
-    if (!specs) return '';
-
-    // Look for patterns like 1800x150x25mm, 140x25mm, etc.
-    const dimensionMatch = specs.match(
-      /(\d+×?\d*×?\d*\s?mm|\d+x\d+x?\d*\s?mm)/i
-    );
-    if (dimensionMatch) {
-      return dimensionMatch[0];
-    }
-
-    // Fallback - look for lines with "Kích thước" and extract the dimension part
-    const lines = specs.split('\n');
-    for (const line of lines) {
-      if (line.includes('Kích thước')) {
-        const match = line.match(/(\d+×?\d*×?\d*\s?mm|\d+x\d+x?\d*\s?mm)/i);
-        if (match) {
-          return match[0];
-        }
-      }
-    }
-
-    return '';
-  };
-
   return {
     id: product.slug,
     slug: product.slug,
@@ -60,7 +35,7 @@ export function transformProductToCard(product: Product): ProductSummary {
         : '/images/placeholder-product.jpg',
     title: product.title,
     collection: product.collection,
-    price: product.price || 'Liên hệ',
+    price: formatPrice(product.price),
     dimensions: extractDimensions(product.specifications),
     colors: product.colors || [],
   };
@@ -68,32 +43,6 @@ export function transformProductToCard(product: Product): ProductSummary {
 
 // Transform Product to SearchResult format
 export function transformProductToSearchResult(product: Product) {
-  // Extract dimensions from specifications - look for dimension patterns
-  const extractDimensions = (specs: string): string => {
-    if (!specs) return '';
-
-    // Look for patterns like 1800x150x25mm, 140x25mm, etc.
-    const dimensionMatch = specs.match(
-      /(\d+×?\d*×?\d*\s?mm|\d+x\d+x?\d*\s?mm)/i
-    );
-    if (dimensionMatch) {
-      return dimensionMatch[0];
-    }
-
-    // Fallback - look for lines with "Kích thước" and extract the dimension part
-    const lines = specs.split('\n');
-    for (const line of lines) {
-      if (line.includes('Kích thước')) {
-        const match = line.match(/(\d+×?\d*×?\d*\s?mm|\d+x\d+x?\d*\s?mm)/i);
-        if (match) {
-          return match[0];
-        }
-      }
-    }
-
-    return '';
-  };
-
   return {
     id: product.slug,
     image:
@@ -102,7 +51,7 @@ export function transformProductToSearchResult(product: Product) {
         : '/images/placeholder-product.jpg',
     title: product.title,
     collection: product.collection,
-    price: product.price || 'Liên hệ',
+    price: formatPrice(product.price),
     dimensions: extractDimensions(product.specifications),
     slug: product.slug,
   };

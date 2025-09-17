@@ -48,8 +48,18 @@ export function ContactSection() {
     setIsSubmitting(true);
 
     try {
-      // Simulate API call delay
-      await new Promise(resolve => setTimeout(resolve, 1500));
+      const formServiceUrl = process.env.NEXT_PUBLIC_FORM_SERVICE_URL || 'https://your-form-service.com';
+      const response = await fetch(`${formServiceUrl}/api/forms/consultation`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(consultationForm),
+      });
+
+      if (!response.ok) {
+        throw new Error('Failed to submit consultation request');
+      }
 
       // Show success toast
       showToast({
@@ -107,8 +117,23 @@ export function ContactSection() {
     setIsSubmitting(true);
 
     try {
-      // Simulate API call delay
-      await new Promise(resolve => setTimeout(resolve, 1500));
+      const formServiceUrl = process.env.NEXT_PUBLIC_FORM_SERVICE_URL || 'https://your-form-service.com';
+      const response = await fetch(`${formServiceUrl}/api/forms/purchase`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          ...purchaseForm,
+          cartItems,
+          itemCount,
+          totalPrice,
+        }),
+      });
+
+      if (!response.ok) {
+        throw new Error('Failed to submit purchase order');
+      }
 
       // Show success toast
       showToast({

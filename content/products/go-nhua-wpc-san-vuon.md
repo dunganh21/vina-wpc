@@ -3,7 +3,6 @@ title: 'Gỗ Nhựa WPC Sàn Vườn Cao Cấp'
 description: 'Gỗ nhựa composite WPC chuyên dụng cho sân vườn, chống thấm hoàn toàn, chịu được mọi điều kiện thời tiết khắc nghiệt'
 collection: 'Sàn WPC'
 specifications: |
-  - Kích thước: 900×120×15mm
   - Màu sắc: 8 màu cơ bản (Teak, Mahogany, Gray, etc.)
   - Độ dày: 25mm chuyên dụng sân vườn
   - Trọng lượng: 2.8kg/m²
@@ -21,7 +20,7 @@ gallery:
   - '/images/prd-lg-2.png'
   - '/images/prd-lg-3.png'
   - '/images/prd-lg-4.png'
-price: '850.000đ/m²'
+price: 850000
 rooms:
   - 'Phòng khách'
   - 'Phòng ngủ'

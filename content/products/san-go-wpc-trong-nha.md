@@ -3,7 +3,6 @@ title: 'Sàn Gỗ WPC Trong Nhà Cao Cấp'
 description: 'Sàn gỗ nhựa WPC chuyên dụng cho không gian nội thất, bề mặt mịn màng, kháng khuẩn và chống trượt an toàn'
 collection: 'Sàn WPC'
 specifications: |
-  - Kích thước: 900×120×15mm
   - Cấu tạo: 70% bột gỗ + 30% nhựa PVC
   - Độ dày: 12mm tối ưu cho sàn nhà
   - Trọng lượng: 2.2kg/m²
@@ -23,7 +22,7 @@ gallery:
   - '/images/prd-lg-1.jpg'
   - '/images/prd-lg-2.png'
   - '/images/prd-lg-3.png'
-price: '950.000đ/m²'
+price: 950000
 colors:
   - name: 'Ash White'
     hex: '#F5F5DC'

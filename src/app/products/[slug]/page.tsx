@@ -2,6 +2,7 @@ import { CustomerReviews, ProductImageGallery } from '@/components/sections';
 import { ProductDetailSection } from '@/components/sections/ProductDetailSection';
 import { ProductSpecifications } from '@/components/sections/ProductSpecifications';
 import { getProduct, getAllProductSlugs } from '@/data/services/content';
+import { transformProductForDetail } from '@/lib/product-utils';
 import { notFound } from 'next/navigation';
 import { Metadata } from 'next';
 
@@ -11,11 +12,8 @@ interface ProductDetailPageProps {
   }>;
 }
 
-// Force dynamic rendering to avoid static generation event handler issues
-export const dynamic = 'force-dynamic';
-
-// Generate static paths for all products
-export async function generateStaticParams() {
+// Generate static params for all product slugs
+export function generateStaticParams() {
   const slugs = getAllProductSlugs();
   return slugs.map((slug) => ({
     slug,
@@ -57,32 +55,7 @@ export default async function ProductDetailPage({
   }
 
   // Transform CMS product data for components - ensure plain objects only
-  const defaultDimension = product.dimensions?.[0] || extractDimensions(product.specifications);
-  const productData = {
-    id: product.slug,
-    name: product.title,
-    category: `TRANG CHỦ/SẢN PHẨM/${product.collection?.toUpperCase() || 'SẢN PHẨM'}`,
-    price: product.price ? parseInt(product.price.replace(/[^\d]/g, '')) : 0,
-    unit: 'đ/m²',
-    description: product.description,
-    specifications: {
-      size: defaultDimension,
-      area: '4m²',
-    },
-    colors: product.colors.map((color, index) => ({
-      id: `color-${index}`,
-      color: color.hex,
-      name: color.name || 'Màu mặc định',
-    })),
-    sizes: (product.dimensions || [defaultDimension]).map(dimension => ({
-      label: dimension,
-      value: dimension,
-    })),
-    image: product.gallery?.[0] || '/images/prd-lg-1.jpg',
-    gallery: [...(product.gallery || [])],
-    features: [...(product.features || [])],
-    rooms: [...(product.rooms || [])],
-  };
+  const productData = transformProductForDetail(product);
 
   // Transform specifications for ProductSpecifications component
   const specifications = parseSpecifications(product.specifications);
@@ -108,12 +81,6 @@ export default async function ProductDetailPage({
       <CustomerReviews />
     </main>
   );
-}
-
-// Helper function to extract dimensions from specifications
-function extractDimensions(specs: string): string {
-  const match = specs.match(/Kích thước:\s*([^\n]+)/);
-  return match ? match[1].trim() : '900×120×15mm';
 }
 
 // Helper function to parse specifications text into structured data

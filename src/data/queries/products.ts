@@ -10,6 +10,7 @@ import {
   transformProductToCard,
   transformProductToSearchResult,
 } from '@/data/services/transformers';
+import { parsePrice } from '@/lib/product-utils';
 import { SORT_OPTIONS } from '@/lib/constants';
 import type { ProductFilters, ProductSummary } from '@/types/product';
 
@@ -38,8 +39,8 @@ export const getProductsForListing = cache(
 
         switch (sortOption.field) {
           case 'price':
-            aValue = a.price ? parseInt(a.price.replace(/[^\d]/g, '')) : 0;
-            bValue = b.price ? parseInt(b.price.replace(/[^\d]/g, '')) : 0;
+            aValue = parsePrice(a.price);
+            bValue = parsePrice(b.price);
             break;
           case 'title':
             aValue = a.title.toLowerCase();

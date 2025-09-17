@@ -3,7 +3,6 @@ title: 'Hàng Rào WPC Cao Cấp Chống Ẩm'
 description: 'Tấm hàng rào gỗ nhựa WPC cao cấp, thiết kế hiện đại, chống ẩm tuyệt đối, phù hợp cho villa, nhà phố, khu resort'
 collection: 'Hàng Rào WPC'
 specifications: |
-  - Kích thước: 1800×150×25mm
   - Chiều cao: 1.8m (có thể cắt theo yêu cầu)
   - Cột trụ: 90x90mm, cao 2.2m
   - Khoảng cách cột: 2.0m - 2.5m
@@ -23,7 +22,7 @@ gallery:
   - '/images/prd-lg-3.png'
   - '/images/prd-lg-4.png'
   - '/images/prd-lg-1.jpg'
-price: '2.850.000đ/bộ'
+price: 1200000
 colors:
   - name: 'Natural Wood'
     hex: '#D2B48C'

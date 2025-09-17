@@ -1,63 +1,13 @@
 'use client';
 
 import { ProductCard } from '@/components/ui/ProductCard';
-import { Button, ButtonIcon, PageIndicator } from '@/components/ui';
+import { Button } from '@/components/ui';
 import { useRouter } from 'next/navigation';
+import { transformProductForCard } from '@/lib/product-utils';
 import type { Product } from '@/types/product';
 
-// Transform CMS Product data to ProductCard props format
-function transformProductForCard(product: Product) {
-  const primaryImage = product.gallery?.[0] || '/images/prd-lg-1.jpg';
-  const extractDimensions = (specs: string): string => {
-    const match = specs.match(/Kích thước:\s*([^\n]+)/);
-    return match ? match[1].trim() : '900×120×15mm';
-  };
-
-  return {
-    id: product.slug,
-    slug: product.slug,
-    image: primaryImage,
-    title: product.title,
-    subtitle: product.collection,
-    price: product.price,
-    dimensions: extractDimensions(product.specifications),
-  };
-}
-
-const fallbackProducts = [
-  {
-    id: '1',
-    image: '/images/prd-lg-1.jpg',
-    title: 'Scandinavian Light',
-    subtitle: 'Tấm ốp gỗ sồi WR205',
-    price: '850.000đ/m²',
-    dimensions: '900×120×15mm',
-  },
-  {
-    id: '2',
-    image: '/images/prd-lg-2.png',
-    title: 'Modern Oak',
-    subtitle: 'Tấm ốp gỗ sồi WR206',
-    price: '920.000đ/m²',
-    dimensions: '900×120×15mm',
-  },
-  {
-    id: '3',
-    image: '/images/prd-lg-3.png',
-    title: 'Classic Pine',
-    subtitle: 'Tấm ốp gỗ thông WR207',
-    price: '780.000đ/m²',
-    dimensions: '900×120×15mm',
-  },
-  {
-    id: '4',
-    image: '/images/prd-lg-4.png',
-    title: 'Premium Walnut',
-    subtitle: 'Tấm ốp gỗ óc chó WR208',
-    price: '1.200.000đ/m²',
-    dimensions: '900×120×15mm',
-  },
-];
+// 🔧 Removed: Using centralized transformProductForCard from @/lib/product-utils
+// 🚫 Removed: All fallback/mock products as requested
 
 interface ProductPopularProps {
   cmsProducts?: Product[];
@@ -66,14 +16,15 @@ interface ProductPopularProps {
 export function ProductPopular({ cmsProducts = [] }: ProductPopularProps) {
   const router = useRouter();
 
-  // Use CMS data if available, otherwise fallback to static data
-  // Take first 4 products for featured section
-  const featuredProducts =
-    cmsProducts.length > 0
-      ? cmsProducts.slice(0, 4).map(transformProductForCard)
-      : fallbackProducts;
+  // Transform real product data to card format - only show if we have real products
+  const featuredProducts = cmsProducts.length > 0
+    ? cmsProducts.slice(0, 4).map(transformProductForCard)
+    : [];
 
-  console.log('[DEBUG] / ProductPopular / featuredProducts:', featuredProducts);
+  // Hide section completely if no real products available
+  if (featuredProducts.length === 0) {
+    return null;
+  }
 
   return (
     <section className="pt-7 pb-10 lg:py-11">

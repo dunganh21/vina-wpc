@@ -3,12 +3,12 @@
 import { useState, useEffect } from 'react';
 import { cn } from '@/lib/utils';
 import { Checkbox } from './Checkbox';
+import {
+  PRODUCT_CATEGORIES,
+  PRICE_RANGES,
+  ROOMS_DESKTOP,
+} from '@/lib/filter-constants';
 
-interface FilterOption {
-  id: string;
-  label: string;
-  defaultChecked: boolean;
-}
 
 interface FilterData {
   categories: string[];
@@ -22,32 +22,8 @@ interface FilterSidebarDesktopProps {
   initialFilters?: FilterData;
 }
 
-const defaultCategories: FilterOption[] = [
-  { id: 'sàn wpc', label: 'Sàn WPC', defaultChecked: false },
-  { id: 'ốp tường wpc', label: 'Ốp Tường WPC', defaultChecked: false },
-  { id: 'hàng rào wpc', label: 'Hàng Rào WPC', defaultChecked: false },
-  { id: 'lam che nắng wpc', label: 'Lam Che Nắng WPC', defaultChecked: false },
-  {
-    id: 'sàn gỗ ngoài trời',
-    label: 'Sàn Gỗ Ngoài Trời',
-    defaultChecked: false,
-  },
-  { id: 'tấm ốp 3d', label: 'Tấm Ốp 3D', defaultChecked: false },
-];
 
-const defaultPriceRanges: FilterOption[] = [
-  { id: 'over-1000', label: '> 1.000.000đ', defaultChecked: false },
-  { id: '850-1000', label: '850.000đ - 1.000.000đ', defaultChecked: false },
-  { id: '600-850', label: '600.000đ - 850.000đ', defaultChecked: false },
-  { id: 'under-250', label: '< 250.000đ', defaultChecked: false },
-];
 
-const defaultRooms: FilterOption[] = [
-  { id: 'phòng khách', label: 'Phòng khách', defaultChecked: false },
-  { id: 'phòng ngủ', label: 'Phòng ngủ', defaultChecked: false },
-  { id: 'phòng bếp', label: 'Phòng bếp', defaultChecked: false },
-  { id: 'phòng tắm', label: 'Phòng tắm', defaultChecked: false },
-];
 
 export function FilterSidebarDesktop({
   className,
@@ -103,13 +79,12 @@ export function FilterSidebarDesktop({
       <div>
         <div className="subtitle-3 mb-2 text-primary">BỘ SẢN PHẨM</div>
         <div className="space-y-2">
-          {defaultCategories.map((category) => (
+          {PRODUCT_CATEGORIES.map((category) => (
             <label
               key={category.id}
               className="flex cursor-pointer items-center gap-3"
             >
               <Checkbox
-                defaultChecked={category.defaultChecked}
                 checked={categories.includes(category.id)}
                 onChange={() => handleCategoryChange(category.id)}
               />
@@ -123,13 +98,12 @@ export function FilterSidebarDesktop({
       <div>
         <div className="subtitle-3 mb-2 text-primary">PHẠM VỊ GIÁ</div>
         <div className="space-y-2">
-          {defaultPriceRanges.map((price) => (
+          {PRICE_RANGES.map((price) => (
             <label
               key={price.id}
               className="flex cursor-pointer items-center gap-3"
             >
               <Checkbox
-                defaultChecked={price.defaultChecked}
                 checked={priceRanges.includes(price.id)}
                 onChange={() => handlePriceChange(price.id)}
               />
@@ -145,13 +119,12 @@ export function FilterSidebarDesktop({
       <div>
         <div className="subtitle-3 mb-2 text-primary">DÀNH CHO</div>
         <div className="space-y-2">
-          {defaultRooms.map((room) => (
+          {ROOMS_DESKTOP.map((room) => (
             <label
               key={room.id}
               className="flex cursor-pointer items-center gap-3"
             >
               <Checkbox
-                defaultChecked={room.defaultChecked}
                 checked={rooms.includes(room.id)}
                 onChange={() => handleRoomChange(room.id)}
               />

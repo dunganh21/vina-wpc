@@ -54,8 +54,8 @@ function NavItem({
     }
     return cn(
       baseStyles,
-      'text-white/85 hover:text-white',
-      'hover:bg-white/5 active:!bg-white/10 active:!text-white'
+      'lg:text-white/85 lg:hover:text-white',
+      'lg:hover:bg-white/5 active:!bg-white/10 lg:active:!text-white'
     );
   };
 

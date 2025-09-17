@@ -5,6 +5,8 @@ import path from 'path';
 import matter from 'gray-matter';
 import { remark } from 'remark';
 import html from 'remark-html';
+import { parsePrice } from '@/lib/product-utils';
+import { matchesPriceRange } from '@/lib/filter-constants';
 import type { BlogPost, Product, ProductFilters } from '@/types/product';
 
 const contentDirectory = path.join(process.cwd(), 'content');
@@ -246,7 +248,7 @@ export const getFilteredProducts = cache(
       // Price range filter
       if (
         filters.priceRange &&
-        !matchesPriceRange(product.price, filters.priceRange)
+        !matchesPriceRange(parsePrice(product.price), filters.priceRange)
       ) {
         return false;
       }
@@ -268,25 +270,6 @@ export const getFilteredProducts = cache(
 
 // ==================== UTILITY FUNCTIONS ====================
 
-function matchesPriceRange(price: string | undefined, range: string): boolean {
-  if (!price) return false;
-
-  // Extract number from price string like "850.000đ/m²"
-  const priceNumber = parseInt(price.replace(/[^\d]/g, ''));
-
-  switch (range) {
-    case 'under-500k':
-      return priceNumber < 500000;
-    case '500k-1m':
-      return priceNumber >= 500000 && priceNumber <= 1000000;
-    case '1m-2m':
-      return priceNumber >= 1000000 && priceNumber <= 2000000;
-    case 'over-2m':
-      return priceNumber > 2000000;
-    default:
-      return true;
-  }
-}
 
 export const getProductsByCategory = cache(
   async (category: string): Promise<Product[]> => {
