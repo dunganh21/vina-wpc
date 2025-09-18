@@ -48,8 +48,7 @@ export function ContactSection() {
     setIsSubmitting(true);
 
     try {
-      const formServiceUrl = process.env.NEXT_PUBLIC_FORM_SERVICE_URL || 'https://your-form-service.com';
-      const response = await fetch(`${formServiceUrl}/api/forms/consultation`, {
+      const response = await fetch('/api/forms/consultation', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -117,8 +116,7 @@ export function ContactSection() {
     setIsSubmitting(true);
 
     try {
-      const formServiceUrl = process.env.NEXT_PUBLIC_FORM_SERVICE_URL || 'https://your-form-service.com';
-      const response = await fetch(`${formServiceUrl}/api/forms/purchase`, {
+      const response = await fetch('/api/forms/purchase', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
