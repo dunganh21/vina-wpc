@@ -100,7 +100,7 @@ function CartBadge({
 }
 
 export function Header({ className }: Omit<NavbarProps, 'variant'>) {
-  const [variant, setVariant] = useState<NavbarVariant>('light');
+  const [variant, setVariant] = useState<NavbarVariant>('dark');
   const [showCart, setShowCart] = useState(false);
   const [showSearch, setShowSearch] = useState(false);
   const { itemCount } = useCart();
@@ -286,7 +286,8 @@ export function Header({ className }: Omit<NavbarProps, 'variant'>) {
               <Button
                 variant="button"
                 mode={variant === 'light' ? 'light' : 'dark'}
-                className="h-full border-t-0 border-b-0 px-6"
+                // Cần phải dùng màu thay đổi mọt chút này để fix lỗi constrast
+                className={`h-full border-t-0 border-b-0 px-6 ${variant === 'dark' && 'bg-[#CC4712]'}`}
               >
                 Liên hệ
               </Button>

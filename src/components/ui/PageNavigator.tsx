@@ -44,6 +44,7 @@ export default function PageNavigator({
         onClick={onPrevious}
         disabled={disablePrevious}
         className={getButtonStyles()}
+        aria-label="Trước"
       />
       <ButtonIcon
         variant={getButtonVariant()}
@@ -52,6 +53,7 @@ export default function PageNavigator({
         onClick={onNext}
         disabled={disableNext}
         className={getButtonStyles()}
+        aria-label="Tiếp theo"
       />
     </div>
   );

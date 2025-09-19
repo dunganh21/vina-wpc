@@ -12,7 +12,11 @@ export const ColorOption = ({
   handleColorSelect,
 }: ColorOptionProps) => {
   return (
-    <div className="flex items-center gap-1">
+    <div
+      className="flex items-center gap-1"
+      role="listbox"
+      aria-label="Select color"
+    >
       {colors.map((color) => (
         <button
           key={color.id}
@@ -24,6 +28,9 @@ export const ColorOption = ({
               : 'border-transparent hover:border-neutral/20'
           )}
           style={{ backgroundColor: color.color }}
+          aria-label={`Select ${color.id} color`}
+          role="option"
+          aria-selected={selectedColor === color.id}
         />
       ))}
     </div>

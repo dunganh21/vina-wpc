@@ -32,10 +32,10 @@ export function Footer() {
             <div className="grid w-full grid-cols-1 gap-4 lg:grid-cols-3 lg:gap-12 xl:gap-16">
               {/* Company Information */}
               <div className="space-y-3 lg:space-y-6">
-                <h4 className="text-white">
+                <h3 className="h4 text-white">
                   Công ty cổ phần đầu tư & <br />
                   phát triển gỗ nhựa Việt Nam
-                </h4>
+                </h3>
 
                 <div className="space-y-2 lg:space-y-4">
                   <div>

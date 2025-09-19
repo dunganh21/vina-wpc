@@ -74,6 +74,7 @@ export function Pagination({
         onClick={onPrevious}
         disabled={currentPage <= 1}
         className="border-base-300 bg-base-300"
+        aria-label="Trang trước"
       />
 
       {/* Page Numbers */}
@@ -114,6 +115,7 @@ export function Pagination({
         onClick={onNext}
         disabled={currentPage >= totalPages}
         className="border-base-300 bg-base-300"
+        aria-label="Trang sau"
       />
     </div>
   );

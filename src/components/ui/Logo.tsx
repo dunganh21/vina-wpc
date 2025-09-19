@@ -35,6 +35,7 @@ export function Logo({
         height={height}
         className="h-full w-full"
         priority
+        fetchPriority="high"
       />
     </div>
   );

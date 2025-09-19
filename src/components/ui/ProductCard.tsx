@@ -92,6 +92,7 @@ export function ProductCard({
               handleAddToCart();
             }}
             className="rounded-none"
+            aria-label="Thêm vào giỏ hàng"
           />
         </div>
 

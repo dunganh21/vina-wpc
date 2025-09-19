@@ -1,13 +1,6 @@
-'use client';
-
 import Image from 'next/image';
-import { PageIndicator } from '../ui/PageIndicator';
-import { useState } from 'react';
-import PageNavigator from '../ui/PageNavigator';
 
 export function Hero() {
-  const [currentPage, setCurrentPage] = useState(1);
-
   return (
     <>
       <div className="absolute top-0 left-0 flex h-screen w-full flex-col overflow-hidden">
@@ -41,7 +34,7 @@ export function Hero() {
               Bền vững từ tâm - nâng tầm cuộc sống
             </p>
           </div>
-          <div className="animate-hero-nav flex items-center justify-between gap-4">
+          {/* <div className="animate-hero-nav flex items-center justify-between gap-4">
             <PageIndicator
               currentPage={currentPage}
               totalPages={4}
@@ -54,7 +47,7 @@ export function Hero() {
               disablePrevious={currentPage === 1}
               disableNext={currentPage === 4}
             />
-          </div>
+          </div> */}
         </div>
       </div>
       <div className="h-screen" />

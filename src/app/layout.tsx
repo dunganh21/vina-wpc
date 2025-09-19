@@ -3,14 +3,24 @@ import { Header } from '@/components/layout/Header';
 import { CartProvider } from '@/lib/cart-context';
 import { ToastProvider } from '@/lib/toast-context';
 import type { Metadata } from 'next';
-import { Inter } from 'next/font/google';
-import './globals.css';
+import { Inter, Inter_Tight } from 'next/font/google';
 import '../styles/animations.css';
+import './globals.css';
 
-const inter = Inter({
-  subsets: ['latin', 'vietnamese'],
-  variable: '--font-inter',
+export const interTight = Inter_Tight({
+  subsets: ['vietnamese'],
+  weight: ['400', '600', '800'],
   display: 'swap',
+  variable: '--font-secondary',
+  preload: true,
+});
+
+export const inter = Inter({
+  subsets: ['vietnamese'],
+  weight: ['400'],
+  display: 'swap',
+  variable: '--font-primary',
+  preload: true,
 });
 
 export const metadata: Metadata = {
@@ -27,7 +37,7 @@ export default function RootLayout({
   return (
     <html lang="vi">
       <body
-        className={`${inter.variable} bg-white font-primary antialiased`}
+        className={`${interTight.variable} ${inter.variable} bg-white font-primary antialiased`}
         suppressHydrationWarning={true}
       >
         <ToastProvider>

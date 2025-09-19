@@ -60,24 +60,24 @@ export function CustomerReviews({
   ],
   className = '',
 }: CustomerReviewsProps) {
-  const [currentPage, setCurrentPage] = useState(1);
-  const totalPages = 30;
+  // const [currentPage, setCurrentPage] = useState(1);
+  // const totalPages = 30;
 
-  const handlePageChange = (page: number) => {
-    setCurrentPage(page);
-  };
+  // const handlePageChange = (page: number) => {
+  //   setCurrentPage(page);
+  // };
 
-  const handlePrevious = () => {
-    if (currentPage > 1) {
-      setCurrentPage(currentPage - 1);
-    }
-  };
+  // const handlePrevious = () => {
+  //   if (currentPage > 1) {
+  //     setCurrentPage(currentPage - 1);
+  //   }
+  // };
 
-  const handleNext = () => {
-    if (currentPage < totalPages) {
-      setCurrentPage(currentPage + 1);
-    }
-  };
+  // const handleNext = () => {
+  //   if (currentPage < totalPages) {
+  //     setCurrentPage(currentPage + 1);
+  //   }
+  // };
 
   return (
     <section className={`bg-white py-6 lg:py-16 ${className}`}>

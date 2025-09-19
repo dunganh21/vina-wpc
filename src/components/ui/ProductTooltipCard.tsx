@@ -91,6 +91,7 @@ export function ProductTooltipCard({
           handleAddToCart();
         }}
         className="absolute top-0 right-0 rounded-none"
+        aria-label="Thêm vào giỏ hàng"
       />
     </div>
   );
