@@ -34,21 +34,28 @@ const compositionLayers = [
 
 export function ProductComposition() {
   // Animation refs
-  const { ref: headingRef } = useScrollReveal<HTMLHeadingElement>({ staggerDelay: 0 });
-  const { ref: imageRef } = useScrollReveal<HTMLDivElement>({ 
-    animationClass: 'animate-product-card',
-    staggerDelay: 200 
+  const { ref: headingRef } = useScrollReveal<HTMLHeadingElement>({
+    staggerDelay: 0,
   });
-  const { ref: mobileListRef } = useScrollReveal<HTMLDivElement>({ 
-    staggerDelay: 400 
+  const { ref: imageRef } = useScrollReveal<HTMLDivElement>({
+    animationClass: 'animate-product-card',
+    staggerDelay: 200,
+  });
+  const { ref: mobileListRef } = useScrollReveal<HTMLDivElement>({
+    staggerDelay: 400,
   });
 
   return (
     <section className="page-container py-6 lg:py-16">
       <div className="flex flex-col lg:flex-row">
-        <h3 ref={headingRef} className="lg:flex-[0_0_25%] animate-on-scroll">Cấu tạo sản phẩm</h3>
+        <h3 ref={headingRef} className="animate-on-scroll lg:flex-[0_0_25%]">
+          Cấu tạo sản phẩm
+        </h3>
 
-        <div ref={imageRef} className="relative aspect-square w-full flex-1 overflow-hidden bg-base-200 animate-product-card">
+        <div
+          ref={imageRef}
+          className="animate-product-card relative aspect-square w-full flex-1 overflow-hidden bg-base-200"
+        >
           <Image
             src="/images/wood-layer.png"
             alt="Cấu tạo sản phẩm VINA WPC - Exploded view showing all layers"
@@ -58,7 +65,7 @@ export function ProductComposition() {
           />
 
           {/* Absolutely positioned text descriptions with lines */}
-          {compositionLayers.map((layer, index) => (
+          {compositionLayers.map((layer) => (
             <div
               key={layer.number}
               className="absolute w-80"
@@ -80,8 +87,8 @@ export function ProductComposition() {
           ))}
         </div>
 
-        <div ref={mobileListRef} className="lg:hidden animate-on-scroll">
-          {compositionLayers.map((layer, index) => (
+        <div ref={mobileListRef} className="animate-on-scroll lg:hidden">
+          {compositionLayers.map((layer) => (
             <div
               key={layer.number}
               className="flex border-t border-base-300 py-6"

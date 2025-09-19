@@ -4,7 +4,7 @@ import { google } from 'googleapis';
 export async function POST(request: NextRequest) {
   try {
     const body = await request.json();
-    const { name, phone, message, cartItems, itemCount, totalPrice } = body;
+    const { name, phone, message, cartItems, totalPrice } = body;
 
     // Validate required fields
     if (!name || !phone) {
@@ -23,7 +23,8 @@ export async function POST(request: NextRequest) {
 
     // Get environment variables
     const spreadsheetId = process.env.GOOGLE_SHEETS_SPREADSHEET_ID;
-    const sheetName = process.env.GOOGLE_SHEETS_PURCHASE_SHEET_NAME || 'Purchase';
+    const sheetName =
+      process.env.GOOGLE_SHEETS_PURCHASE_SHEET_NAME || 'Purchase';
     const credentialsPath = process.env.GOOGLE_APPLICATION_CREDENTIALS;
 
     if (!spreadsheetId || !credentialsPath) {
@@ -43,11 +44,15 @@ export async function POST(request: NextRequest) {
     const sheets = google.sheets({ version: 'v4', auth });
 
     // Prepare cart items summary with readable format
-    const cartItemsDetails = cartItems
-      .map((item: { title: string; quantity: number; price: string }, index: number) =>
-        `${index + 1}. ${item.title} (x${item.quantity})`
-      )
-      .join('\n') + `\n\nTổng: ${totalPrice.toLocaleString('vi-VN')}đ`;
+    const cartItemsDetails =
+      cartItems
+        .map(
+          (
+            item: { title: string; quantity: number; price: string },
+            index: number
+          ) => `${index + 1}. ${item.title} (x${item.quantity})`
+        )
+        .join('\n') + `\n\nTổng: ${totalPrice.toLocaleString('vi-VN')}đ`;
 
     // Prepare data for Google Sheets
     const timestamp = new Date().toLocaleString('vi-VN', {
@@ -55,14 +60,7 @@ export async function POST(request: NextRequest) {
     });
 
     const values = [
-      [
-        timestamp,
-        name,
-        phone,
-        message || '',
-        cartItemsDetails,
-        'Purchase'
-      ]
+      [timestamp, name, phone, message || '', cartItemsDetails, 'Purchase'],
     ];
 
     // Append data to Google Sheets
@@ -79,7 +77,6 @@ export async function POST(request: NextRequest) {
       { message: 'Purchase order submitted successfully' },
       { status: 200 }
     );
-
   } catch (error) {
     console.error('Error submitting purchase order:', error);
     return NextResponse.json(

@@ -55,11 +55,6 @@ export function ProductDetailSection({
   };
 
   const handleAddToCart = () => {
-    const selectedColorData = productData.colors.find(
-      (c) => c.id === selectedColor
-    );
-    const colorName = selectedColorData ? 'Nâu' : 'Nâu'; // Default to 'Nâu' as shown in UI
-
     addItem({
       id: `${productData.id}-${selectedColor}-${selectedSize}`,
       title: productData.name,

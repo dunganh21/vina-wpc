@@ -1,5 +1,8 @@
 @import 'tailwindcss';
-@plugin "daisyui";
+@plugin "daisyui" {
+  themes: light --default;
+  include: btn modal dropdown menu navbar hero;
+}
 
 @theme inline {
   --font-primary: 'Inter Tight', system-ui, sans-serif;
@@ -50,7 +53,6 @@
     -webkit-line-clamp: 2;
     line-clamp: 2;
   }
-  
   .line-clamp-3 {
     overflow: hidden;
     display: -webkit-box;

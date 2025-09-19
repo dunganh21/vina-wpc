@@ -84,19 +84,31 @@ export function ProductOverview() {
                     category="Phòng khách"
                     icon="living-room.svg"
                     className="border-b border-white/10 px-2 py-4 lg:px-6"
-                    onClick={() => router.push(`/products?rooms=${roomToUrlSlug('Phòng khách')}`)}
+                    onClick={() =>
+                      router.push(
+                        `/products?rooms=${roomToUrlSlug('Phòng khách')}`
+                      )
+                    }
                   />
                   <RoomType
                     category="Phòng bếp"
                     icon="kitchen.svg"
                     className="border-b border-white/10 px-2 py-4 lg:px-6"
-                    onClick={() => router.push(`/products?rooms=${roomToUrlSlug('Phòng bếp')}`)}
+                    onClick={() =>
+                      router.push(
+                        `/products?rooms=${roomToUrlSlug('Phòng bếp')}`
+                      )
+                    }
                   />
                   <RoomType
                     category="Phòng ngủ"
                     icon="bed-room.svg"
                     className="px-2 py-4 lg:px-6"
-                    onClick={() => router.push(`/products?rooms=${roomToUrlSlug('Phòng ngủ')}`)}
+                    onClick={() =>
+                      router.push(
+                        `/products?rooms=${roomToUrlSlug('Phòng ngủ')}`
+                      )
+                    }
                   />
                 </div>
               </div>
@@ -104,8 +116,8 @@ export function ProductOverview() {
 
             {/* Right - Button */}
             <div className="animate-on-scroll" ref={col3Ref}>
-              <Button 
-                variant="white" 
+              <Button
+                variant="white"
                 className="w-full lg:w-auto"
                 onClick={() => router.push('/products')}
               >

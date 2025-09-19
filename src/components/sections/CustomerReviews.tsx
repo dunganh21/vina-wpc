@@ -1,7 +1,7 @@
 'use client';
 
+import { Button, StarRating } from '@/components/ui';
 import { useState } from 'react';
-import { Button, StarRating, Pagination } from '@/components/ui';
 
 interface Review {
   id: string;

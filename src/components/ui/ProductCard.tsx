@@ -31,7 +31,6 @@ export function ProductCard({
   price,
   dimensions,
   slug,
-  onColorSelect,
   className,
   staggerDelay = 0,
   elementType = 'card',
@@ -119,7 +118,7 @@ export function ProductCard({
         {/* Header */}
         <div className="lg:space-y-0.5">
           <div className="subtitle-4">{subtitle}</div>
-          <h5 className="h-10 w-[80%]">{title}</h5>
+          <p className="h5 h-10 w-[80%]">{title}</p>
         </div>
 
         {/* Price and Details */}

@@ -71,7 +71,7 @@ export function Footer() {
               <div className="flex gap-12 lg:flex-col lg:gap-8">
                 <div className="space-y-2 lg:space-y-4">
                   <p className="subtitle-4 text-white/85">Sản phẩm</p>
-                  <div className="space-y-2 lg:space-y-3">
+                  <div className="[&>*]:pb-2 lg:[&>*]:pb-3">
                     <p
                       className="h5-footer cursor-pointer transition-colors hover:text-white/90"
                       onClick={() =>
@@ -108,7 +108,7 @@ export function Footer() {
                 </div>
                 <div className="space-y-2 lg:space-y-4">
                   <p className="subtitle-4 text-white/85">VINA WPC</p>
-                  <div className="space-y-2 lg:space-y-3">
+                  <div className="[&>*]:pb-2 lg:[&>*]:pb-3">
                     <Link
                       href="/about"
                       className="h5-footer block cursor-pointer text-white transition-colors hover:text-white/90"
@@ -139,9 +139,12 @@ export function Footer() {
                     <input
                       type="email"
                       placeholder="Email"
-                      className="body-3 w-full border border-white/30 bg-transparent px-5 py-4 text-white placeholder-white/75 transition-colors focus:border-white/50 focus:outline-none"
+                      className="body-3 w-full border border-white/30 bg-transparent p-4 text-white placeholder-white/75 transition-colors focus:border-white/50 focus:outline-none"
                     />
-                    <button className="absolute top-1/2 right-4 -translate-y-1/2 text-white/75 transition-colors hover:text-white">
+                    <button
+                      className="absolute top-1/2 right-2 -translate-y-1/2 p-3 text-white/75 transition-colors hover:text-white"
+                      aria-label="Subscribe to newsletter"
+                    >
                       <svg
                         className="h-4 w-4"
                         fill="currentColor"

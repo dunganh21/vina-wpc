@@ -20,7 +20,6 @@ export function NewsCard({
   category,
   imageUrl,
   slug,
-  readTime = '3 phút đọc',
   onReadMore,
   className = '',
 }: NewsCardProps) {
@@ -51,7 +50,7 @@ export function NewsCard({
           </div>
 
           {/* Title */}
-          <h5 className="line-clamp-2 min-h-[2.5rem]">{title}</h5>
+          <p className="h5 line-clamp-2 min-h-[2.5rem]">{title}</p>
         </div>
 
         {/* Excerpt - Fixed at bottom */}

@@ -184,6 +184,7 @@ export function Header({ className }: Omit<NavbarProps, 'variant'>) {
                 theme={variant === 'light' ? 'light' : 'dark'}
                 icon="menu.svg"
                 className="h-[46px] w-[46px] border-y-0"
+                aria-label="Open navigation menu"
               />
               <ul className="dropdown-content menu z-[1] mt-3 w-52 menu-sm rounded-box bg-base-100 p-2 shadow">
                 <li>
@@ -209,6 +210,7 @@ export function Header({ className }: Omit<NavbarProps, 'variant'>) {
               theme={variant === 'light' ? 'light' : 'dark'}
               icon="search.svg"
               className="h-[46px] w-[46px] border-y-0 border-l-0 text-white"
+              aria-label="Search products"
               onClick={() => {
                 setShowSearch(true);
                 setShowCart(false); // Ensure cart modal is closed
@@ -254,6 +256,7 @@ export function Header({ className }: Omit<NavbarProps, 'variant'>) {
               mode={variant === 'light' ? 'light' : 'dark'}
               icon="search.svg"
               className="h-full border-t-0 border-b-0 px-6"
+              aria-label="Search products"
               onClick={() => {
                 setShowSearch(true);
                 setShowCart(false); // Ensure cart modal is closed
@@ -268,6 +271,7 @@ export function Header({ className }: Omit<NavbarProps, 'variant'>) {
                 mode={variant === 'light' ? 'light' : 'dark'}
                 icon="shopping-cart.svg"
                 className="h-full border-t-0 border-b-0 border-l-0 px-6"
+                aria-label="View shopping cart"
                 onClick={() => {
                   setShowCart(true);
                   setShowSearch(false); // Ensure search modal is closed
@@ -297,6 +301,7 @@ export function Header({ className }: Omit<NavbarProps, 'variant'>) {
                 theme={variant === 'light' ? 'light' : 'dark'}
                 icon="shopping-cart.svg"
                 className="h-[46px] w-[46px] border-y-0 border-r-0"
+                aria-label="View shopping cart"
                 onClick={() => {
                   setShowCart(true);
                   setShowSearch(false); // Ensure search modal is closed
@@ -305,12 +310,13 @@ export function Header({ className }: Omit<NavbarProps, 'variant'>) {
               <CartBadge count={itemCount} variant={variant} />
             </div>
 
-            <Link href="/contact">
+            <Link href="/contact" aria-label="Contact us">
               <ButtonIcon
                 variant="button-icon"
                 theme={variant === 'light' ? 'light' : 'dark'}
                 icon="send.svg"
                 className="h-[46px] w-[46px] border-y-0"
+                aria-label="Contact us"
               />
             </Link>
           </div>

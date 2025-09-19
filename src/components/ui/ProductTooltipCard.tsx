@@ -66,7 +66,7 @@ export function ProductTooltipCard({
         {/* Header */}
         <div className="max-w-[337px] space-y-0.5">
           <div className="subtitle-4">{subtitle}</div>
-          <h5 className="text-primary">{title}</h5>
+          <p className="h5">{title}</p>
         </div>
 
         {/* Price and Dimensions */}
