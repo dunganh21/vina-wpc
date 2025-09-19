@@ -27,6 +27,76 @@ export const metadata: Metadata = {
   title: 'VINA WPC - Gỗ nhựa bền đẹp, thân thiện môi trường',
   description:
     'Sản phẩm gỗ nhựa WPC chất lượng cao, bền vững từ tâm - nâng tầm cuộc sống',
+  keywords: [
+    'gỗ nhựa',
+    'WPC',
+    'vật liệu xây dựng',
+    'thân thiện môi trường',
+    'bền vững',
+    'VINA WPC',
+    'sàn gỗ nhựa',
+    'ốp tường',
+    'trang trí nội thất',
+  ],
+  authors: [{ name: 'VINA WPC' }],
+  creator: 'VINA WPC',
+  publisher: 'VINA WPC',
+  formatDetection: {
+    email: false,
+    address: false,
+    telephone: false,
+  },
+  openGraph: {
+    title: 'VINA WPC - Gỗ nhựa bền đẹp, thân thiện môi trường',
+    description:
+      'Sản phẩm gỗ nhựa WPC chất lượng cao, bền vững từ tâm - nâng tầm cuộc sống',
+    url: 'https://vina-wpc.com',
+    siteName: 'VINA WPC',
+    images: [
+      {
+        url: '/images/og-image.png',
+        width: 1200,
+        height: 630,
+        alt: 'VINA WPC - Gỗ nhựa bền đẹp, thân thiện môi trường',
+      },
+    ],
+    locale: 'vi_VN',
+    type: 'website',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'VINA WPC - Gỗ nhựa bền đẹp, thân thiện môi trường',
+    description:
+      'Sản phẩm gỗ nhựa WPC chất lượng cao, bền vững từ tâm - nâng tầm cuộc sống',
+    images: ['/images/og-image.png'],
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      'max-video-preview': -1,
+      'max-image-preview': 'large',
+      'max-snippet': -1,
+    },
+  },
+  verification: {
+    google: 'google-site-verification-code',
+  },
+  icons: {
+    icon: [
+      { url: 'favicon/favicon-32x32.png', sizes: '32x32', type: 'image/png' },
+      { url: 'favicon/favicon-16x16.png', sizes: '16x16', type: 'image/png' },
+    ],
+    apple: [
+      {
+        url: 'favicon/apple-touch-icon-180x180.png',
+        sizes: '180x180',
+        type: 'image/png',
+      },
+    ],
+  },
 };
 
 export default function RootLayout({

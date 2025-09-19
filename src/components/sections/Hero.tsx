@@ -22,7 +22,7 @@ export function Hero() {
           />
         </div>
 
-        <div className="page-container relative z-10 flex h-full flex-shrink-0 flex-col justify-between pt-24 pb-10 text-white lg:pt-32 lg:pb-13">
+        <div className="page-container relative z-10 flex h-full flex-shrink-0 flex-col justify-between pt-24 pb-10 text-white lg:pt-50 lg:pb-13">
           <div className="mx-auto max-w-4xl text-center">
             <h1 className="hero-title animate-hero-title font-semibold text-white lg:mb-2">
               VINA WPC

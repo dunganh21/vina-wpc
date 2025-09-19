@@ -1,0 +1,17 @@
+User-agent: *
+Allow: /
+
+# Allow main pages
+Allow: /about
+Allow: /products
+Allow: /products/*
+Allow: /blogs
+Allow: /blog/*
+Allow: /contact
+
+# Disallow admin and API routes
+Disallow: /admin
+Disallow: /api
+
+# Sitemap location
+Sitemap: https://vina-wpc.com/sitemap.xml
