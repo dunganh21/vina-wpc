@@ -75,7 +75,6 @@ export function ContactSection() {
         phone: '',
         message: '',
       });
-
     } catch {
       showToast({
         title: 'Có lỗi xảy ra',
@@ -147,7 +146,6 @@ export function ContactSection() {
         phone: '',
         message: '',
       });
-
     } catch {
       showToast({
         title: 'Có lỗi xảy ra',
@@ -254,7 +252,12 @@ export function ContactSection() {
                       placeholder="Họ tên"
                       className="w-full"
                       value={consultationForm.name}
-                      onChange={(e) => setConsultationForm(prev => ({ ...prev, name: e.target.value }))}
+                      onChange={(e) =>
+                        setConsultationForm((prev) => ({
+                          ...prev,
+                          name: e.target.value,
+                        }))
+                      }
                       required
                     />
 
@@ -281,7 +284,12 @@ export function ContactSection() {
                       ]}
                       className="w-full"
                       value={consultationForm.product}
-                      onChange={(value) => setConsultationForm(prev => ({ ...prev, product: value }))}
+                      onChange={(value) =>
+                        setConsultationForm((prev) => ({
+                          ...prev,
+                          product: value,
+                        }))
+                      }
                     />
 
                     {/* Phone Input */}
@@ -290,7 +298,12 @@ export function ContactSection() {
                       placeholder="Số điện thoại"
                       className="w-full"
                       value={consultationForm.phone}
-                      onChange={(e) => setConsultationForm(prev => ({ ...prev, phone: e.target.value }))}
+                      onChange={(e) =>
+                        setConsultationForm((prev) => ({
+                          ...prev,
+                          phone: e.target.value,
+                        }))
+                      }
                       required
                     />
 
@@ -300,7 +313,12 @@ export function ContactSection() {
                       showCharacterCount={false}
                       className="w-full"
                       value={consultationForm.message}
-                      onChange={(e) => setConsultationForm(prev => ({ ...prev, message: e.target.value }))}
+                      onChange={(e) =>
+                        setConsultationForm((prev) => ({
+                          ...prev,
+                          message: e.target.value,
+                        }))
+                      }
                     />
 
                     {/* Submit Button */}
@@ -330,7 +348,12 @@ export function ContactSection() {
                       placeholder="Họ tên"
                       className="w-full"
                       value={purchaseForm.name}
-                      onChange={(e) => setPurchaseForm(prev => ({ ...prev, name: e.target.value }))}
+                      onChange={(e) =>
+                        setPurchaseForm((prev) => ({
+                          ...prev,
+                          name: e.target.value,
+                        }))
+                      }
                       required
                     />
 
@@ -340,7 +363,12 @@ export function ContactSection() {
                       placeholder="Số điện thoại"
                       className="w-full"
                       value={purchaseForm.phone}
-                      onChange={(e) => setPurchaseForm(prev => ({ ...prev, phone: e.target.value }))}
+                      onChange={(e) =>
+                        setPurchaseForm((prev) => ({
+                          ...prev,
+                          phone: e.target.value,
+                        }))
+                      }
                       required
                     />
 
@@ -350,7 +378,12 @@ export function ContactSection() {
                       showCharacterCount={false}
                       className="w-full"
                       value={purchaseForm.message}
-                      onChange={(e) => setPurchaseForm(prev => ({ ...prev, message: e.target.value }))}
+                      onChange={(e) =>
+                        setPurchaseForm((prev) => ({
+                          ...prev,
+                          message: e.target.value,
+                        }))
+                      }
                     />
 
                     {/* Submit Button */}
@@ -375,7 +408,7 @@ export function ContactSection() {
         <div className="hidden lg:block lg:w-1/2">
           <div
             className="relative h-full w-full bg-cover bg-center bg-no-repeat"
-            style={{ backgroundImage: `url('/images/blog-hero.jpg')` }}
+            style={{ backgroundImage: `url('/images/blog-4.jpg')` }}
           />
         </div>
       </div>

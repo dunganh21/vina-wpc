@@ -17,9 +17,9 @@ features:
   - 'Bảo hành 15 năm'
 gallery:
   - '/images/prd-lg-1.jpg'
-  - '/images/prd-lg-2.png'
-  - '/images/prd-lg-3.png'
-  - '/images/prd-lg-4.png'
+  - '/images/products-hero.jpg'
+  - '/images/product-feature-1.jpg'
+  - '/images/product-feature-2.jpg'
 price: 850000
 rooms:
   - 'Phòng khách'

@@ -19,9 +19,9 @@ features:
   - 'Bảo hành chính hãng 12 năm'
 gallery:
   - '/images/prd-lg-4.png'
-  - '/images/prd-lg-1.jpg'
-  - '/images/prd-lg-2.png'
-  - '/images/prd-lg-3.png'
+  - '/images/products-hero.jpg'
+  - '/images/product-feature-1.jpg'
+  - '/images/product-feature-2.jpg'
 price: 950000
 colors:
   - name: 'Ash White'

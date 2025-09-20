@@ -63,11 +63,11 @@ export default async function ProductDetailPage({
   // Transform images for ProductImageGallery component
   const images = {
     main: {
-      src: product.gallery?.[0] || '/images/prd-lg-1.jpg',
+      src: product.gallery?.[1],
       alt: product.title,
     },
     secondary:
-      product.gallery?.slice(1).map((img) => ({
+      product.gallery?.slice(2).map((img) => ({
         src: img,
         alt: product.title,
       })) || [],

@@ -2,7 +2,7 @@
 title: '5 Lý Do Nên Chọn Gỗ Nhựa Cho Không Gian Ngoại Thất'
 date: '2025-01-10T00:00:00.000Z'
 category: 'Gỗ Nhựa WPC'
-image: '/images/blog-hero.jpg'
+image: '/images/blog-4.jpg'
 excerpt: 'Từ sân vườn, ban công đến hồ bơi – gỗ nhựa là lựa chọn hoàn hảo cho không gian ngoài trời bền đẹp và tinh tế.'
 ---
 

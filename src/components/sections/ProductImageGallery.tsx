@@ -1,7 +1,7 @@
 import Image from 'next/image';
 
 interface ProductImageGalleryProps {
-  images?: {
+  images: {
     main: {
       src: string;
       alt: string;
@@ -11,30 +11,11 @@ interface ProductImageGalleryProps {
       alt: string;
     }>;
   };
-  className?: string;
 }
 
-export function ProductImageGallery({
-  images = {
-    main: {
-      src: '/images/prd-lg-1.jpg',
-      alt: 'Modern minimalist living room with wood paneling',
-    },
-    secondary: [
-      {
-        src: '/images/prd-lg-2.png',
-        alt: 'Kitchen counter with natural wood elements',
-      },
-      {
-        src: '/images/prd-lg-3.png',
-        alt: 'Hallway with wooden furniture and modern design',
-      },
-    ],
-  },
-  className = '',
-}: ProductImageGalleryProps) {
+export function ProductImageGallery({ images }: ProductImageGalleryProps) {
   return (
-    <section className={`bg-white py-6 lg:py-16 ${className}`}>
+    <section className={`bg-white py-6 lg:py-16`}>
       <div className="page-container">
         <div className="flex flex-col gap-6">
           {/* Main Large Image */}

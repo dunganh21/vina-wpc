@@ -59,8 +59,14 @@ export function NewProduct({ product }: NewProductProps) {
             {/* Header */}
             <div className="space-y-2 lg:space-y-3">
               <h2 className="subtitle-2">Sản phẩm mới</h2>
-              <h3>{product.title}</h3>
-              <p className="body-2">{product.description}</p>
+              <h3>
+                Lý tưởng cho căn nhà có ánh sáng tự nhiên & vẻ đẹp tinh giản.
+              </h3>
+              <p>
+                Mang lại vẻ đẹp tự nhiên và tinh giản cho không gian sống. Vân
+                gỗ mềm, tông màu sáng giúp mở rộng thị giác và tăng cảm giác
+                sạch sẽ
+              </p>
             </div>
 
             {/* Color Selection */}
@@ -86,7 +92,7 @@ export function NewProduct({ product }: NewProductProps) {
               className="animate-product-card relative aspect-[1.3/1] overflow-hidden bg-base-200 lg:aspect-[3/2]"
             >
               <Image
-                src="/images/hero-bg.jpg"
+                src="/images/new-product-bg.png"
                 alt="Wood paneling in modern interior"
                 fill
                 className="object-cover"

@@ -2,7 +2,7 @@
 title: 'Hai bề mặt phủ gỗ công nghiệp phổ biến trong nội thất hiện đại'
 date: '2025-01-15T00:00:00.000Z'
 category: 'Gỗ Nhựa WPC'
-image: '/images/blog-hero.jpg'
+image: '/images/blog-2.jpg'
 excerpt: 'Laminate và Veneer là 2 loại bề mặt phủ lên gỗ công nghiệp phổ biến trong ngành nội thất hiện nay. Laminate là vật liệu nhân tạo được sản xuất từ nhiều lớp giấy kraft và giấy trang trí, trong khi Veneer là lớp gỗ tự nhiên mỏng được lạng từ cây tự nhiên.'
 ---
 

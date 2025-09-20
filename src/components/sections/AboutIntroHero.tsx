@@ -32,7 +32,7 @@ export function AboutIntroHero() {
         {/* Background Image */}
         <div ref={bgRef} className="animate-product-card absolute inset-0">
           <Image
-            src="/images/blog-hero.jpg"
+            src="/images/about-section-bg.png"
             alt="VINA WPC Material Background - Curved Wood Structures"
             fill
             className="object-cover"
