@@ -16,8 +16,8 @@ export async function POST(request: NextRequest) {
 
     // Get environment variables
     const spreadsheetId = process.env.GOOGLE_SHEETS_SPREADSHEET_ID;
-    const sheetName = process.env.GOOGLE_SHEETS_CONSULTATION_SHEET_NAME || 'Consultation';
     const credentialsPath = process.env.GOOGLE_APPLICATION_CREDENTIALS;
+    const sheetName = 'Tư vấn';
 
     if (!spreadsheetId || !credentialsPath) {
       console.error('Missing required environment variables');
@@ -41,14 +41,7 @@ export async function POST(request: NextRequest) {
     });
 
     const values = [
-      [
-        timestamp,
-        name,
-        product || '',
-        phone,
-        message || '',
-        'Consultation'
-      ]
+      [timestamp, name, product || '', phone, message || '', 'Consultation'],
     ];
 
     // Append data to Google Sheets
@@ -65,7 +58,6 @@ export async function POST(request: NextRequest) {
       { message: 'Consultation request submitted successfully' },
       { status: 200 }
     );
-
   } catch (error) {
     console.error('Error submitting consultation request:', error);
     return NextResponse.json(

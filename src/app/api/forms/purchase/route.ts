@@ -23,9 +23,8 @@ export async function POST(request: NextRequest) {
 
     // Get environment variables
     const spreadsheetId = process.env.GOOGLE_SHEETS_SPREADSHEET_ID;
-    const sheetName =
-      process.env.GOOGLE_SHEETS_PURCHASE_SHEET_NAME || 'Purchase';
     const credentialsPath = process.env.GOOGLE_APPLICATION_CREDENTIALS;
+    const sheetName = 'Mua hàng';
 
     if (!spreadsheetId || !credentialsPath) {
       console.error('Missing required environment variables');
