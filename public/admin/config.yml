@@ -1,10 +1,10 @@
 backend:
-  name: github
-  repo: dunganh21/vina-wpc # Replace with your actual GitHub username/repo
+  name: git-gateway
   branch: main
 
-# Editorial workflow for content review (production)
-publish_mode: editorial_workflow
+# Will be automatically set by Netlify
+site_url: https://vian-wpc.netlify.app/
+display_url: https://vian-wpc.netlify.app/
 
 # Media configuration
 media_folder: 'public/images'
@@ -18,9 +18,8 @@ slug:
 # Vietnamese interface
 locale: 'vi'
 
-# Site configuration - UPDATE WITH YOUR ACTUAL DOMAIN
-site_url: 'https://vina-wpc.vercel.app/'
-display_url: 'https://vina-wpc.vercel.app/'
+# Publishing configuration for shared hosting
+publish_mode: editorial_workflow
 
 collections:
   - name: 'blog'
@@ -121,7 +120,16 @@ collections:
           widget: 'list',
           field: { label: 'Ảnh', name: 'image', widget: 'image' },
         }
-      - { label: 'Giá bán', name: 'price', widget: 'string', required: false }
+      - {
+          label: 'Giá bán (chỉ số, đơn vị: đồng/m²)',
+          name: 'price',
+          widget: 'number',
+          value_type: 'int',
+          min: 0,
+          step: 1000,
+          hint: 'Nhập giá theo đồng/m² (VD: 850000 cho 850.000đ/m²)',
+          required: false,
+        }
       - {
           label: 'Phòng phù hợp',
           name: 'rooms',
