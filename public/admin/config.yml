@@ -18,9 +18,6 @@ slug:
 # Vietnamese interface
 locale: 'vi'
 
-# Publishing configuration for shared hosting
-publish_mode: editorial_workflow
-
 collections:
   - name: 'blog'
     label: 'Bài viết Blog'
