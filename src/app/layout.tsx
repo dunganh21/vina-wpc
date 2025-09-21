@@ -3,6 +3,7 @@ import { Header } from '@/components/layout/Header';
 import { CartProvider } from '@/lib/cart-context';
 import { ToastProvider } from '@/lib/toast-context';
 import type { Metadata } from 'next';
+import Script from 'next/script';
 import { Inter, Inter_Tight } from 'next/font/google';
 import '../styles/animations.css';
 import './globals.css';
@@ -117,6 +118,22 @@ export default function RootLayout({
             <Footer />
           </CartProvider>
         </ToastProvider>
+        <Script id="netlify-identity" strategy="afterInteractive">
+          {`
+            if (location.hash.includes('invite_token')) {
+               location.replace('/admin/' + location.hash);
+            }
+            if (window.netlifyIdentity) {
+              window.netlifyIdentity.on("init", (user) => {
+                if (!user) {
+                  window.netlifyIdentity.on("login", () => {
+                    document.location.href = "/admin/";
+                  });
+                }
+              });
+            }
+          `}
+        </Script>
       </body>
     </html>
   );
