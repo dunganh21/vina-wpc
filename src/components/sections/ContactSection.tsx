@@ -408,7 +408,7 @@ export function ContactSection() {
         <div className="hidden lg:block lg:w-1/2">
           <div
             className="relative h-full w-full bg-cover bg-center bg-no-repeat"
-            style={{ backgroundImage: `url('/images/blog-4.jpg')` }}
+            style={{ backgroundImage: `url('/images/contact-image.jpg')` }}
           />
         </div>
       </div>

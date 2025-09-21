@@ -39,44 +39,18 @@ collections:
           default: true,
         }
       - {
-          label: 'Danh mục',
+          label: 'Chủ đề',
           name: 'category',
           widget: 'string',
           default: 'Gỗ Nhựa WPC',
         }
-      - { label: 'Thẻ tag', name: 'tags', widget: 'list', required: false }
       - {
           label: 'Ảnh đại diện',
           name: 'image',
           widget: 'image',
           required: true,
         }
-      - {
-          label: 'Alt text cho ảnh',
-          name: 'imageAlt',
-          widget: 'string',
-          required: false,
-        }
       - { label: 'Mô tả ngắn', name: 'excerpt', widget: 'text', required: true }
-      - {
-          label: 'Meta Description (SEO)',
-          name: 'metaDescription',
-          widget: 'string',
-          pattern: ['.{50,160}', 'Từ 50-160 ký tự'],
-          required: false,
-        }
-      - {
-          label: 'Tác giả',
-          name: 'author',
-          widget: 'string',
-          default: 'VINA WPC',
-        }
-      - {
-          label: 'Thời gian đọc (phút)',
-          name: 'readTime',
-          widget: 'number',
-          default: 5,
-        }
       - { label: 'Nội dung', name: 'body', widget: 'markdown', required: true }
 
   - name: 'products'

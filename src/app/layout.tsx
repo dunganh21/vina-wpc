@@ -123,15 +123,6 @@ export default function RootLayout({
             if (location.hash.includes('invite_token')) {
                location.replace('/admin/' + location.hash);
             }
-            if (window.netlifyIdentity) {
-              window.netlifyIdentity.on("init", (user) => {
-                if (!user) {
-                  window.netlifyIdentity.on("login", () => {
-                    document.location.href = "/admin/";
-                  });
-                }
-              });
-            }
           `}
         </Script>
       </body>
