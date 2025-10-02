@@ -26,7 +26,7 @@ export function Button({
 }: ButtonProps) {
   const getButtonStyles = () => {
     const baseStyles =
-      'inline-flex cursor-pointer items-center justify-center gap-2 px-8 py-4 font-primary font-normal transition-all duration-200 rounded-none';
+      'inline-flex cursor-pointer items-center justify-center gap-2 px-8 py-4 font-primary font-normal transition-all duration-200 rounded-none focus-visible:outline-none';
 
     // Handle disabled state
     if (disabled || state === 'disabled') {

@@ -1,7 +1,7 @@
 @import 'tailwindcss';
 @plugin "daisyui" {
   themes: light --default;
-  include: btn modal dropdown menu navbar hero checkbox;
+  include: btn modal dropdown menu navbar hero checkbox alert toast;
 }
 
 @theme inline {
@@ -26,54 +26,6 @@
   --shadow-card: 0 8px 24px rgba(0, 0, 0, 0.08);
   --shadow-elevated: 0 12px 32px rgba(0, 0, 0, 0.12);
   --shadow-tooltip: 0 8px 40px rgba(0, 0, 0, 0.18);
-}
-
-/* Override DaisyUI text-primary to use text color instead of brand color */
-@layer utilities {
-  .text-primary {
-    color: var(--color-text-primary);
-  }
-  .text-secondary {
-    color: var(--color-text-secondary);
-  }
-
-  /* Responsive typography utilities */
-  .text-h7-footer {
-    @apply font-secondary font-semibold text-white;
-    font-size: 12px;
-    line-height: 1em;
-    letter-spacing: 0.02em;
-  }
-
-  /* Line clamp utilities */
-  .line-clamp-2 {
-    overflow: hidden;
-    display: -webkit-box;
-    -webkit-box-orient: vertical;
-    -webkit-line-clamp: 2;
-    line-clamp: 2;
-  }
-  .line-clamp-3 {
-    overflow: hidden;
-    display: -webkit-box;
-    -webkit-box-orient: vertical;
-    -webkit-line-clamp: 3;
-    line-clamp: 3;
-  }
-}
-
-@utility shadow-card {
-  box-shadow: var(--shadow-card);
-}
-@utility shadow-elevated {
-  box-shadow: var(--shadow-elevated);
-}
-@utility shadow-tooltip {
-  box-shadow: var(--shadow-tooltip);
-}
-
-@utility pt-safe {
-  padding-top: env(safe-area-inset-top);
 }
 
 @layer base {
@@ -131,14 +83,6 @@
     @apply font-secondary font-semibold text-[#2a332b];
     font-size: clamp(0.938rem, 0.825rem + 0.4vw, 1.25rem);
     line-height: 1.15em;
-    letter-spacing: 0.02em;
-  }
-
-  /* clamp h7 -> h5 */
-  .h5-footer {
-    @apply font-secondary font-semibold text-white;
-    font-size: clamp(0.75rem, 0.574rem + 0.751vw, 1.25rem);
-    line-height: 1em;
     letter-spacing: 0.02em;
   }
 
@@ -333,5 +277,50 @@
     a {
       @apply transition-colors duration-200;
     }
+  }
+}
+
+/* Tạo tiếp style 1 số cái heading ở utilities như này để có thẻ dùng được với breakpoint của tailwind
+Áp dụng cho các trường hợp clamp font ko theo quy luật */
+
+@layer utilities {
+  .h3 {
+    font-size: clamp(1.5rem, 1.32rem + 0.751vw, 2rem);
+  }
+
+  .h6 {
+    font-size: clamp(0.75rem, 0.68rem + 0.282vw, 0.938rem);
+  }
+
+  .text-primary {
+    color: var(--color-text-primary);
+  }
+  .text-secondary {
+    color: var(--color-text-secondary);
+  }
+
+  /* Line clamp utilities */
+  .line-clamp-2 {
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+    line-clamp: 2;
+  }
+
+  .box-shadow-card {
+    box-shadow: var(--shadow-card);
+  }
+
+  .box-shadow-elevated {
+    box-shadow: var(--shadow-elevated);
+  }
+
+  .box-shadow-tooltip {
+    box-shadow: var(--shadow-tooltip);
+  }
+
+  .pt-safe {
+    padding-top: env(safe-area-inset-top);
   }
 }

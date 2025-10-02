@@ -9,7 +9,6 @@ import {
   ROOMS_DESKTOP,
 } from '@/lib/filter-constants';
 
-
 interface FilterData {
   categories: string[];
   priceRanges: string[];
@@ -22,16 +21,17 @@ interface FilterSidebarDesktopProps {
   initialFilters?: FilterData;
 }
 
-
-
-
 export function FilterSidebarDesktop({
   className,
   onFilterChange,
   initialFilters,
 }: FilterSidebarDesktopProps) {
-  const [categories, setCategories] = useState<string[]>(initialFilters?.categories || []);
-  const [priceRanges, setPriceRanges] = useState<string[]>(initialFilters?.priceRanges || []);
+  const [categories, setCategories] = useState<string[]>(
+    initialFilters?.categories || []
+  );
+  const [priceRanges, setPriceRanges] = useState<string[]>(
+    initialFilters?.priceRanges || []
+  );
   const [rooms, setRooms] = useState<string[]>(initialFilters?.rooms || []);
 
   // Update local state when initialFilters change
@@ -96,7 +96,10 @@ export function FilterSidebarDesktop({
 
       {/* PHẠM VỊ GIÁ */}
       <div>
-        <div className="subtitle-3 mb-2 text-primary">PHẠM VỊ GIÁ</div>
+        <div className="subtitle-3 mb-2 text-primary">
+          phân khúc giá/m
+          <sup className="text-xs">2</sup>
+        </div>
         <div className="space-y-2">
           {PRICE_RANGES.map((price) => (
             <label
@@ -107,9 +110,7 @@ export function FilterSidebarDesktop({
                 checked={priceRanges.includes(price.id)}
                 onChange={() => handlePriceChange(price.id)}
               />
-              <span className="body-3 whitespace-nowrap text-primary">
-                {price.label}
-              </span>
+              <span className="whitespace-nowrap">{price.label}</span>
             </label>
           ))}
         </div>
@@ -128,7 +129,7 @@ export function FilterSidebarDesktop({
                 checked={rooms.includes(room.id)}
                 onChange={() => handleRoomChange(room.id)}
               />
-              <span className="body-3 text-neutral">{room.label}</span>
+              <span>{room.label}</span>
             </label>
           ))}
         </div>

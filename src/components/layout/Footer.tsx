@@ -1,13 +1,15 @@
 'use client';
 
-import React from 'react';
+import React, { useState } from 'react';
 import { Logo } from '@/components/ui/Logo';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
+import { showToast } from '@/lib/toast-service';
 
 export function Footer() {
   const router = useRouter();
+  const [email, setEmail] = useState('');
 
   return (
     <footer className="relative bg-white/85">
@@ -73,7 +75,7 @@ export function Footer() {
                   <p className="subtitle-4 text-white/85">Sản phẩm</p>
                   <div className="[&>*]:pb-2 lg:[&>*]:pb-3">
                     <p
-                      className="h5-footer cursor-pointer transition-colors hover:text-white/90"
+                      className="h6 md:h5 cursor-pointer text-white transition-colors hover:text-white/90"
                       onClick={() =>
                         router.push('/products?collection=san-wpc')
                       }
@@ -81,7 +83,7 @@ export function Footer() {
                       Sàn gỗ nội thất
                     </p>
                     <p
-                      className="h5-footer cursor-pointer transition-colors hover:text-white/90"
+                      className="h6 md:h5 cursor-pointer text-white transition-colors hover:text-white/90"
                       onClick={() =>
                         router.push('/products?collection=tran-wpc')
                       }
@@ -89,7 +91,7 @@ export function Footer() {
                       Trần nhà & trần trang trí
                     </p>
                     <p
-                      className="h5-footer cursor-pointer transition-colors hover:text-white/90"
+                      className="h6 md:h5 cursor-pointer text-white transition-colors hover:text-white/90"
                       onClick={() =>
                         router.push('/products?collection=op-tuong-wpc')
                       }
@@ -97,7 +99,7 @@ export function Footer() {
                       Ốp tường ngoại thất
                     </p>
                     <p
-                      className="h5-footer cursor-pointer transition-colors hover:text-white/90"
+                      className="h6 md:h5 cursor-pointer text-white transition-colors hover:text-white/90"
                       onClick={() =>
                         router.push('/products?collection=san-ngoai-troi')
                       }
@@ -111,14 +113,14 @@ export function Footer() {
                   <div className="[&>*]:pb-2 lg:[&>*]:pb-3">
                     <Link
                       href="/about"
-                      className="h5-footer block cursor-pointer text-white transition-colors hover:text-white/90"
+                      className="h6 md:h5 block cursor-pointer text-white transition-colors hover:text-white/90"
                     >
                       Về chúng tôi
                     </Link>
 
                     <Link
                       href="/contact"
-                      className="h5-footer block cursor-pointer text-white transition-colors hover:text-white/90"
+                      className="h6 md:h5 block cursor-pointer text-white transition-colors hover:text-white/90"
                     >
                       Liên hệ
                     </Link>
@@ -135,15 +137,35 @@ export function Footer() {
                   <p className="subtitle-4 text-white/85">
                     Nhận ưu đãi từ chúng tôi
                   </p>
-                  <div className="relative">
+                  <form
+                    className="relative"
+                    onSubmit={(e) => {
+                      e.preventDefault();
+                      if (email.trim()) {
+                        showToast({
+                          title: 'Đăng ký thành công!',
+                          message:
+                            'Chúng tôi sẽ gửi cho bạn những ưu đãi và tin tức mới nhất',
+                          type: 'success',
+                          duration: 4000,
+                        });
+                        setEmail('');
+                      }
+                    }}
+                  >
                     <input
                       type="email"
                       placeholder="Email"
+                      value={email}
+                      onChange={(e) => setEmail(e.target.value)}
+                      required
                       className="body-3 w-full border border-white/30 bg-transparent p-4 text-white placeholder-white/75 transition-colors focus:border-white/50 focus:outline-none"
                     />
                     <button
-                      className="absolute top-1/2 right-2 -translate-y-1/2 p-3 text-white/75 transition-colors hover:text-white"
+                      type="submit"
+                      className="absolute top-1/2 right-2 -translate-y-1/2 p-3 text-white/75 transition-colors hover:text-white disabled:opacity-50"
                       aria-label="Subscribe to newsletter"
+                      disabled={!email.trim()}
                     >
                       <svg
                         className="h-4 w-4"
@@ -153,7 +175,7 @@ export function Footer() {
                         <path d="M4.1972 3.25386L1.1372 0.193862C1.01229 0.0696943 0.843323 0 0.667199 0C0.491075 0 0.322107 0.0696943 0.197199 0.193862C0.134713 0.255837 0.0851172 0.329571 0.0512714 0.41081C0.0174257 0.49205 0 0.579187 0 0.667195C0 0.755203 0.0174257 0.84234 0.0512714 0.923579C0.0851172 1.00482 0.134713 1.07855 0.197199 1.14053L3.26387 4.19386C3.32635 4.25584 3.37595 4.32957 3.40979 4.41081C3.44364 4.49205 3.46107 4.57919 3.46107 4.66719C3.46107 4.7552 3.44364 4.84234 3.40979 4.92358C3.37595 5.00482 3.32635 5.07855 3.26387 5.14053L0.197199 8.19386C0.0716631 8.31851 0.00078661 8.48793 0.000161489 8.66483C-0.000463632 8.84174 0.0692144 9.01166 0.193866 9.13719C0.318518 9.26273 0.487933 9.3336 0.664842 9.33423C0.841751 9.33486 1.01166 9.26518 1.1372 9.14052L4.1972 6.08053C4.57173 5.70553 4.78211 5.1972 4.78211 4.66719C4.78211 4.13719 4.57173 3.62886 4.1972 3.25386V3.25386Z" />
                       </svg>
                     </button>
-                  </div>
+                  </form>
                 </div>
                 <div className="flex flex-1 items-end justify-between lg:flex-col lg:items-start">
                   {/* Social Media */}

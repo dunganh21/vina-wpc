@@ -23,14 +23,14 @@ export function ToastProvider({ children }: ToastProviderProps) {
   };
 
   const showToast = (toast: Omit<ToastProps, 'id' | 'onClose'>) => {
-    setIdCounter(prev => prev + 1);
+    setIdCounter((prev) => prev + 1);
     const id = `toast-${idCounter}`;
     const newToast: ToastProps = {
       ...toast,
       id,
       onClose: removeToast,
     };
-    
+
     setToasts((prev) => [...prev, newToast]);
   };
 
@@ -47,9 +47,9 @@ export function ToastProvider({ children }: ToastProviderProps) {
   return (
     <ToastContext.Provider value={{ showToast, showCartSuccess }}>
       {children}
-      
+
       {/* Toast Container - Using DaisyUI Toast */}
-      <div className="toast toast-top toast-end z-50">
+      <div className="toast-top toast-end toast z-50">
         {toasts.map((toast) => (
           <Toast key={toast.id} {...toast} />
         ))}

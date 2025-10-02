@@ -37,32 +37,32 @@ const features = [
 
 export function WhyChooseUs() {
   // Animation refs for mobile layout - Reduced delays
-  const { ref: mobileHeaderRef } = useScrollReveal<HTMLHeadingElement>({ 
+  const { ref: mobileHeaderRef } = useScrollReveal<HTMLHeadingElement>({
     staggerDelay: 0,
-    elementType: 'text'
+    elementType: 'text',
   });
-  
+
   // Individual animation refs for mobile feature items - Faster stagger
-  const mobileFeatureRefs = features.map((_, index) => 
+  const mobileFeatureRefs = features.map((_, index) =>
     // eslint-disable-next-line react-hooks/rules-of-hooks
-    useScrollReveal<HTMLDivElement>({ 
-      staggerDelay: 100 + (index * 80), // 100ms base delay + 80ms between items
-      elementType: 'card'
+    useScrollReveal<HTMLDivElement>({
+      staggerDelay: 100 + index * 80, // 100ms base delay + 80ms between items
+      elementType: 'card',
     })
   );
 
   // Animation refs for desktop layout - Reduced delays
-  const { ref: desktopHeaderRef } = useScrollReveal<HTMLHeadingElement>({ 
+  const { ref: desktopHeaderRef } = useScrollReveal<HTMLHeadingElement>({
     staggerDelay: 0,
-    elementType: 'text'
+    elementType: 'text',
   });
-  
+
   // Individual animation refs for desktop feature rows - Faster stagger
-  const desktopFeatureRefs = features.map((_, index) => 
+  const desktopFeatureRefs = features.map((_, index) =>
     // eslint-disable-next-line react-hooks/rules-of-hooks
-    useScrollReveal<HTMLDivElement>({ 
-      staggerDelay: 100 + (index * 80), // 100ms base delay + 80ms between rows
-      elementType: 'card'
+    useScrollReveal<HTMLDivElement>({
+      staggerDelay: 100 + index * 80, // 100ms base delay + 80ms between rows
+      elementType: 'card',
     })
   );
 
@@ -71,15 +71,17 @@ export function WhyChooseUs() {
       <div className="page-container">
         {/* Mobile Layout */}
         <div className="space-y-6 lg:hidden">
-          <h2 ref={mobileHeaderRef} className="h2 animate-on-scroll">
-            Tại sao bạn nên chọn
-            <br />
-            VINA WPC
+          <h2 ref={mobileHeaderRef} className="h3 animate-on-scroll">
+            Tại sao bạn nên chọn VINA WPC
           </h2>
 
           <div className="space-y-4">
             {features.map((feature, index) => (
-              <div key={index} ref={mobileFeatureRefs[index].ref} className="animate-on-scroll">
+              <div
+                key={index}
+                ref={mobileFeatureRefs[index].ref}
+                className="animate-on-scroll"
+              >
                 <div className="space-y-2">
                   <h3
                     className="h6"
@@ -102,12 +104,19 @@ export function WhyChooseUs() {
           {/* Feature Rows */}
           <div className="space-y-6">
             {features.map((feature, index) => (
-              <div key={index} ref={desktopFeatureRefs[index].ref} className="animate-on-scroll">
+              <div
+                key={index}
+                ref={desktopFeatureRefs[index].ref}
+                className="animate-on-scroll"
+              >
                 <div className="flex items-start">
                   {/* Empty Column 1 (for alignment with header) */}
                   <div className="flex-1">
                     {index === 0 && (
-                      <h3 ref={desktopHeaderRef} className="animate-on-scroll">
+                      <h3
+                        ref={desktopHeaderRef}
+                        className="animate-on-scroll w-3/4"
+                      >
                         Tại sao bạn nên chọn VINA WPC
                       </h3>
                     )}
@@ -115,7 +124,7 @@ export function WhyChooseUs() {
 
                   {/* Feature Title - Column 2 */}
                   <div className="flex-1">
-                    <p className="h4 lg:w-1/2">{feature.title}</p>
+                    <p className="h4 w-1/2">{feature.title}</p>
                   </div>
 
                   {/* Feature Description - Column 3 */}

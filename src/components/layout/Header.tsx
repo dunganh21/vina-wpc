@@ -186,19 +186,49 @@ export function Header({ className }: Omit<NavbarProps, 'variant'>) {
                 className="h-[46px] w-[46px] border-y-0"
                 aria-label="Open navigation menu"
               />
-              <ul className="dropdown-content menu z-[1] mt-3 w-52 menu-sm rounded-box bg-base-100 p-2 shadow">
+              <ul
+                tabIndex={0}
+                className="dropdown-content menu z-[1] mt-3 w-52 menu-sm rounded-box bg-base-100 p-2 shadow transition-all duration-300"
+              >
                 <li>
-                  <NavItem href="/products" variant={variant}>
+                  <NavItem
+                    href="/products"
+                    variant={variant}
+                    onClick={() => {
+                      setTimeout(() => {
+                        const elem = document.activeElement as HTMLElement;
+                        elem?.blur();
+                      }, 200);
+                    }}
+                  >
                     Sản phẩm
                   </NavItem>
                 </li>
                 <li>
-                  <NavItem href="/about" variant={variant}>
+                  <NavItem
+                    href="/about"
+                    variant={variant}
+                    onClick={() => {
+                      setTimeout(() => {
+                        const elem = document.activeElement as HTMLElement;
+                        elem?.blur();
+                      }, 200);
+                    }}
+                  >
                     Giới thiệu
                   </NavItem>
                 </li>
                 <li>
-                  <NavItem href="/blogs" variant={variant}>
+                  <NavItem
+                    href="/blogs"
+                    variant={variant}
+                    onClick={() => {
+                      setTimeout(() => {
+                        const elem = document.activeElement as HTMLElement;
+                        elem?.blur();
+                      }, 200);
+                    }}
+                  >
                     Blog
                   </NavItem>
                 </li>
