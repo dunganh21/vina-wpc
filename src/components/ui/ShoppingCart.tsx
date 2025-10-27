@@ -149,11 +149,19 @@ export function ShoppingCart({ showCart, onClose }: ShoppingCartProps) {
                             <div className="body-3 text-secondary opacity-85">
                               {item.price}
                             </div>
-                            <div className="body-3 text-secondary opacity-85">
-                              {item.dimensions}
-                            </div>
+                            {item.dimensions && (
+                              <div className="body-3 text-secondary opacity-85">
+                                {item.dimensions}
+                              </div>
+                            )}
                             <div className="h6 text-primary">
                               {(() => {
+                                // Check if price is a contact price (non-numeric)
+                                const priceMatch = item.price.match(/[\d,.]+/);
+                                if (!priceMatch) {
+                                  return item.price; // Return "Liên hệ" as is
+                                }
+
                                 const itemPrice = parseFloat(
                                   item.price.replace(/[^\d]/g, '')
                                 );

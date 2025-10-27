@@ -29,8 +29,12 @@ export const PRODUCT_CATEGORIES: FilterOption[] = [
   { id: 'ốp tường wpc', label: 'Ốp Tường WPC', defaultChecked: false },
   { id: 'hàng rào wpc', label: 'Hàng Rào WPC', defaultChecked: false },
   { id: 'lam che nắng wpc', label: 'Lam Che Nắng WPC', defaultChecked: false },
-  { id: 'sàn gỗ ngoài trời', label: 'Sàn Gỗ Ngoài Trời', defaultChecked: false },
-  { id: 'tấm ốp 3d', label: 'Tấm Ốp 3D', defaultChecked: false },
+  {
+    id: 'sàn gỗ ngoài trời',
+    label: 'Sàn Gỗ Ngoài Trời',
+    defaultChecked: false,
+  },
+  { id: 'tấm ốp nano', label: 'Tấm Ốp Nano', defaultChecked: false },
 ];
 
 // ==================== PRICE RANGE FILTERS ====================
@@ -40,27 +44,27 @@ export const PRICE_RANGES: PriceRangeConfig[] = [
     id: 'over-1000',
     label: '> 1.000.000đ',
     min: 1000000,
-    defaultChecked: false
+    defaultChecked: false,
   },
   {
     id: '850-1000',
     label: '850.000đ - 1.000.000đ',
     min: 850000,
     max: 1000000,
-    defaultChecked: false
+    defaultChecked: false,
   },
   {
     id: '600-850',
     label: '600.000đ - 850.000đ',
     min: 600000,
     max: 850000,
-    defaultChecked: false
+    defaultChecked: false,
   },
   {
     id: 'under-250',
     label: '< 250.000đ',
     max: 250000,
-    defaultChecked: false
+    defaultChecked: false,
   },
 ];
 
@@ -102,14 +106,14 @@ export const ROOM_DISPLAY_TO_URL: Record<string, string> = {
 
 // Mapping from URL slugs to display names (for URL parsing)
 export const ROOM_URL_TO_DISPLAY: Record<string, string> = {
-  'phongkhach': 'phòng khách',
-  'phongngu': 'phòng ngủ',
-  'phongbep': 'phòng bếp',
-  'phongtam': 'phòng tắm',
-  'sanvuon': 'sân vườn',
-  'bancong': 'ban công',
-  'hanhlang': 'hành lang',
-  'vanphong': 'văn phòng',
+  phongkhach: 'phòng khách',
+  phongngu: 'phòng ngủ',
+  phongbep: 'phòng bếp',
+  phongtam: 'phòng tắm',
+  sanvuon: 'sân vườn',
+  bancong: 'ban công',
+  hanhlang: 'hành lang',
+  vanphong: 'văn phòng',
 };
 
 // ==================== PRICE RANGE LOGIC ====================
@@ -121,7 +125,7 @@ export const ROOM_URL_TO_DISPLAY: Record<string, string> = {
  * @returns true if price matches the range
  */
 export function matchesPriceRange(price: number, rangeId: string): boolean {
-  const range = PRICE_RANGES.find(r => r.id === rangeId);
+  const range = PRICE_RANGES.find((r) => r.id === rangeId);
   if (!range) return false;
 
   if (range.min !== undefined && range.max !== undefined) {
@@ -141,8 +145,10 @@ export function matchesPriceRange(price: number, rangeId: string): boolean {
  * Convert room display name to URL slug
  */
 export function roomToUrlSlug(displayRoom: string): string {
-  return ROOM_DISPLAY_TO_URL[displayRoom.toLowerCase()] ||
-         displayRoom.replace(/\s+/g, '').toLowerCase();
+  return (
+    ROOM_DISPLAY_TO_URL[displayRoom.toLowerCase()] ||
+    displayRoom.replace(/\s+/g, '').toLowerCase()
+  );
 }
 
 /**

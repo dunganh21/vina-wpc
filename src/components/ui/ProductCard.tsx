@@ -15,7 +15,7 @@ interface ProductCardProps {
   title: string;
   subtitle: string;
   price: string;
-  dimensions: string;
+  dimensions?: string;
   slug?: string;
   onColorSelect?: (colorId: string) => void;
   className?: string;
@@ -47,8 +47,11 @@ export function ProductCard({
   });
 
   const handleAddToCart = () => {
+    // Normalize ID to ensure consistency
+    const normalizedId = id.trim().toLowerCase();
+
     addItem({
-      id,
+      id: normalizedId,
       title,
       price,
       dimensions,
@@ -126,8 +129,12 @@ export function ProductCard({
         <div className="mt-auto flex items-center justify-between">
           <div className="flex flex-col lg:flex-row lg:items-center lg:gap-1">
             <span className="h6">{price}</span>
-            <div className="hidden h-1 w-1 bg-neutral lg:block"></div>
-            <span className="body-3">{dimensions}</span>
+            {dimensions && (
+              <>
+                <div className="hidden h-1 w-1 bg-neutral lg:block"></div>
+                <span className="body-3">{dimensions}</span>
+              </>
+            )}
           </div>
         </div>
       </div>

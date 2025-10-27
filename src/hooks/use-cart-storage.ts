@@ -76,6 +76,10 @@ export function useCartStorage() {
 
   const getCartTotal = () => {
     return items.reduce((total, item) => {
+      // Skip items with contact pricing (non-numeric prices)
+      const priceMatch = item.price.match(/[\d,.]+/);
+      if (!priceMatch) return total;
+
       const itemPrice = parseFloat(item.price.replace(/[^\d]/g, ''));
       return total + itemPrice * item.quantity;
     }, 0);

@@ -197,11 +197,6 @@ export const NAVIGATION_ITEMS = [
     hasSubMenu: false
   },
   {
-    name: "Blog",
-    href: "/blogs",
-    hasSubMenu: false
-  },
-  {
     name: "Liên hệ",
     href: "/contact",
     hasSubMenu: false

@@ -80,12 +80,6 @@ collections:
           widget: 'markdown',
         }
       - {
-          label: 'Tính năng nổi bật',
-          name: 'features',
-          widget: 'list',
-          field: { label: 'Tính năng', name: 'feature', widget: 'string' },
-        }
-      - {
           label: 'Thư viện ảnh',
           name: 'gallery',
           widget: 'list',

@@ -16,14 +16,7 @@ interface SearchModalProps {
 }
 
 // Recent search tags - can be dynamic from localStorage or API
-const recentSearchTags = [
-  'Gỗ nhựa WPC',
-  'Tin xuất khẩu',
-  'Sự kiện',
-  'Giải thưởng',
-  'Hoạt động xã hội',
-  'Lifestyle',
-];
+const recentSearchTags = ['Tấm ốp Nano'];
 
 export function SearchModal({
   isOpen,

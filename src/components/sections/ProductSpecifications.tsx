@@ -37,7 +37,9 @@ export function ProductSpecifications({
                   className="flex justify-between border-b border-base-300 pb-4"
                 >
                   <div className="body-2">{item.label}</div>
-                  <div className="body-2">{item.description}</div>
+                  <div className="max-w-[60%]">
+                    <div className="body-2 text-right">{item.description}</div>
+                  </div>
                 </div>
               ))}
             </div>

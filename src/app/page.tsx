@@ -5,7 +5,6 @@ import {
 } from '@/components/sections';
 import { AboutIntroHero } from '@/components/sections/AboutIntroHero';
 import { NewProductServer } from '@/components/sections/NewProductServer';
-import { NewsServer } from '@/components/sections/NewsServer';
 import { ProductPopularServer } from '@/components/sections/ProductPopularServer';
 
 export default function Home() {
@@ -17,7 +16,6 @@ export default function Home() {
       <ProductOverview />
       <ProductCategories />
       <AboutIntroHero />
-      <NewsServer />
     </main>
   );
 }

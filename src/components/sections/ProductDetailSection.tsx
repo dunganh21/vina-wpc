@@ -13,7 +13,8 @@ interface ProductData {
   id: string;
   name: string;
   category: string;
-  price: number;
+  collection: string;
+  price: number | string;
   unit: string;
   description: string;
   specifications: {
@@ -54,15 +55,22 @@ export function ProductDetailSection({
     setQuantity(Math.max(1, quantity + delta));
   };
 
+  const isContactPrice = typeof productData.price === 'string';
+
   const handleAddToCart = () => {
+    // Normalize ID to ensure consistency
+    const normalizedId = productData.id.trim().toLowerCase();
+
     addItem({
-      id: `${productData.id}-${selectedColor}-${selectedSize}`,
+      id: normalizedId,
       title: productData.name,
-      price: `${(productData.price * quantity).toLocaleString('vi-VN')}đ`,
+      price: (isContactPrice
+        ? productData.price
+        : `${((productData.price as number) * quantity).toLocaleString('vi-VN')}đ`) as string,
       dimensions: selectedSize,
       image: productData.image,
       slug: productData.id,
-      collection: productData.category,
+      collection: productData.collection,
       colors: productData.colors.map((c) => ({
         name: c.name || 'Default',
         hex: c.color,
@@ -70,7 +78,7 @@ export function ProductDetailSection({
     });
   };
 
-  const totalPrice = productData.price * quantity;
+  const totalPrice = isContactPrice ? productData.price : (productData.price as number) * quantity;
 
   return (
     <section className="bg-white">
@@ -119,24 +127,27 @@ export function ProductDetailSection({
 
             {/* Product Variants */}
             <div className="mt-5 lg:mt-10">
-              {/* Size Selection */}
-
-              <Select
-                label="Kích thước"
-                options={productData.sizes}
-                value={selectedSize}
-                onChange={setSelectedSize}
-                className="max-w-full"
-              />
+              {/* Size Selection - Only show if sizes are available */}
+              {productData.sizes && productData.sizes.length > 0 && (
+                <Select
+                  label="Kích thước"
+                  options={productData.sizes}
+                  value={selectedSize}
+                  onChange={setSelectedSize}
+                  className="max-w-full"
+                />
+              )}
 
               {/* Color Selection */}
 
-              <div className="flex min-h-14 w-full items-center justify-between border border-t-0 border-base-300 bg-base-100 px-4 py-4">
+              <div className={`flex min-h-14 w-full items-center justify-between border ${productData.sizes && productData.sizes.length > 0 ? 'border-t-0' : ''} border-base-300 bg-base-100 px-4 py-4`}>
                 <div className="space-y-1">
                   <span className="body-2 font-semibold text-primary">
                     Màu sắc
                   </span>
-                  <div className="body-3 text-secondary">Nâu</div>
+                  <div className="body-3 text-secondary">
+                    {productData.colors.find(c => c.id === selectedColor)?.name || 'Không xác định'}
+                  </div>
                 </div>
                 <ColorOption
                   colors={productData.colors}
@@ -189,7 +200,10 @@ export function ProductDetailSection({
 
             <div className="text-left">
               <div className="h3 text-primary">
-                {totalPrice.toLocaleString('vi-VN')}đ/m²
+                {isContactPrice
+                  ? totalPrice
+                  : `${(totalPrice as number).toLocaleString('vi-VN')}đ/m²`
+                }
               </div>
             </div>
 

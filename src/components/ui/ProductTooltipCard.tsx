@@ -13,7 +13,7 @@ interface ProductTooltipCardProps {
   title: string;
   subtitle: string;
   price: string;
-  dimensions: string;
+  dimensions?: string;
   slug?: string;
   className?: string;
 }
@@ -31,8 +31,11 @@ export function ProductTooltipCard({
   const { addItem } = useCart();
 
   const handleAddToCart = () => {
+    // Normalize ID to ensure consistency
+    const normalizedId = id.trim().toLowerCase();
+
     addItem({
-      id,
+      id: normalizedId,
       title,
       price,
       dimensions,
@@ -72,8 +75,12 @@ export function ProductTooltipCard({
         {/* Price and Dimensions */}
         <div className="flex items-center gap-1 self-stretch">
           <span className="h6 text-primary">{price}</span>
-          <div className="h-1 w-1 bg-neutral"></div>
-          <span className="body-3 text-primary">{dimensions}</span>
+          {dimensions && (
+            <>
+              <div className="h-1 w-1 bg-neutral"></div>
+              <span className="body-3 text-primary">{dimensions}</span>
+            </>
+          )}
         </div>
       </div>
 

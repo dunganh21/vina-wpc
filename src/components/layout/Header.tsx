@@ -218,20 +218,6 @@ export function Header({ className }: Omit<NavbarProps, 'variant'>) {
                     Giới thiệu
                   </NavItem>
                 </li>
-                <li>
-                  <NavItem
-                    href="/blogs"
-                    variant={variant}
-                    onClick={() => {
-                      setTimeout(() => {
-                        const elem = document.activeElement as HTMLElement;
-                        elem?.blur();
-                      }, 200);
-                    }}
-                  >
-                    Blog
-                  </NavItem>
-                </li>
               </ul>
             </div>
 
@@ -259,11 +245,6 @@ export function Header({ className }: Omit<NavbarProps, 'variant'>) {
               <li>
                 <NavItem href="/about" variant={variant}>
                   Giới thiệu
-                </NavItem>
-              </li>
-              <li>
-                <NavItem href="/blogs" variant={variant}>
-                  Blog
                 </NavItem>
               </li>
             </ul>

@@ -122,10 +122,15 @@ export function ProductList({
       const productDataA = productMap.get(a.slug);
       const productDataB = productMap.get(b.slug);
 
+      // Handle both numeric and contact prices ("liên hệ")
       const priceA = productDataA?.price ?? 0;
       const priceB = productDataB?.price ?? 0;
 
-      return sortAsc ? priceA - priceB : priceB - priceA;
+      // Convert to numbers for comparison (contact prices become 0)
+      const numPriceA = typeof priceA === 'string' ? 0 : priceA;
+      const numPriceB = typeof priceB === 'string' ? 0 : priceB;
+
+      return sortAsc ? numPriceA - numPriceB : numPriceB - numPriceA;
     });
 
     const totalPages = Math.ceil(products.length / itemsPerPage);

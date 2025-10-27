@@ -25,7 +25,7 @@ export interface Product {
   specifications: string; // Technical specifications
   features: string[]; // List of product features
   gallery: string[]; // Array of product image URLs
-  price: number; // Price in Vietnamese Dong (VND)
+  price: number | string; // Price in Vietnamese Dong (VND) or "liên hệ" for contact pricing
   rooms: string[]; // Room types where product is suitable
   colors: ProductColor[]; // Available color variants
   dimensions: string[]; // Available dimensions for selection
@@ -54,7 +54,7 @@ export interface ProductSummary {
   title: string; // Product name for display
   collection: string; // Product collection/category
   price: string; // Formatted price string (e.g., "2.500.000đ")
-  dimensions: string; // Product dimensions (e.g., "120x80x2.5cm")
+  dimensions?: string; // Product dimensions (e.g., "120x80x2.5cm") - optional for some products
   image: string;
   colors: ProductColor[]; // Available color variants
 }

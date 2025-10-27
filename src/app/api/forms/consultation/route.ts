@@ -19,40 +19,55 @@ export async function POST(request: NextRequest) {
     const credentialsPath = process.env.GOOGLE_APPLICATION_CREDENTIALS;
     const sheetName = 'Tư vấn';
 
-    if (!spreadsheetId || !credentialsPath) {
-      console.error('Missing required environment variables');
-      return NextResponse.json(
-        { error: 'Service temporarily unavailable' },
-        { status: 500 }
-      );
+    // Only write to Google Sheets if environment variables are configured
+    if (spreadsheetId && credentialsPath) {
+      try {
+        // Initialize Google Sheets API
+        const auth = new google.auth.GoogleAuth({
+          keyFile: credentialsPath,
+          scopes: ['https://www.googleapis.com/auth/spreadsheets'],
+        });
+
+        const sheets = google.sheets({ version: 'v4', auth });
+
+        // Prepare data for Google Sheets
+        const timestamp = new Date().toLocaleString('vi-VN', {
+          timeZone: 'Asia/Ho_Chi_Minh',
+        });
+
+        const values = [
+          [
+            timestamp,
+            name,
+            product || '',
+            phone,
+            message || '',
+            'Consultation',
+          ],
+        ];
+
+        // Append data to Google Sheets
+        await sheets.spreadsheets.values.append({
+          spreadsheetId,
+          range: `${sheetName}!A:F`,
+          valueInputOption: 'USER_ENTERED',
+          requestBody: {
+            values,
+          },
+        });
+      } catch (sheetError) {
+        // Log error but don't fail the request - still show success to user
+        console.error('Error writing to Google Sheets:', sheetError);
+      }
+    } else {
+      // Log that submission was successful but not saved to sheets
+      console.log('Consultation request received (sheets not configured):', {
+        name,
+        product,
+        phone,
+        message,
+      });
     }
-
-    // Initialize Google Sheets API
-    const auth = new google.auth.GoogleAuth({
-      keyFile: credentialsPath,
-      scopes: ['https://www.googleapis.com/auth/spreadsheets'],
-    });
-
-    const sheets = google.sheets({ version: 'v4', auth });
-
-    // Prepare data for Google Sheets
-    const timestamp = new Date().toLocaleString('vi-VN', {
-      timeZone: 'Asia/Ho_Chi_Minh',
-    });
-
-    const values = [
-      [timestamp, name, product || '', phone, message || '', 'Consultation'],
-    ];
-
-    // Append data to Google Sheets
-    await sheets.spreadsheets.values.append({
-      spreadsheetId,
-      range: `${sheetName}!A:F`,
-      valueInputOption: 'USER_ENTERED',
-      requestBody: {
-        values,
-      },
-    });
 
     return NextResponse.json(
       { message: 'Consultation request submitted successfully' },
