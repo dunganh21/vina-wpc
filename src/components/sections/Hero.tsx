@@ -130,8 +130,8 @@ export function Hero() {
                 priority={index === 0 && currentPage === 0} // Only prioritize first image on initial load
                 fetchPriority={index === currentPage ? 'high' : 'low'}
                 loading={index === 0 ? 'eager' : 'lazy'}
-                sizes="100vw"
-                quality={85}
+                sizes="(max-width: 640px) 640px, (max-width: 1024px) 1024px, (max-width: 1920px) 1920px, 3840px"
+                quality={80}
               />
             );
           })}
