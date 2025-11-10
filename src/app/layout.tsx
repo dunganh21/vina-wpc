@@ -25,7 +25,7 @@ export const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL!),
+  metadataBase: new URL('https://vinawpc.vn'),
   title: 'VINA WPC - Gỗ nhựa bền đẹp, thân thiện môi trường',
   description:
     'Sản phẩm gỗ nhựa WPC chất lượng cao, bền vững từ tâm - nâng tầm cuộc sống',
