@@ -19,7 +19,7 @@ export function transformBlogPostToNews(post: BlogPost): NewsArticle {
       year: 'numeric',
     }),
     category: post.category,
-    imageUrl: post.image || '/images/placeholder-blog.jpg',
+    imageUrl: post.image || '/images/placeholder-blog.webp',
     readTime: '5 phút đọc', // Default reading time, can be calculated based on content length
   };
 }
@@ -32,7 +32,7 @@ export function transformProductToCard(product: Product): ProductSummary {
     image:
       product.gallery && product.gallery.length > 0
         ? product.gallery[0]
-        : '/images/placeholder-product.jpg',
+        : '/images/placeholder-product.webp',
     title: product.title,
     collection: product.collection,
     price: formatPrice(product.price),
@@ -48,7 +48,7 @@ export function transformProductToSearchResult(product: Product) {
     image:
       product.gallery && product.gallery.length > 0
         ? product.gallery[0]
-        : '/images/placeholder-product.jpg',
+        : '/images/placeholder-product.webp',
     title: product.title,
     collection: product.collection,
     price: formatPrice(product.price),

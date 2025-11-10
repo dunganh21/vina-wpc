@@ -84,7 +84,7 @@ export function AboutIntro() {
             className="animate-product-card relative aspect-[1/1] w-full"
           >
             <Image
-              src="/images/house.jpg"
+              src="/images/house.webp"
               alt="VINA WPC Factory"
               fill
               className="object-cover"

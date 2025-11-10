@@ -37,7 +37,7 @@ export function ProductOverview() {
       >
         {/* Background Image */}
         <Image
-          src="/images/section-bg.png"
+          src="/images/section-bg.webp"
           alt="VINA WPC Wood Background"
           fill
           className="object-cover"

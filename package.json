@@ -6,15 +6,17 @@
     "dev": "NEXT_DIST_DIR=.next-dev next dev --turbopack --port 3000",
     "build": "NEXT_DIST_DIR=.next next build",
     "start": "NEXT_DIST_DIR=.next next start",
-    "clean": "rm -rf .next .next-dev",
-    "prebuild": "npm run clean",
+    "serve": "serve out -l 3002",
+    "preview": "npm run build && npm run serve",
+    "clean": "rm -rf .next .next-dev out",
+    "generate-data": "node scripts/generate-static-data.js",
+    "prebuild": "npm run clean && npm run generate-data",
     "lint": "next lint",
     "format": "prettier --write .",
     "format:check": "prettier --check ."
   },
   "dependencies": {
     "clsx": "^2.1.1",
-    "googleapis": "^160.0.0",
     "gray-matter": "^4.0.3",
     "next": "15.4.5",
     "react": "19.1.0",
@@ -34,6 +36,7 @@
     "eslint-config-next": "15.4.5",
     "prettier": "^3.6.2",
     "prettier-plugin-tailwindcss": "^0.6.14",
+    "serve": "^14.2.5",
     "tailwindcss": "^4",
     "typescript": "^5"
   }

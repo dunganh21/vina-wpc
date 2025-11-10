@@ -56,7 +56,7 @@ export const metadata: Metadata = {
     siteName: 'VINA WPC',
     images: [
       {
-        url: '/images/og-image.png',
+        url: '/images/og-image.webp',
         width: 1200,
         height: 630,
         alt: 'VINA WPC - Gỗ nhựa bền đẹp, thân thiện môi trường',
@@ -70,7 +70,7 @@ export const metadata: Metadata = {
     title: 'VINA WPC - Gỗ nhựa bền đẹp, thân thiện môi trường',
     description:
       'Sản phẩm gỗ nhựa WPC chất lượng cao, bền vững từ tâm - nâng tầm cuộc sống',
-    images: ['/images/og-image.png'],
+    images: ['/images/og-image.webp'],
   },
   robots: {
     index: true,

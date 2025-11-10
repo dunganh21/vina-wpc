@@ -57,7 +57,7 @@ export function ProductComposition() {
           className="animate-product-card relative aspect-square w-full flex-1 overflow-hidden bg-base-200"
         >
           <Image
-            src="/images/wood-layer.png"
+            src="/images/wood-layer.webp"
             alt="Cấu tạo sản phẩm VINA WPC - Exploded view showing all layers"
             fill
             className="object-cover"
