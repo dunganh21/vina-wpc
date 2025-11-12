@@ -30,8 +30,8 @@ export function ContactSection() {
     message: '',
   });
 
-  // Handle consultation form submission
-  const handleConsultationSubmit = async (e: React.FormEvent) => {
+  // Handle consultation form submission (mock - no backend)
+  const handleConsultationSubmit = (e: React.FormEvent) => {
     e.preventDefault();
 
     // Basic validation
@@ -47,20 +47,9 @@ export function ContactSection() {
 
     setIsSubmitting(true);
 
-    try {
-      const response = await fetch('/api/forms/consultation', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(consultationForm),
-      });
-
-      if (!response.ok) {
-        throw new Error('Failed to submit consultation request');
-      }
-
-      // Show success toast
+    // Simulate submission delay for better UX
+    setTimeout(() => {
+      // Show success toast (mock - no actual submission)
       showToast({
         title: 'Gửi yêu cầu thành công!',
         message: 'Chúng tôi sẽ liên hệ với bạn trong thời gian sớm nhất',
@@ -75,20 +64,13 @@ export function ContactSection() {
         phone: '',
         message: '',
       });
-    } catch {
-      showToast({
-        title: 'Có lỗi xảy ra',
-        message: 'Không thể gửi yêu cầu. Vui lòng thử lại sau',
-        type: 'error',
-        duration: 3000,
-      });
-    } finally {
+
       setIsSubmitting(false);
-    }
+    }, 1500);
   };
 
-  // Handle purchase form submission
-  const handlePurchaseSubmit = async (e: React.FormEvent) => {
+  // Handle purchase form submission (mock - no backend)
+  const handlePurchaseSubmit = (e: React.FormEvent) => {
     e.preventDefault();
 
     // Basic validation
@@ -114,25 +96,9 @@ export function ContactSection() {
 
     setIsSubmitting(true);
 
-    try {
-      const response = await fetch('/api/forms/purchase', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          ...purchaseForm,
-          cartItems,
-          itemCount,
-          totalPrice,
-        }),
-      });
-
-      if (!response.ok) {
-        throw new Error('Failed to submit purchase order');
-      }
-
-      // Show success toast
+    // Simulate submission delay for better UX
+    setTimeout(() => {
+      // Show success toast (mock - no actual submission)
       showToast({
         title: 'Đặt hàng thành công!',
         message: `Đơn hàng ${itemCount} sản phẩm đã được gửi. Chúng tôi sẽ liên hệ với bạn sớm nhất`,
@@ -146,16 +112,9 @@ export function ContactSection() {
         phone: '',
         message: '',
       });
-    } catch {
-      showToast({
-        title: 'Có lỗi xảy ra',
-        message: 'Không thể đặt hàng. Vui lòng thử lại sau',
-        type: 'error',
-        duration: 3000,
-      });
-    } finally {
+
       setIsSubmitting(false);
-    }
+    }, 1500);
   };
 
   return (
@@ -408,7 +367,7 @@ export function ContactSection() {
         <div className="hidden lg:block lg:w-1/2">
           <div
             className="relative h-full w-full bg-cover bg-center bg-no-repeat"
-            style={{ backgroundImage: `url('/images/contact-image.jpg')` }}
+            style={{ backgroundImage: `url('/images/contact-image.webp')` }}
           />
         </div>
       </div>

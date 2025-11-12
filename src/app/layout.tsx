@@ -25,7 +25,7 @@ export const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL!),
+  metadataBase: new URL('https://vinawpc.vn'),
   title: 'VINA WPC - Gỗ nhựa bền đẹp, thân thiện môi trường',
   description:
     'Sản phẩm gỗ nhựa WPC chất lượng cao, bền vững từ tâm - nâng tầm cuộc sống',
@@ -52,11 +52,11 @@ export const metadata: Metadata = {
     title: 'VINA WPC - Gỗ nhựa bền đẹp, thân thiện môi trường',
     description:
       'Sản phẩm gỗ nhựa WPC chất lượng cao, bền vững từ tâm - nâng tầm cuộc sống',
-    url: 'https://vina-wpc.com',
+    url: 'https://vinawpc.vn',
     siteName: 'VINA WPC',
     images: [
       {
-        url: '/images/og-image.png',
+        url: '/images/og-image.webp',
         width: 1200,
         height: 630,
         alt: 'VINA WPC - Gỗ nhựa bền đẹp, thân thiện môi trường',
@@ -70,7 +70,7 @@ export const metadata: Metadata = {
     title: 'VINA WPC - Gỗ nhựa bền đẹp, thân thiện môi trường',
     description:
       'Sản phẩm gỗ nhựa WPC chất lượng cao, bền vững từ tâm - nâng tầm cuộc sống',
-    images: ['/images/og-image.png'],
+    images: ['/images/og-image.webp'],
   },
   robots: {
     index: true,

@@ -208,6 +208,6 @@ export const SEO_DEFAULTS = {
   title: "VINA WPC - Gỗ nhựa composite chất lượng cao",
   description: "Chuyên cung cấp sản phẩm gỗ nhựa WPC chất lượng cao cho nội thất và ngoại thất. Chống thấm, bền đẹp, thân thiện môi trường.",
   keywords: "gỗ nhựa, WPC, composite, nội thất, ngoại thất, chống thấm, bền đẹp",
-  ogImage: "/images/og-image.jpg",
+  ogImage: "/images/og-image.webp",
   twitterCard: "summary_large_image"
 };

@@ -18,7 +18,7 @@ export function Footer() {
         <div className="relative h-[80px] w-full bg-white/85 lg:absolute lg:top-0 lg:left-0 lg:h-full">
           {/* Background Image */}
           <Image
-            src="/images/footer-background.png"
+            src="/images/footer-background.webp"
             alt=""
             fill
             className="object-cover object-left-top"

@@ -12,7 +12,7 @@ const categories = [
     description:
       'Sàn gỗ mang lại cảm giác êm chân, ấm áp và thẩm mỹ cao, lý tưởng cho mọi không gian sống hiện đại.',
     productCount: 12,
-    imageUrl: '/images/prd-lg-1.jpg',
+    imageUrl: '/images/prd-lg-1.webp',
   },
   {
     id: 'tran-nha-trang-tri',
@@ -20,7 +20,7 @@ const categories = [
     description:
       'Sàn gỗ mang lại cảm giác êm chân, ấm áp và thẩm mỹ cao, lý tưởng cho mọi không gian sống hiện đại.',
     productCount: 12,
-    imageUrl: '/images/prd-lg-2.png',
+    imageUrl: '/images/prd-lg-2.webp',
   },
   {
     id: 'op-tuong-ngoai-that',
@@ -28,7 +28,7 @@ const categories = [
     description:
       'Sàn gỗ mang lại cảm giác êm chân, ấm áp và thẩm mỹ cao, lý tưởng cho mọi không gian sống hiện đại.',
     productCount: 12,
-    imageUrl: '/images/prd-lg-3.png',
+    imageUrl: '/images/prd-lg-3.webp',
   },
   {
     id: 'san-ngoai-troi',
@@ -36,7 +36,7 @@ const categories = [
     description:
       'Sàn gỗ mang lại cảm giác êm chân, ấm áp và thẩm mỹ cao, lý tưởng cho mọi không gian sống hiện đại.',
     productCount: 12,
-    imageUrl: '/images/prd-lg-4.png',
+    imageUrl: '/images/prd-lg-4.webp',
   },
 ];
 
@@ -116,17 +116,7 @@ export function ProductCategories() {
                 productCount={category.productCount}
                 imageUrl={category.imageUrl}
                 onLearnMore={() => {
-                  // Redirect to a representative product detail page for each category
-                  const productSlugs = {
-                    'san-go-noi-that': 'scandinavian-light-wr205',
-                    'tran-nha-trang-tri': 'modern-ceiling-wr301',
-                    'op-tuong-ngoai-that': 'exterior-wall-wr401',
-                    'san-ngoai-troi': 'outdoor-deck-wr501',
-                  };
-                  const slug =
-                    productSlugs[category.id as keyof typeof productSlugs] ||
-                    category.id;
-                  router.push(`/products?collection=${slug}`);
+                  router.push(`/products`);
                 }}
               />
             </div>

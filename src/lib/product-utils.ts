@@ -30,7 +30,7 @@ export function isContactPrice(price: number | string | undefined): boolean {
 
 // Transform CMS Product data to ProductCard props format
 export function transformProductForCard(product: Product) {
-  const primaryImage = product.gallery?.[0] || '/images/prd-lg-1.jpg';
+  const primaryImage = product.gallery?.[0] || '/images/prd-lg-1.webp';
 
   return {
     id: product.slug,
@@ -69,7 +69,7 @@ export function transformProductForDetail(product: Product) {
       label: dimension,
       value: dimension,
     })),
-    image: product.gallery?.[0] || '/images/prd-lg-1.jpg',
+    image: product.gallery?.[0] || '/images/prd-lg-1.webp',
     gallery: [...(product.gallery || [])],
     features: [...(product.features || [])],
     rooms: [...(product.rooms || [])],

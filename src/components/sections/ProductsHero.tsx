@@ -5,10 +5,10 @@ export function ProductsHero() {
     <div className="relative aspect-[1.8] w-full overflow-hidden lg:aspect-[4/1]">
       {/* Background Image */}
       <Image
-        src="/images/products-hero.jpg"
+        src="/images/new-product-bg.webp"
         alt="Không gian sống với sản phẩm VINA WPC"
         fill
-        className="object-cover object-center sm:object-[center_30%]"
+        className="object-cover object-[center_70%]"
         priority
         sizes="(max-width: 640px) 100vw, (max-width: 1024px) 100vw, 1920px"
       />

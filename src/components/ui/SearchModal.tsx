@@ -7,6 +7,8 @@ import { Button } from '@/components/ui/Button';
 import { ProductTooltipCard } from '@/components/ui/ProductTooltipCard';
 import { formatPrice } from '@/lib/product-utils';
 import type { Product } from '@/types/product';
+// Import generated product data from build script (generated from markdown files)
+import productsData from '../../../public/data/products.json';
 
 interface SearchModalProps {
   isOpen: boolean;
@@ -14,6 +16,9 @@ interface SearchModalProps {
   className?: string;
   variant?: 'light' | 'dark';
 }
+
+// Product data generated from content/products/*.md files at build time
+const PRODUCTS: Product[] = productsData as Product[];
 
 // Recent search tags - can be dynamic from localStorage or API
 const recentSearchTags = ['Tấm ốp Nano'];
@@ -72,64 +77,69 @@ export function SearchModal({
     }
   }, [isOpen]);
 
-  // Handle search action
-  const handleSearch = async () => {
+  // Handle search action with client-side filtering
+  const handleSearch = () => {
     if (searchQuery.trim()) {
       setIsLoading(true);
       setShowResults(false);
 
-      try {
-        // Search products only via API
-        const response = await fetch(
-          `/api/search/products?q=${encodeURIComponent(searchQuery)}`
-        );
-        const data = await response.json();
-        console.log('[DEBUG] / handleSearch / data:', data);
+      // Simulate network delay for better UX
+      setTimeout(() => {
+        const query = searchQuery.toLowerCase();
 
-        if (response.ok) {
-          setSearchResults(data.products || []);
-        } else {
-          console.error('Search API error:', data.error);
-          setSearchResults([]);
-        }
+        // Client-side search filtering
+        const results = PRODUCTS.filter(
+          (product) =>
+            product.title.toLowerCase().includes(query) ||
+            product.description.toLowerCase().includes(query) ||
+            product.specifications.toLowerCase().includes(query) ||
+            product.features.some((feature) =>
+              feature.toLowerCase().includes(query)
+            ) ||
+            product.colors.some((color) =>
+              color.name.toLowerCase().includes(query)
+            ) ||
+            product.rooms.some((room) => room.toLowerCase().includes(query)) ||
+            product.collection.toLowerCase().includes(query)
+        );
+
+        setSearchResults(results);
         setIsLoading(false);
         setShowResults(true);
-      } catch (error) {
-        console.error('Search error:', error);
-        setSearchResults([]);
-        setIsLoading(false);
-        setShowResults(true);
-      }
+      }, 300);
     }
   };
 
-  // Handle tag click
-  const handleTagClick = async (tag: string) => {
+  // Handle tag click with client-side filtering
+  const handleTagClick = (tag: string) => {
     setSearchQuery(tag);
     setIsLoading(true);
     setShowResults(false);
 
-    try {
-      // Search products with the tag via API
-      const response = await fetch(
-        `/api/search/products?q=${encodeURIComponent(tag)}`
-      );
-      const data = await response.json();
+    // Simulate network delay for better UX
+    setTimeout(() => {
+      const query = tag.toLowerCase();
 
-      if (response.ok) {
-        setSearchResults(data.products || []);
-      } else {
-        console.error('Tag search API error:', data.error);
-        setSearchResults([]);
-      }
+      // Client-side search filtering
+      const results = PRODUCTS.filter(
+        (product) =>
+          product.title.toLowerCase().includes(query) ||
+          product.description.toLowerCase().includes(query) ||
+          product.specifications.toLowerCase().includes(query) ||
+          product.features.some((feature) =>
+            feature.toLowerCase().includes(query)
+          ) ||
+          product.colors.some((color) =>
+            color.name.toLowerCase().includes(query)
+          ) ||
+          product.rooms.some((room) => room.toLowerCase().includes(query)) ||
+          product.collection.toLowerCase().includes(query)
+      );
+
+      setSearchResults(results);
       setIsLoading(false);
       setShowResults(true);
-    } catch (error) {
-      console.error('Tag search error:', error);
-      setSearchResults([]);
-      setIsLoading(false);
-      setShowResults(true);
-    }
+    }, 300);
   };
 
   return (
@@ -283,7 +293,7 @@ export function SearchModal({
                     <ProductTooltipCard
                       id={product.slug}
                       image={
-                        product.gallery[0] || '/images/product-placeholder.jpg'
+                        product.gallery[0] || '/images/product-placeholder.webp'
                       }
                       title={product.title}
                       subtitle={product.collection}

@@ -92,7 +92,7 @@ export function NewProduct({ product }: NewProductProps) {
               className="animate-product-card relative aspect-[1.3/1] overflow-hidden bg-base-200 lg:aspect-[3/2]"
             >
               <Image
-                src="/images/new-product-bg.png"
+                src="/images/new-product-bg.webp"
                 alt="Wood paneling in modern interior"
                 fill
                 className="object-cover"
@@ -108,7 +108,7 @@ export function NewProduct({ product }: NewProductProps) {
             >
               <ProductTooltipCard
                 id={product.slug}
-                image={product.gallery[0] || '/images/product-placeholder.jpg'}
+                image={product.gallery[0] || '/images/product-placeholder.webp'}
                 title={product.title}
                 subtitle={product.collection}
                 price={formatPrice(product.price)}
